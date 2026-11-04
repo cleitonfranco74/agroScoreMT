@@ -1,3 +1,3 @@
-﻿codigo;nome;municipio;area_ha;endividamento_sfn;classe;valor_solicitado;patrimonio_terras;restricao_sfn;pct_soja;pct_milho;impedimento_socioambiental;endividamento_curto_prazo;renda_anual
-A-0001;;Sinop;400;1800000;5;600000;;0;100;100;0;650000;5000000
-A-0002;;Sorriso;1250,5;9.750.000,00;R7;1.500.000,00;;não;100;70;não;3.200.000,00;14.800.000,00
+﻿codigo;nome;municipio;area_ha;endividamento_sfn;classe;valor_solicitado;patrimonio_terras;restricao_sfn;pct_soja;pct_milho;impedimento_socioambiental;endividamento_curto_prazo;renda_anual;pct_algodao;pct_pastagem
+A-0001;;Sinop;400;1800000;5;600000;;0;100;100;0;650000;5000000;0;0
+A-0002;;Sorriso;1250,5;9.750.000,00;R7;1.500.000,00;;não;80;50;não;3.200.000,00;14.800.000,00;30;20

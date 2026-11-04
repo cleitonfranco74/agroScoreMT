@@ -27,11 +27,16 @@ na outra.
   modelo principal e aplica a mesma regra de decisão da planilha `Ferramenta_CreditoRural_TCC.xlsx`
   (patrimônio imputado pela área, restrição no SFN como regra eliminatória, corte de Youden ou
   econômico com margem e LGD editáveis). Traz os exemplos e perfis do TCC prontos para carregar.
-- **Receita por cultura**: a receita bruta é calculada pela área, separando soja (safra) e milho
-  safrinha. Para cada cultura informam-se o percentual da área cultivada, a produtividade (sc/ha) e o
-  preço (R$/sc). Os valores padrão são os do TCC (100% soja + 100% milho safrinha; 55,76 sc/ha a
-  R$ 134,38 e 106,26 sc/ha a R$ 48,01), que reproduzem os resultados do trabalho. Outras composições
-  aparecem com um aviso, porque o modelo foi estimado com a composição padrão.
+- **Receita por atividade (formato híbrido)**: a receita bruta é calculada pela área, somando soja
+  (safra), milho safrinha, algodão (1ª ou 2ª safra) e pecuária de corte (boi). Para cada atividade
+  informam-se o percentual da área e os parâmetros: soja e milho em sc/ha e R$/sc (padrão do TCC:
+  55,76 sc/ha a R$ 134,38 e 106,26 sc/ha a R$ 48,01); algodão em @ de pluma/ha, R$/@ e custo por
+  hectare; boi em @/ha/ano, R$/@ e custo por hectare ao ano. Algodão e boi começam em 0% e trazem
+  valores de referência para simulação (120 @/ha a R$ 130/@ e custo de R$ 13.500/ha; 7 @/ha/ano a
+  R$ 300/@ e custo de R$ 1.400/ha), que devem ser atualizados com os dados do IMEA da safra. A página
+  avisa quando a soja, o algodão de 1ª safra e a pastagem passam de 100% da área, ou quando a 2ª safra
+  ocupa mais que a área de soja. Como o modelo foi estimado com 100% soja + 100% milho safrinha, outras
+  composições são lidas como cenário.
 - **Metodologia**: base de 2.867 imóveis de 20 municípios do norte de MT (área consolidada do CAR,
   Geoportal SEMA-MT, anonimizada), com classe de risco, endividamento e inadimplência simulados.
 - **Resultados**: efeitos verdadeiros e estimados, Monte Carlo, comparação de modelos, efeitos
@@ -95,7 +100,8 @@ Na aba **Carteira** (`#carteira`), a cooperativa analisa todos os associados de 
    página) e preencha uma linha por associado. Obrigatórias: `area_ha`, `endividamento_sfn` e
    `classe` (1 a 10 ou R1 a R10). Opcionais: `codigo`, `nome`, `municipio`, `valor_solicitado`,
    `patrimonio_terras`, `restricao_sfn`, `pct_soja`, `pct_milho`, `impedimento_socioambiental`,
-   `endividamento_curto_prazo` (parte da dívida no SFN que vence em até 360 dias) e `renda_anual`. Com
+   `endividamento_curto_prazo` (parte da dívida no SFN que vence em até 360 dias), `renda_anual`,
+   `pct_algodao` e `pct_pastagem`. Com
    as duas últimas, a carteira mostra dívida ÷ renda e curto prazo ÷ renda e aponta comprometimento acima
    de 50% e área incompatível com a renda.
 2. Na ferramenta, defina o ponto de corte, a margem, a LGD e os parâmetros de soja e milho.
