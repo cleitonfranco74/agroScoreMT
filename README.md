@@ -12,8 +12,13 @@ Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
 
 - **Ferramenta de pré-análise**: estima a probabilidade de inadimplência (PD) com os coeficientes do
   modelo principal e aplica a mesma regra de decisão da planilha `Ferramenta_CreditoRural_TCC.xlsx`
-  (receita e patrimônio imputados pela área, restrição no SFN como regra eliminatória, corte de Youden
-  ou econômico com margem e LGD editáveis). Traz os exemplos e perfis do TCC prontos para carregar.
+  (patrimônio imputado pela área, restrição no SFN como regra eliminatória, corte de Youden ou
+  econômico com margem e LGD editáveis). Traz os exemplos e perfis do TCC prontos para carregar.
+- **Receita por cultura**: a receita bruta é calculada pela área, separando soja (safra) e milho
+  safrinha. Para cada cultura informam-se o percentual da área cultivada, a produtividade (sc/ha) e o
+  preço (R$/sc). Os valores padrão são os do TCC (100% soja + 100% milho safrinha; 55,76 sc/ha a
+  R$ 134,38 e 106,26 sc/ha a R$ 48,01), que reproduzem os resultados do trabalho. Outras composições
+  aparecem com um aviso, porque o modelo foi estimado com a composição padrão.
 - **Metodologia**: base de 2.867 imóveis de 20 municípios do norte de MT (área consolidada do CAR,
   Geoportal SEMA-MT, anonimizada), com classe de risco, endividamento e inadimplência simulados.
 - **Resultados**: efeitos verdadeiros e estimados, Monte Carlo, comparação de modelos, efeitos
