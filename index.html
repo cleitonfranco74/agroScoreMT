@@ -207,6 +207,17 @@ table.srind small.src{display:block;font-size:.72rem;color:var(--muted);font-fam
 .cgroup > .eyebrow{color:var(--ink-2)}
 .ccards.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:900px){.ccards.c3{grid-template-columns:minmax(0,1fr)}}
+.cdefs{display:grid;gap:14px}
+.cdefs h2{font-size:1.45rem}
+.cdgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cd{display:grid;gap:8px;align-content:start;padding:18px 20px;border-radius:8px;background:var(--accent-soft);border:1px solid var(--line)}
+.cd-sig{font-family:var(--f-display);font-weight:800;font-size:1.6rem;line-height:1;color:var(--accent)}
+.cd h3{font-size:1.05rem}
+.cd p{font-size:.9rem;color:var(--ink-2)}
+.cd b{color:var(--ink)}
+.cd-eq{font-size:.95rem!important;color:var(--ink)!important;background:var(--surface);border-radius:4px;padding:6px 10px}
+.cd-ex{border-top:1px solid var(--line);padding-top:8px}
+@media (max-width:900px){.cdgrid{grid-template-columns:minmax(0,1fr)}}
 /* ---------- relatório da propriedade ---------- */
 .fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
 .fsload{gap:14px}
@@ -376,7 +387,7 @@ footer p{max-width:none}
     <div class="chero-txt">
       <div class="eyebrow">Crédito rural · cooperativas de Mato Grosso</div>
       <h1 id="capaTitulo">agroScore<span>MT</span></h1>
-      <p class="lede">Pré-análise de crédito rural em um só lugar: a probabilidade de inadimplência do produtor por um modelo logit, a checagem socioambiental do imóvel e a análise da carteira de associados.</p>
+      <p class="lede">Pré-análise de crédito rural em um só lugar: a probabilidade de inadimplência (PD) do produtor por um modelo logit, a checagem socioambiental do imóvel e a análise da carteira de associados.</p>
       <div class="ccta">
         <a class="btn pri" href="#ferramenta">Começar uma pré-análise</a>
         <a class="btn" href="#relatorio">Ler o relatório de um imóvel</a>
@@ -385,13 +396,38 @@ footer p{max-width:none}
     <div class="cflow" aria-label="Como a recomendação é formada">
       <div class="cf-step"><span class="cf-k">Dados do produtor</span><span class="cf-v">área consolidada do CAR · endividamento no SFN · classe de risco R1–R10</span></div>
       <div class="cf-arrow" aria-hidden="true"></div>
-      <div class="cf-step"><span class="cf-k">Modelo logit</span><span class="cf-v mono">PD = 1 / (1 + e<sup>−XB</sup>)</span></div>
+      <div class="cf-step"><span class="cf-k">Modelo logit → PD</span><span class="cf-v">probabilidade de inadimplência: <span class="mono">PD = 1 / (1 + e<sup>−XB</sup>)</span></span></div>
       <div class="cf-arrow" aria-hidden="true"></div>
       <div class="cf-step"><span class="cf-k">Ponto de corte</span><span class="cf-v">Youden 14,4% ou econômico m / (m + LGD)</span></div>
       <div class="cf-arrow" aria-hidden="true"></div>
       <div class="cf-out">
         <span class="pill y">Aprovável</span><span class="cf-small">PD abaixo do corte</span>
         <span class="pill n">Não aprovável</span><span class="cf-small">PD no corte ou acima, restrição no SFN ou impedimento socioambiental</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cdefs" aria-labelledby="cdefsT">
+    <h2 id="cdefsT">Como ler os números</h2>
+    <div class="cdgrid">
+      <div class="cd">
+        <span class="cd-sig">PD</span>
+        <h3>Probabilidade de inadimplência</h3>
+        <p>Chance estimada, de 0% a 100%, de o produtor <b>não pagar</b> a operação. Vem do inglês <i>probability of default</i>. Não é um valor em reais nem uma perda.</p>
+        <p class="cd-ex">Exemplo 01 do TCC: PD de <b>6,2%</b> quer dizer que, de cada 100 produtores com esse mesmo perfil, cerca de 6 ficariam inadimplentes.</p>
+      </div>
+      <div class="cd">
+        <span class="cd-sig">PE</span>
+        <h3>Perda esperada</h3>
+        <p>Quanto a cooperativa espera perder, em reais, considerando a chance de calote e quanto se perde quando ele ocorre.</p>
+        <p class="cd-eq mono">PE = PD × LGD × valor emprestado</p>
+        <p class="cd-ex">LGD é a perda quando o produtor não paga, depois de executar as garantias (35% no TCC). Exemplo 01: R$ 600 mil × 6,2% × 35% ≈ <b>R$ 12,9 mil</b>.</p>
+      </div>
+      <div class="cd">
+        <span class="cd-sig">Corte</span>
+        <h3>Ponto de corte</h3>
+        <p>Limite de PD acima do qual o produtor deixa de ser aprovável. Youden (14,4%) equilibra acertos e erros; o econômico, <span class="mono">margem ÷ (margem + LGD)</span>, compara ganho e perda.</p>
+        <p class="cd-ex">Com margem de 5% e LGD de 35%, o corte é 12,5%: a PD de 6,2% fica abaixo, e o produtor é <b>aprovável</b>.</p>
       </div>
     </div>
   </div>
