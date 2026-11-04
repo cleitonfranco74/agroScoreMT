@@ -197,7 +197,16 @@ nav.toc .brand:hover{border:0}
 .gfoot{padding-block:28px 36px;margin-top:40px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 .gfoot b{color:var(--ink-2);font-family:var(--f-display)} .gfoot b span{color:var(--accent)}
 .tccrefs{margin-top:32px}
-@media (max-width:620px){nav.toc .brand{display:none}}
+nav.toc .tabs .sm{display:none}
+@media (max-width:620px){nav.toc .brand{display:none}nav.toc .tabs .lg{display:none}nav.toc .tabs .sm{display:inline}}
+.srwarn{color:var(--warn);background:var(--warn-bg);border-radius:4px;padding:8px 10px;font-size:.82rem;line-height:1.45;max-width:none}
+table.srind td:first-child{white-space:normal;min-width:11rem}
+table.srind small.src{display:block;font-size:.72rem;color:var(--muted);font-family:var(--f-mono)}
+.srprov{margin:6px 0 0;padding-left:20px;font-size:.86rem;color:var(--ink-2);display:grid;gap:4px}
+.cgroup{display:grid;gap:10px}
+.cgroup > .eyebrow{color:var(--ink-2)}
+.ccards.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.ccards.c3{grid-template-columns:minmax(0,1fr)}}
 /* ---------- relatório da propriedade ---------- */
 .fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
 .fsload{gap:14px}
@@ -355,7 +364,8 @@ footer p{max-width:none}
   <a class="brand" href="#pre-analise">agroScore<span>MT</span></a>
   <div class="tabs" role="tablist" aria-label="Abas">
     <a role="tab" id="tb-pre" href="#pre-analise" aria-controls="tab-pre">Pré-análise</a>
-    <a role="tab" id="tb-relatorio" href="#relatorio" aria-controls="tab-relatorio">Relatório do imóvel<span class="tabbadge" id="tbBadge" hidden></span></a>
+    <a role="tab" id="tb-relatorio" href="#relatorio" aria-controls="tab-relatorio"><span class="lg">Relatório do imóvel</span><span class="sm">Imóvel</span><span class="tabbadge" id="tbBadge" hidden></span></a>
+    <a role="tab" id="tb-sumula" href="#sumula" aria-controls="tab-sumula"><span class="lg">Súmula de risco</span><span class="sm">Súmula</span><span class="tabbadge" id="tbBadgeSr" hidden></span></a>
   </div>
 </div></nav>
 
@@ -386,31 +396,45 @@ footer p{max-width:none}
     </div>
   </div>
 
-  <div class="ccards">
+  <div class="cgroup">
+  <span class="eyebrow">Na aba Pré-análise</span>
+  <div class="ccards c3">
     <a class="ccard" href="#ferramenta">
-      <span class="eyebrow">Ferramenta · nesta aba</span>
+      <span class="eyebrow">Ferramenta</span>
       <h3>Pré-análise de um produtor</h3>
       <p>Informe área, dívida e classe de risco. A receita é calculada por cultura (soja e milho safrinha) e a recomendação sai na hora, com a conta passo a passo.</p>
       <span class="go">Abrir a ferramenta →</span>
     </a>
+    <a class="ccard" href="#carteira">
+      <span class="eyebrow">Carteira</span>
+      <h3>Análise de todos os associados</h3>
+      <p>Carregue uma planilha (CSV ou Excel) com os associados e receba PD, classificação, resumo da carteira e perda esperada, prontos para exportar.</p>
+      <span class="go">Analisar a carteira →</span>
+    </a>
+    <a class="ccard" href="#tcc">
+      <span class="eyebrow">TCC</span>
+      <h3>Metodologia e resultados</h3>
+      <p>Como o modelo foi construído e validado: base de 2.867 imóveis do CAR, simulação, efeitos estimados, curva ROC, calibração e ponto de corte.</p>
+      <span class="go">Ver o estudo →</span>
+    </a>
+  </div>
+  </div>
+  <div class="cgroup">
+  <span class="eyebrow">Em abas próprias: documentos do cooperado e do imóvel</span>
+  <div class="ccards">
     <a class="ccard" href="#relatorio">
       <span class="eyebrow">Aba Relatório do imóvel</span>
       <h3>Checagem do imóvel pelo Farm-Scan</h3>
       <p>Carregue o PDF do relatório da propriedade. A página lê a área consolidada do CAR e aponta impedimentos e alertas cadastrais, ambientais, fundiários e climáticos.</p>
       <span class="go">Ler um relatório →</span>
     </a>
-    <a class="ccard" href="#carteira">
-      <span class="eyebrow">Carteira · nesta aba</span>
-      <h3>Análise de todos os associados</h3>
-      <p>Carregue uma planilha (CSV ou Excel) com os associados e receba PD, classificação, resumo da carteira e perda esperada, prontos para exportar.</p>
-      <span class="go">Analisar a carteira →</span>
+    <a class="ccard" href="#sumula">
+      <span class="eyebrow">Aba Súmula de risco</span>
+      <h3>Súmula de risco do cooperado</h3>
+      <p>Carregue o PDF da súmula de análise de risco. A página lê o endividamento no SFN, a classe CRL e a anotação Serasa/Bacen, organiza indicadores e parecer e leva os dados para a ferramenta.</p>
+      <span class="go">Ler uma súmula →</span>
     </a>
-    <a class="ccard" href="#tcc">
-      <span class="eyebrow">TCC · nesta aba</span>
-      <h3>Metodologia e resultados</h3>
-      <p>Como o modelo foi construído e validado: base de 2.867 imóveis do CAR, simulação, efeitos estimados, curva ROC, calibração e escolha do ponto de corte.</p>
-      <span class="go">Ver o estudo →</span>
-    </a>
+  </div>
   </div>
 
   <div class="cnums">
@@ -887,6 +911,43 @@ footer p{max-width:none}
 </section>
 </div>
 
+<div class="tabpanel" id="tab-sumula" role="tabpanel" aria-labelledby="tb-sumula" hidden>
+<!-- ================= SÚMULA DE RISCO ================= -->
+<section id="sumula">
+  <div class="head">
+    <div class="eyebrow">Súmula de análise de risco do cooperado</div>
+    <h2>Leia a súmula de risco e leve os dados para a pré-análise</h2>
+    <p style="color:var(--ink-2)">Carregue o PDF da súmula de análise de risco emitida pelo sistema da cooperativa. A página extrai o endividamento no SFN, a classe de risco CRL e a anotação Serasa/Bacen, que são entradas do modelo, e organiza os indicadores, o parecer e as providências recomendadas.</p>
+  </div>
+  <div class="fsgrid">
+    <div class="card fsload">
+      <div class="cap"><span class="eyebrow">Carregar súmula</span><h3>PDF do cooperado</h3></div>
+      <label class="drop" id="srDrop" for="srFile">
+        <input id="srFile" type="file" accept=".pdf,application/pdf">
+        <b>Escolha o PDF ou arraste para cá</b>
+        <span>Súmula de análise de risco (indicadores ponderados e parecer técnico)</span>
+      </label>
+      <p class="pfmsg" id="srMsg" role="status"></p>
+      <div class="fsid" id="srId"></div>
+      <div class="fsapply" id="srApply"></div>
+      <div class="fsres" id="srRes" aria-live="polite"></div>
+      <div class="privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>A súmula tem dados pessoais e financeiros sigilosos. O PDF é lido só neste navegador, não é enviado a nenhum servidor e some ao fechar a página. O CPF aparece mascarado na tela.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fshead">
+        <div class="cap"><span class="eyebrow" id="srSrc">Súmula</span><h3 id="srTitle">Indicadores e parecer</h3></div>
+        <div class="fscount" id="srCount"></div>
+      </div>
+      <div class="tw"><table class="srind" id="srInd"></table></div>
+      <div id="srList"></div>
+    </div>
+  </div>
+</section>
+</div>
+
 <footer class="gfoot"><p><b>agroScore<span>MT</span></b> · baseado no TCC de Gabrieli Saltareli (Ciências Contábeis, UNEMAT Sinop, 2026), orientação do Prof. Dr. Cleiton Franco · ferramenta didática, recomendação preliminar · referências na <a href="#tcc">seção TCC</a></p></footer>
 </div>
 <div id="tip" hidden></div>
@@ -1031,6 +1092,7 @@ function update(){
   drawClasse(); drawPD(r); drawROC(); drawCut(); drawCM();
   if(PF.rows.length) renderPortfolio();
   if(FS.d) renderFS();
+  if(SR.d) renderSR();
   fsRenderRes();
 }
 
@@ -1585,15 +1647,168 @@ function renderFS(){
   $("fsAll").addEventListener("click",()=>{const m=fsApplyAll(false);pfMsg(m,false,"fsMsg");fsRenderRes();});
 }
 
+/* ---------------- súmula de análise de risco ---------------- */
+function srParse(raw){
+  const all=raw.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(Boolean);
+  const iS=all.findIndex(l=>/^S[ÚU]MULA DE AN[ÁA]LISE DE RISCO$/i.test(l));
+  const d={reconhecido:iS>=0};
+  d.nome=iS>=0&&all[iS+1]&&!/\d{3}\.\d{3}/.test(all[iS+1])?all[iS+1]:null;
+  const head=all.slice(0,Math.max(iS,1)).join(" ");
+  d.emitida=(head.match(/Emitida em (\d{2}\/\d{2}\/\d{4})/)||[])[1]||null;
+  d.instituicao=(head.match(/^(.*?)\s*Emitida em/)||[])[1]||null;
+  // tira cabeçalhos e rodapés repetidos de página
+  const L=all.filter((l,i)=>!(/^Documento de apoio/i.test(l)||l==="<<PAGE>>"||(i!==iS&&/^S[ÚU]MULA DE AN[ÁA]LISE DE RISCO$/i.test(l))));
+  const t="\n"+L.join("\n")+"\n", tj=L.join(" ").replace(/\s+/g," ");
+  const g=(re,s=t,i=1)=>{const x=s.match(re);return x?x[i].trim():null;};
+  const dm=t.match(/(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})\s*\|\s*Refer[êe]ncia SCR (\d{2}\/\d{4})/);
+  d.doc=dm?dm[1]:null; d.refSCR=dm?dm[2]:null;
+  const cm=t.match(/\n(RISCO [A-ZÁÉÍÓÚÂÊÔÃÕÇ ]+?)\s+(\d+)\s+pontos\s+(\d+)\/(\d+)\s+indicadores/);
+  if(cm){d.classificacao=cm[1].trim();d.pontos=+cm[2];d.indPont=+cm[3];d.indTot=+cm[4];}
+  d.pontosMax=+(g(/resultou em \d+ de (\d+) pontos poss[íi]veis/,tj)||0)||null;
+  const crl=t.match(/Classifica[çc][ãa]o CRL Risco CRL\n(.+?)\s+(R\d{1,2})\n/);
+  d.classeCRL=crl?crl[1]:null; d.riscoCRL=crl?crl[2]:null;
+  d.perfil=g(/perfil cadastral [ée] [“"]([^”"]+)[”"]/,tj);
+  d.grupo=g(/grupo econ[ôo]mico consta como [“"]([^”"]+)[”"]/,tj);
+  d.conta=g(/situa[çc][ãa]o cadastral da conta [ée] [“"]([^”"]+)[”"]/,tj);
+  d.rendaAtualiz=g(/[úu]ltima atualiza[çc][ãa]o de renda est[áa] registrada em (\d{2}\/\d{2}\/\d{4})/,tj);
+  d.pctCurto=n2(g(/representa atualmente ([\d.,]+)% do endividamento total/,tj));
+  d.pctExpo=n2(g(/corresponde a ([\d.,]+)% do saldo SFN/,tj));
+  d.pctVencido=n2(g(/saldo vencido representa ([\d.,]+)% da d[íi]vida total/,tj));
+  d.pctLiquidez=n2(g(/esse saldo equivale a ([\d.,]+)% dos compromissos/,tj));
+  const sm=tj.match(/identificou (\d+) alerta\(s\) cr[íi]tico\(s\), (\d+) ponto\(s\) de aten[çc][ãa]o e (\d+) fundamento/);
+  if(sm){d.nCrit=+sm[1];d.nAtenc=+sm[2];d.nFav=+sm[3];}
+  const lista=s=>s?s.split(/;\s*/).map(x=>x.replace(/\.+$/,"").trim()).filter(Boolean):[];
+  d.adversos=lista(g(/fatores adversos identificados foram:\s*(.+?)\.\s*Como fundamentos/,tj));
+  d.favoraveis=lista(g(/destacam-se:\s*(.+?)\.\s*Para conclus[ãa]o/,tj));
+  const pv=t.slice(t.indexOf("Providências recomendadas"),t.indexOf("ESCOPO DO PARECER")>0?t.indexOf("ESCOPO DO PARECER"):undefined);
+  d.providencias=t.indexOf("Providências recomendadas")<0?[]:[...pv.matchAll(/\n\d+\.\s+([^\n]+)/g)].map(x=>x[1].replace(/\.+$/,"").trim());
+  // indicadores
+  const V='(R\\$ [\\d.,]+|[\\d.,]+%|[\\d.,]+ dias|SIM|N[ÃA]O|R\\d{1,2}|—|-)';
+  const ri=new RegExp('^(.+?) '+V+' '+V+' (\\S+) (\\d+)$');
+  const a=L.indexOf("INDICADORES PONDERADOS DE RISCO"), b=L.findIndex((l,i)=>i>a&&/^EVOLU[ÇC][ÃA]O DOS INDICADORES|^PARECER T[ÉE]CNICO/.test(l));
+  d.ind=[]; if(a>=0) for(let i=a+1;i<(b>0?b:L.length);i++){ const m=L[i].match(ri); if(m) d.ind.push({nome:m[1],ant:m[2],atual:m[3],vari:m[4],nota:+m[5],fontes:L[i+1]&&!ri.test(L[i+1])?L[i+1]:""}); }
+  const ind=k=>d.ind.find(x=>k.test(x.nome));
+  const val=x=>x?parseNum(x.replace(/R\$|%|dias/g,"")):null;
+  const e=ind(/^Endividamento SFN$/i), c=ind(/a vencer em 360/i), s=ind(/Saldo M[ée]dio/i), cp=ind(/Comprometimento/i), at=ind(/atrasos/i), an=ind(/Anota[çc][ãa]o/i), rc=ind(/Risco CRL/i), re=ind(/Renda anual/i);
+  d.endv=val(e&&e.atual); d.endvAnt=val(e&&e.ant); d.curto=val(c&&c.atual); d.curtoAnt=val(c&&c.ant);
+  d.saldo=val(s&&s.atual); d.saldoAnt=val(s&&s.ant); d.compr=val(cp&&cp.atual); d.comprAnt=val(cp&&cp.ant);
+  d.atraso=val(at&&at.atual); d.atrasoAnt=val(at&&at.ant);
+  d.anot=an?/SIM/i.test(an.atual):null; d.anotAnt=an?/SIM/i.test(an.ant):null;
+  d.crl=rc?+rc.atual.replace(/\D/g,""):(d.riscoCRL?+d.riscoCRL.replace(/\D/g,""):null); d.crlAnt=rc?+rc.ant.replace(/\D/g,""):null;
+  d.renda=val(re&&re.atual); d.rendaAnt=val(re&&re.ant);
+  return d;
+  function n2(x){return x==null?null:parseNum(x);}
+}
+function srFlags(d){
+  const F=[],add=(grupo,nivel,titulo,detalhe)=>F.push({grupo,nivel,titulo,detalhe});
+  const pc=(a,b)=>a>0&&b!=null?(b/a-1)*100:null;
+  if(d.anot!=null) add("Restrições",d.anot?"imp":"ok",d.anot?"Anotação Serasa/Bacen ativa":"Sem anotação Serasa/Bacen",d.anot?"Na ferramenta vira restrição ativa no SFN (regra eliminatória). Verifique a origem e a regularização.":`Posição atual sem anotação${d.anotAnt?"; houve anotação nos 12 meses anteriores":" e sem anotação nos 12 meses anteriores"}.`);
+  if(d.atraso!=null) add("Restrições",d.atraso>0?"att":"ok",d.atraso>0?`Atraso médio de ${nf(1).format(d.atraso)} dias`:"Contratos sem atraso médio",d.atraso>0?"Revise os contratos com atraso antes do parecer.":"");
+  if(d.pctVencido!=null) add("Restrições",d.pctVencido>0?"att":"ok",d.pctVencido>0?`Saldo vencido: ${nf(2).format(d.pctVencido)}% da dívida`:"Sem saldo vencido no SFN","");
+  const ve=pc(d.endvAnt,d.endv);
+  if(d.endv!=null) add("Endividamento",ve!=null&&ve>20?"att":"info",`Endividamento SFN: ${brl(d.endv)}`,ve!=null?`Variação de ${nf(1).format(ve)}% em 12 meses${ve>20?"; crescimento forte, confirme a finalidade e as garantias":""}.`:"");
+  if(d.pctCurto!=null) add("Endividamento","info",`${nf(1).format(d.pctCurto)}% da dívida vence em até 360 dias`,d.curto!=null?`${brl(d.curto)} no curto prazo.`:"");
+  if(d.compr!=null) add("Endividamento",d.compr>50?"att":"ok",`Comprometimento da renda: ${nf(1).format(d.compr)}%`,"Dívida de curto prazo dividida pela renda anual.");
+  if(d.saldo!=null){const vs=pc(d.saldoAnt,d.saldo); add("Liquidez",vs!=null&&vs<-30?"att":"info",`Saldo médio em conta: ${brl(d.saldo)}`,`${vs!=null?`Variação de ${nf(1).format(vs)}% em 12 meses. `:""}${d.pctLiquidez!=null?`Cobre ${nf(2).format(d.pctLiquidez)}% do curto prazo.`:""}`);}
+  if(d.crl!=null) add("Cadastro",d.crlAnt!=null&&d.crl>d.crlAnt?"att":"ok",`Risco CRL R${d.crl}${d.crlAnt!=null&&d.crlAnt!==d.crl?` (antes R${d.crlAnt})`:""}`,d.crlAnt!=null&&d.crl>d.crlAnt?"A classe piorou em 12 meses.":"Usada como classe de risco no modelo do TCC.");
+  if(d.rendaAtualiz){const [dd,mm,aa]=d.rendaAtualiz.split("/").map(Number),em=d.emitida?d.emitida.split("/").map(Number):null;
+    const meses=em?(em[2]-aa)*12+(em[1]-mm):null; add("Cadastro",meses!=null&&meses>12?"att":"ok",`Renda atualizada em ${d.rendaAtualiz}`,meses!=null&&meses>12?"Cadastro com mais de 12 meses: atualize a renda.":"");}
+  if(d.conta) add("Cadastro",/ativa/i.test(d.conta)?"ok":"att",`Conta ${d.conta.toLowerCase()}`,"");
+  return F;
+}
+
+// exemplo fictício: nenhum dado de cooperado real
+const SR_EXAMPLE={reconhecido:true,example:true,nome:"Cooperado de exemplo",doc:"000.000.000-00",refSCR:"08/2026",emitida:"30/10/2026",instituicao:"Cooperativa de exemplo",
+ classificacao:"RISCO BAIXO",pontos:23,indPont:8,indTot:8,pontosMax:140,classeCRL:"PF RURAL",riscoCRL:"R4",perfil:"MÉDIO PRODUTOR",grupo:null,conta:"ATIVA",rendaAtualiz:"14/04/2026",
+ pctCurto:31.96,pctExpo:12.4,pctVencido:0,pctLiquidez:2.64,nCrit:1,nAtenc:3,nFav:6,
+ adversos:["Queda acentuada do saldo médio","Crescimento do endividamento no SFN"],
+ favoraveis:["Pontuação compatível com risco baixo","Dívida de curto prazo estável ou menor","Contratos ativos sem atraso médio relevante","Sem saldo vencido relevante no SFN"],
+ providencias:["Investigar redução de movimentação e liquidez disponível","Confirmar a finalidade do aumento do endividamento","Avaliar prazo, fluxo e patrimônio de suporte","Manter consulta atualizada até a formalização da decisão"],
+ ind:[{nome:"Endividamento SFN",ant:"R$ 9.850.000,00",atual:"R$ 11.420.000,00",vari:"15,94%",nota:0,fontes:"SCR 08/2025 SCR 08/2026"},
+  {nome:"Endividamento SFN a vencer em 360 dias",ant:"R$ 4.100.000,00",atual:"R$ 3.650.000,00",vari:"-10,98%",nota:0,fontes:"SCR 08/2025 SCR 08/2026"},
+  {nome:"Saldo Médio C/C",ant:"R$ 182.400,00",atual:"R$ 96.300,00",vari:"-47,20%",nota:15,fontes:"C/C 09/2025 C/C 09/2026"},
+  {nome:"Comprometimento (Endiv C.P. / Renda)",ant:"31,20%",atual:"27,85%",vari:"-10,74%",nota:5,fontes:"SCR 08/2025 SCR 08/2026"},
+  {nome:"Média de atrasos",ant:"0,00 dias",atual:"0,00 dias",vari:"—",nota:0,fontes:""},
+  {nome:"Anotação Serasa e Bacen",ant:"NÃO",atual:"NÃO",vari:"—",nota:0,fontes:""},
+  {nome:"Nota Risco CRL",ant:"R5",atual:"R4",vari:"—",nota:0,fontes:"Cadastro 10/2025 Cadastro atual"},
+  {nome:"Renda anual",ant:"R$ 13.200.000,00",atual:"R$ 13.110.000,00",vari:"-0,68%",nota:3,fontes:"Cadastro 10/2025 Cadastro atual"}],
+ endv:11420000,endvAnt:9850000,curto:3650000,curtoAnt:4100000,saldo:96300,saldoAnt:182400,compr:27.85,comprAnt:31.2,atraso:0,atrasoAnt:0,anot:false,anotAnt:false,crl:4,crlAnt:5,renda:13110000,rendaAnt:13200000};
+const SR={d:null,F:[],source:"",example:false};
+const maskDoc=s=>!s?"":s.replace(/^(\d{3})\.\d{3}\.\d{3}-(\d{2})$/,"$1.•••.•••-$2").replace(/^(\d{2})\.\d{3}\.\d{3}\/(\d{4})-(\d{2})$/,"$1.•••.•••/$2-$3");
+function srSet(d,source,example){Object.assign(SR,{d,F:srFlags(d),source,example});renderSR();}
+async function srHandle(file){
+  if(!file)return;
+  if(!/\.pdf$/i.test(file.name)&&file.type!=="application/pdf"){pfMsg("Escolha um arquivo PDF.",true,"srMsg");return;}
+  try{
+    pfMsg("Lendo o PDF…",false,"srMsg");
+    const d=srParse(await fsText(file));
+    if(d.endv==null&&d.crl==null&&!d.ind.length){pfMsg("Não encontrei os indicadores da súmula neste PDF. Use a súmula de análise de risco gerada pelo sistema; PDFs escaneados (imagem) não podem ser lidos.",true,"srMsg");return;}
+    srSet(d,file.name,false);
+    pfMsg(`Súmula lida: ${file.name}. `+srApplyAll(),false,"srMsg");
+  }catch(e){pfMsg(e.message||String(e),true,"srMsg");}
+}
+$("srFile").addEventListener("change",e=>{srHandle(e.target.files[0]);e.target.value="";});
+const srDrop=$("srDrop");
+["dragenter","dragover"].forEach(t=>srDrop.addEventListener(t,e=>{e.preventDefault();srDrop.classList.add("over");}));
+["dragleave","drop"].forEach(t=>srDrop.addEventListener(t,e=>{e.preventDefault();srDrop.classList.remove("over");}));
+srDrop.addEventListener("drop",e=>srHandle(e.dataTransfer.files[0]));
+function srApply(what){
+  const d=SR.d;if(!d)return;
+  if(what==="endv"&&d.endv>0) S.endv=Math.round(d.endv*100)/100;
+  if(what==="classe"&&d.crl>=1&&d.crl<=10) S.classe=d.crl;
+  if(what==="restr"&&d.anot!=null) S.restr=d.anot?1:0;
+  S.preset=null;writeInputs();update();
+}
+function srApplyAll(){
+  const d=SR.d,m=[];if(!d)return "";
+  if(d.endv>0){srApply("endv");m.push(`endividamento de ${brl(S.endv)}`);}
+  if(d.crl>=1&&d.crl<=10){srApply("classe");m.push(`classe R${S.classe}`);}
+  if(d.anot!=null){srApply("restr");m.push(S.restr?"restrição no SFN ativada":"sem restrição no SFN");}
+  return m.length?"Aplicado à ferramenta: "+m.join(", ")+".":"";
+}
+function renderSR(){
+  const d=SR.d; if(!d)return;
+  $("srSrc").textContent=SR.example?"Exemplo · cooperado fictício":"Súmula · "+SR.source;
+  $("srTitle").textContent="Indicadores e parecer"+(d.refSCR?` · SCR ${d.refSCR}`:"");
+  const c={imp:0,att:0,ok:0};SR.F.forEach(f=>{if(f.nivel in c)c[f.nivel]++;});
+  $("srCount").innerHTML=(d.classificacao?`<span class="${/BAIXO/.test(d.classificacao)?"lv-ok":/ALTO/.test(d.classificacao)?"lv-imp":"lv-att"}">${d.classificacao}${d.pontos!=null?` · ${d.pontos}${d.pontosMax?"/"+d.pontosMax:""} pts`:""}</span>`:"")+
+    `<span class="lv-imp">${c.imp} ${c.imp===1?"restrição":"restrições"}</span><span class="lv-att">${c.att} alerta${c.att===1?"":"s"}</span>`;
+  // tabela de indicadores
+  $("srInd").innerHTML=d.ind.length?`<thead><tr><th>Indicador</th><th>Base anterior</th><th>Base atual</th><th>Variação</th><th>Nota</th></tr></thead><tbody>`+
+    d.ind.map(i=>`<tr><td>${i.nome}${i.fontes?`<small class="src">${i.fontes}</small>`:""}</td><td class="num">${i.ant}</td><td class="num"><b>${i.atual}</b></td><td class="num">${i.vari}</td><td class="num">${i.nota?`<span class="pill n">${i.nota}</span>`:"0"}</td></tr>`).join("")+`</tbody>`:"";
+  // checagem + parecer
+  const it=(nv,tt,dt)=>`<div class="fsitem ${nv}"><span class="ic lv-${nv}" aria-label="${FS_LV[nv]}">${FS_ICON[nv]}</span><div><b>${tt}</b>${dt?`<p>${dt}</p>`:""}</div></div>`;
+  const grupos=["Restrições","Endividamento","Liquidez","Cadastro"], ord={imp:0,att:1,na:2,info:3,ok:4};
+  let h=grupos.map(g=>{const xs=SR.F.filter(f=>f.grupo===g).sort((a,b)=>ord[a.nivel]-ord[b.nivel]);return xs.length?`<div class="fsgrp"><span class="eyebrow">${g}</span>${xs.map(f=>it(f.nivel,f.titulo,f.detalhe)).join("")}</div>`:"";}).join("");
+  if(d.adversos.length||d.favoraveis.length) h+=`<div class="fsgrp"><span class="eyebrow">Parecer da súmula${d.nCrit!=null?` · ${d.nCrit} crítico(s), ${d.nAtenc} de atenção, ${d.nFav} favorável(is)`:""}</span>${d.adversos.map(a=>it("att",a,"Fator adverso apontado na súmula.")).join("")}${d.favoraveis.map(a=>it("ok",a,"")).join("")}</div>`;
+  if(d.providencias.length) h+=`<div class="fsgrp"><span class="eyebrow">Providências recomendadas</span><ol class="srprov">${d.providencias.map(p=>`<li>${p}</li>`).join("")}</ol></div>`;
+  $("srList").innerHTML=h;
+  // identificação
+  $("srId").innerHTML=`<div><div class="nm">${d.nome||"Cooperado"}</div><div class="car">${d.doc?maskDoc(d.doc):""}${d.instituicao?` · ${d.instituicao}`:""}${d.emitida?` · emitida em ${d.emitida}`:""}</div><div class="note">${[d.perfil,d.classeCRL].filter(Boolean).join(" · ")}</div></div>
+   <div class="fsnums"><div class="model"><span class="v">${d.endv!=null?brl(d.endv):"–"}</span><span class="k">endividamento SFN · entrada do modelo</span></div><div class="model"><span class="v">${d.crl?"R"+d.crl:"–"}</span><span class="k">risco CRL · classe do modelo</span></div>
+   <div><span class="v">${d.renda!=null?brl(d.renda):"–"}</span><span class="k">renda anual cadastral</span></div><div><span class="v">${d.compr!=null?nf(1).format(d.compr)+"%":"–"}</span><span class="k">comprometimento da renda</span></div></div>`;
+  // levar para a ferramenta
+  const okE=d.endv>0&&Math.abs(S.endv-d.endv)<0.01, okC=d.crl>=1&&d.crl<=10&&S.classe===d.crl, okR=d.anot!=null&&S.restr===(d.anot?1:0);
+  const done=c=>c?' class="done" aria-pressed="true"':"";
+  const recArea=compute().recU, alArea=recArea>0&&d.endv>0?d.endv/recArea:null, alRenda=d.renda>0&&d.endv>0?d.endv/d.renda:null;
+  $("srApply").innerHTML=`<span class="t">Levar para a ferramenta</span>
+   ${d.endv>0?`<div class="it"><span>Endividamento SFN: ${brl(d.endv)}<small>base atual · SCR ${d.refSCR||""}</small></span><button type="button" data-a="endv"${done(okE)}>${okE?"Aplicado":"Aplicar"}</button></div>`:""}
+   ${d.crl>=1&&d.crl<=10?`<div class="it"><span>Classe de risco: R${d.crl}<small>risco CRL atual${d.crlAnt?` (antes R${d.crlAnt})`:""}</small></span><button type="button" data-a="classe"${done(okC)}>${okC?"Aplicado":"Aplicar"}</button></div>`:""}
+   ${d.anot!=null?`<div class="it"><span>Restrição no SFN: ${d.anot?"sim":"não"}<small>anotação Serasa/Bacen na posição atual</small></span><button type="button" data-a="restr"${done(okR)}>${okR?"Aplicado":"Aplicar"}</button></div>`:""}
+   ${alRenda!=null?`<p class="note" style="color:var(--ink-2)">Alavancagem pela renda cadastral: <b class="mono">${nf(2).format(alRenda)}×</b>. O modelo usa a receita estimada pela área da ferramenta (${nf(1).format(S.area||0)} ha): <b class="mono">${alArea!=null?nf(2).format(alArea)+"×":"–"}</b>. Para a área real do imóvel, use a aba Relatório do imóvel.</p>${alArea!=null&&alArea/alRenda>2?`<p class="srwarn">A receita estimada pela área (${brl(recArea)}) é ${nf(1).format(alArea/alRenda)} vezes menor que a renda cadastral. A área da ferramenta parece pequena para este cooperado; confira se ela é do mesmo produtor antes de ler a PD.</p>`:""}`:""}
+   <button type="button" class="all" id="srAll">Aplicar tudo</button>`;
+  $("srApply").querySelectorAll("button[data-a]").forEach(b=>b.addEventListener("click",()=>{if(!b.classList.contains("done"))srApply(b.dataset.a);}));
+  $("srAll").addEventListener("click",()=>pfMsg(srApplyAll(),false,"srMsg"));
+}
+
 /* ---------------- abas ---------------- */
+const TABS3=["pre","relatorio","sumula"];
 function showTab(t){
-  const rel=t==="relatorio";
-  $("tab-pre").hidden=rel; $("tab-relatorio").hidden=!rel;
-  $("tb-pre").setAttribute("aria-selected",String(!rel)); $("tb-relatorio").setAttribute("aria-selected",String(rel));
+  TABS3.forEach(x=>{$("tab-"+x).hidden=x!==t;$("tb-"+x).setAttribute("aria-selected",String(x===t));});
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
-  if(h==="relatorio"){showTab("relatorio");window.scrollTo(0,0);return;}
+  if(h==="relatorio"||h==="sumula"){showTab(h);window.scrollTo(0,0);return;}
   showTab("pre");
   const el=h&&h!=="pre-analise"&&h!=="inicio"?document.getElementById(h):null;
   if(el) el.scrollIntoView({block:"start"}); else window.scrollTo(0,0);
@@ -1609,12 +1824,14 @@ function fsRenderRes(){
     <div class="vd ${cl}">${ICON[(r.cls==="R"||r.cls==="S")?"N":r.cls].replace(/width="26" height="26"/,'width="20" height="20"')}<span>${lab}</span></div>
     <dl><dt>PD</dt><dd>${r.valid?pct(r.pd):"–"}</dd><dt>Área usada</dt><dd>${nf(1).format(S.area||0)} ha</dd><dt>Classe · endividamento</dt><dd>R${S.classe} · ${brl(S.endv)}</dd><dt>Corte</dt><dd>${pct(S.cut)}</dd></dl>
     <a href="#ferramenta">Abrir a ferramenta para ajustar classe, dívida e corte →</a>`;
+  if($("srRes")) $("srRes").innerHTML=el.innerHTML;
+  const sb=$("tbBadgeSr"); if(sb){const r=SR.d&&!SR.example&&SR.d.anot; sb.hidden=!r; sb.textContent=r?"!":""; sb.title=r?"Anotação Serasa/Bacen ativa":"";}
   const imp=FS.d&&!FS.example?fsImpeds().length:0, b=$("tbBadge");
   b.hidden=!imp; b.textContent=imp?String(imp):""; b.title=imp?`${imp} impedimento(s) no relatório`:"";
 }
 
 drawArea(); drawCoef(); drawCal();
-writeInputs(); loadExample(); fsSet(FS_EXAMPLE,"exemplo",true); update(); route();
+writeInputs(); loadExample(); fsSet(FS_EXAMPLE,"exemplo",true); srSet(SR_EXAMPLE,"exemplo",true); update(); route();
 })();
 </script>
 </body>

@@ -10,12 +10,13 @@ Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
 
 ## Abas da página
 
-A página tem duas abas:
+A página tem três abas:
 
 | Aba | Endereço | Conteúdo |
 |---|---|---|
 | Pré-análise | `#pre-analise` | Capa, ferramenta de pré-análise de um produtor (`#ferramenta`), análise da carteira de associados (`#carteira`) e o TCC (`#tcc`), em sequência |
 | Relatório do imóvel | `#relatorio` | Leitura do PDF Farm-Scan e checagem socioambiental do imóvel |
+| Súmula de risco | `#sumula` | Leitura do PDF da súmula de análise de risco do cooperado |
 
 Os dados aplicados em uma aba (área, impedimento, percentuais de soja e milho, ponto de corte) valem
 na outra.
@@ -57,6 +58,21 @@ da ferramenta, e o selo vermelho na aba indica quantos impedimentos o relatório
 
 A checagem é uma triagem automática. Cada ponto deve ser confirmado nas bases oficiais (SICAR, IBAMA,
 INPE, ANM) antes do parecer.
+
+## Súmula de risco do cooperado
+
+Na aba **Súmula de risco** (`#sumula`), carregue o PDF da *Súmula de análise de risco* emitida pelo
+sistema da cooperativa. A página lê o PDF no navegador e:
+
+- extrai o **endividamento no SFN** (base atual), o **risco CRL** (usado como classe R1–R10 do modelo)
+  e a **anotação Serasa/Bacen** (aplicada como restrição no SFN, regra eliminatória);
+- mostra os oito indicadores ponderados (base anterior, base atual, variação e nota), a classificação
+  e a pontuação da súmula, os fatores adversos, os fundamentos favoráveis e as providências recomendadas;
+- compara a alavancagem pela renda cadastral com a alavancagem pela receita estimada pela área e avisa
+  quando a área da ferramenta parece incompatível com a renda do cooperado.
+
+A súmula contém dados pessoais e financeiros sigilosos: o PDF não sai do navegador e o CPF aparece
+mascarado. O exemplo exibido ao abrir a aba é fictício.
 
 ## Rotina para cooperativas: análise da carteira
 
