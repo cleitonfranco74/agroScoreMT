@@ -15,7 +15,7 @@ A página tem três abas:
 | Aba | Endereço | Conteúdo |
 |---|---|---|
 | Pré-análise | `#pre-analise` | Capa, ferramenta de pré-análise de um produtor (`#ferramenta`), análise da carteira de associados (`#carteira`) e o TCC (`#tcc`), em sequência |
-| Relatório do imóvel | `#relatorio` | Leitura do PDF Farm-Scan e checagem socioambiental do imóvel |
+| Relatório do imóvel | `#relatorio` | Consulta pública do imóvel pelo código do CAR: limite no SICAR e desmatamento no PRODES/INPE |
 | Súmula de risco | `#sumula` | Leitura do PDF da súmula de análise de risco do cooperado |
 
 Os dados aplicados em uma aba (área, impedimento, percentuais de soja e milho, ponto de corte) valem
@@ -57,27 +57,6 @@ Se o SICAR não responder ou recusar a consulta do navegador, carregue o períme
 consulta pública do CAR (`.zip` com shapefile, `.kml` ou `.geojson`); o cruzamento com o PRODES é feito
 do mesmo jeito. O PRODES é anual e tem área mínima de mapeamento; não substitui DETER, MapBiomas Alerta
 nem vistoria.
-
-## Relatório do imóvel em PDF (Farm-Scan / Dados Fazenda)
-
-Na aba **Relatório do imóvel** (`#relatorio`), carregue o
-PDF do *Relatório da Propriedade* gerado em dadosfazenda.com.br. A aba mostra também o resultado atual
-da ferramenta, e o selo vermelho na aba indica quantos impedimentos o relatório carregado tem. A página lê o PDF no próprio navegador (pdf.js) e:
-
-- extrai a **área de uso consolidado do CAR**, que é a variável de área do modelo, além da área total,
-  dos módulos fiscais, da vegetação nativa e do uso do solo;
-- monta uma checagem por grupo (cadastro, ambiental, sobreposições, produtivo e clima), com níveis
-  *impedimento*, *alerta*, *sem pendência* e *informativo*. São **impedimentos**: CAR suspenso ou
-  cancelado, embargo IBAMA/ICMBio, desmatamento no PRODES e sobreposição com terra indígena, unidade
-  de conservação ou território quilombola. São **alertas**, entre outros: queimadas recentes, passivo
-  de Reserva Legal, processos minerários sobre a maior parte do imóvel, ausência de lavoura no uso do
-  solo, safra mais recente antiga na CONAB, aptidão agrícola inapta e recorrência de seca;
-- leva os dados para a ferramenta: aplica a área consolidada e ativa a nova regra eliminatória
-  **impedimento socioambiental** (com prioridade sobre a PD, como a restrição no SFN). O percentual
-  de soja e milho pela lavoura detectada pode ser aplicado com um clique.
-
-A checagem é uma triagem automática. Cada ponto deve ser confirmado nas bases oficiais (SICAR, IBAMA,
-INPE, ANM) antes do parecer.
 
 ## Súmula de risco do cooperado
 

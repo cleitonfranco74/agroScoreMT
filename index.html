@@ -237,7 +237,6 @@ table.srind small.src{display:block;font-size:.72rem;color:var(--muted);font-fam
 .geohead .nm{font-family:var(--f-mono);font-weight:600;font-size:.86rem;word-break:break-all}
 .geomap{background:var(--bg);border-radius:6px;border:1px solid var(--line)}
 .gbar{display:block;height:8px;border-radius:0 4px 4px 0;background:var(--bad)}
-.fsalt{margin-top:8px;color:var(--ink-2)}
 @media (max-width:900px){.geogrid{grid-template-columns:minmax(0,1fr)}}
 /* ---------- relatório da propriedade ---------- */
 .fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
@@ -411,7 +410,7 @@ footer p{max-width:none}
       <p class="lede">Pré-análise de crédito rural em um só lugar: a probabilidade de inadimplência (PD) do produtor por um modelo logit, a checagem socioambiental do imóvel e a análise da carteira de associados.</p>
       <div class="ccta">
         <a class="btn pri" href="#ferramenta">Começar uma pré-análise</a>
-        <a class="btn" href="#relatorio">Ler o relatório de um imóvel</a>
+        <a class="btn" href="#relatorio">Consultar um imóvel pelo CAR</a>
       </div>
     </div>
     <div class="cflow" aria-label="Como a recomendação é formada">
@@ -481,9 +480,9 @@ footer p{max-width:none}
   <div class="ccards">
     <a class="ccard" href="#relatorio">
       <span class="eyebrow">Aba Relatório do imóvel</span>
-      <h3>Checagem do imóvel: SICAR, PRODES e Farm-Scan</h3>
-      <p>Digite o código do CAR para buscar o limite no SICAR e o desmatamento do PRODES/INPE dentro do imóvel, com mapa. Ou carregue o PDF do Farm-Scan para a área consolidada e a checagem completa.</p>
-      <span class="go">Ler um relatório →</span>
+      <h3>Checagem do imóvel: SICAR e PRODES</h3>
+      <p>Digite o código do CAR para buscar o limite e a situação do imóvel no SICAR e o desmatamento anual do PRODES/INPE dentro dele, com mapa e tabela por ano.</p>
+      <span class="go">Consultar um imóvel →</span>
     </a>
     <a class="ccard" href="#sumula">
       <span class="eyebrow">Aba Súmula de risco</span>
@@ -936,9 +935,9 @@ footer p{max-width:none}
 <!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
 <section id="relatorio">
   <div class="head">
-    <div class="eyebrow">Relatório do imóvel · consulta pública SICAR e PRODES · Farm-Scan</div>
+    <div class="eyebrow">Relatório do imóvel · consulta pública SICAR e PRODES (INPE)</div>
     <h2>Verifique o imóvel e cruze com a pré-análise</h2>
-    <p style="color:var(--ink-2)">Consulte o imóvel pelo código do CAR nas bases públicas: o limite vem do SICAR e o desmatamento anual, do PRODES/INPE. Se tiver o PDF do relatório da propriedade (Farm-Scan), carregue-o abaixo para obter a área de uso consolidado, que é a variável do modelo, e a checagem cadastral, ambiental, fundiária, produtiva e climática. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
+    <p style="color:var(--ink-2)">Consulte o imóvel pelo código do CAR nas bases públicas: o limite e a situação do cadastro vêm do SICAR, e o desmatamento anual, do PRODES/INPE. A página calcula a área desmatada dentro do imóvel em cada ano. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
   </div>
   <div class="card geocard" id="geoCard">
     <div class="fshead">
@@ -954,38 +953,13 @@ footer p{max-width:none}
         <ol class="geosteps" id="geoSteps"></ol>
         <p class="pfmsg" id="geoMsg" role="status"></p>
         <div class="fsapply" id="geoApply" hidden></div>
+        <div class="fsres" id="geoRes" aria-live="polite"></div>
       </div>
       <div class="georesult" id="geoResult">
         <p class="fsempty">Digite o código do CAR e clique em Consultar. A página busca o limite do imóvel no SICAR e cruza com os polígonos de desmatamento anual do PRODES (Amazônia Legal e Cerrado).</p>
       </div>
     </div>
     <p class="note">Consulta feita pelo navegador diretamente nos serviços públicos (GeoServer do SICAR e TerraBrasilis/INPE). Se um serviço estiver fora do ar ou recusar a consulta, a página avisa; use então o arquivo do perímetro. O PRODES é anual e tem área mínima de mapeamento: não substitui DETER, MapBiomas Alerta nem vistoria.</p>
-  </div>
-  <div class="eyebrow fsalt">Relatório da propriedade em PDF (Farm-Scan / Dados Fazenda)</div>
-  <div class="fsgrid">
-    <div class="card fsload">
-      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
-      <label class="drop" id="fsDrop" for="fsFile">
-        <input id="fsFile" type="file" accept=".pdf,application/pdf">
-        <b>Escolha o PDF ou arraste para cá</b>
-        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
-      </label>
-      <p class="pfmsg" id="fsMsg" role="status"></p>
-      <div class="fsid" id="fsId"></div>
-      <div class="fsapply" id="fsApply"></div>
-      <div class="fsres" id="fsRes" aria-live="polite"></div>
-      <div class="privacy">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="fshead">
-        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
-        <div class="fscount" id="fsCount"></div>
-      </div>
-      <div id="fsList"></div>
-    </div>
   </div>
 </section>
 </div>
@@ -1170,8 +1144,8 @@ function update(){
   $("cutSlider").value=S.cut; $("cutSlVal").textContent=pct(S.cut);
   drawClasse(); drawPD(r); drawROC(); drawCut(); drawCM();
   if(PF.rows.length) renderPortfolio();
-  if(FS.d) renderFS();
   if(SR.d) renderSR();
+  if(GEO.feat) renderGeoApply();
   fsRenderRes();
 }
 
@@ -1545,98 +1519,7 @@ function openInTool(r){
   go("ferramenta");
 }
 
-/* ---------------- relatório da propriedade (Farm-Scan / Dados Fazenda) ---------------- */
-function fsParse(t){
-  t="\n"+t.replace(/\r/g,"")+"\n";
-  const lines=t.split("\n").map(s=>s.trim());
-  const g=(re,i=1)=>{const x=t.match(re);return x?x[i].trim():null;};
-  const n=(re)=>{const v=g(re);return v==null?null:parseNum(v);};
-  const after=(label,k=2)=>{const i=lines.findIndex(l=>l.startsWith(label));return i<0?null:lines.slice(i+1,i+1+k).join(" ");};
-  const section=(a,b)=>{const i=t.indexOf(a);if(i<0)return "";const j=b?t.indexOf(b,i+a.length):-1;return t.slice(i,j<0?i+4000:j);};
-  const d={};
-  d.reconhecido=/dadosfazenda|Relat[óo]rio da Propriedade/i.test(t);
-  d.car=g(/CAR:\s*([A-Z]{2}-\d{7}-[0-9A-F]{32})/);
-  d.fazenda=g(/\n([^\n·]{3,}?)\s·\s[^\n]*(?:SIGMINE|queimada|cicatriz)/);
-  d.dataRel=g(/Relat[óo]rio gerado em (\d{2}\/\d{2}\/\d{4})/);
-  d.municipio=g(/\nMunic[íi]pio\s+([^\n]+)/); d.uf=g(/\nEstado\s+([A-Z]{2})\b/);
-  d.areaTotal=n(/\nÁrea \(ha\)\s+([\d.,]+)/);
-  d.status=g(/\nStatus\s+([^\n]+)/); d.analise=g(/\nAn[áa]lise\s+([^\n]+)/);
-  d.modulos=n(/M[óo]dulos Fiscais\s+([\d.,]+)/);
-  d.areaConsol=n(/Área de Uso Consolidado \(ha\)\s+([-\d.,]+)/);
-  d.rlSaldo=n(/RL Excedente\/Passivo \(ha\)\s+([-\d.,]+)/);
-  d.rlSituacao=g(/\nSitua[çc][ãa]o\s+([^\n]+)/);
-  d.vegNativa=n(/Remanescente de Veg\. Nativa \(ha\)\s+([\d.,]+)/);
-  d.sigefCob=n(/Cobertura:\s*([\d.,]+)%/);
-  const emb=after("Fiscalização Ambiental",1); d.embargo=emb==null?null:(/sem ocorr/i.test(emb)?0:(emb.match(/(\d+)/)?+emb.match(/(\d+)/)[1]:null));
-  d.alertas=after("Alertas de Desmatamento",1);
-  const pr=t.match(/detectadas\s+(\d+)\s+ocorr[êe]ncias de desmatamento\s*\(\s*([\d.,]+)\s*ha\s*\)/);
-  if(pr){d.prodesN=+pr[1];d.prodesHa=parseNum(pr[2]);} else {const s=after("PRODES - Desmatamento",1); d.prodesN=s&&/sem desmat/i.test(s)?0:null; d.prodesHa=d.prodesN===0?0:null;}
-  const q=t.match(/identificadas\s+(\d+)\s+cicatrizes[\s\S]*?interse[çc][õo]es [ée] de\s+([\d.,]+)\s*ha[\s\S]*?mais recente\s*[\s\S]{0,6}?(\d{2}\/\d{2}\/\d{4})/);
-  if(q){d.queimN=+q[1];d.queimHa=parseNum(q[2]);d.queimUlt=q[3];} else {const s=after("Áreas Queimadas",1); d.queimN=s?(/(\d+)\s*ocorr/.test(s)?+s.match(/(\d+)/)[1]:(/sem/i.test(s)?0:null)):null;}
-  d.sobrep=[...t.matchAll(/\n([^\n:]{3,80}?)\s*:\s*(\d+)\s*sobreposi[çc](?:ão|ões|oes|ao)\s*\(([\d.,]+)%\s*da propriedade\)/g)].map(x=>({tipo:x[1].trim(),n:+x[2],pct:parseNum(x[3])}));
-  d.florestaPubHa=n(/Florestas P[úu]blicas:\s*([\d.,]+)\s*ha/);
-  d.florestaPubCat=g(/Floresta P[úu]blica Categoria Governo Área \(ha\)\n([^\n]+)/);
-  d.sinaflor=after("Autorizações SINAFLOR",1);
-  const ap=section("Aptidão Agrícola (Embrapa CNPS)","Floresta Pública (SFB)");
-  d.aptidao=[...ap.matchAll(/Classe\s+([0-9][0-9a-zA-Z()]*)\s+([\d.,]+)\s*%/g)].map(x=>({classe:x[1],pct:parseNum(x[2])}));
-  const us=section("Uso e cobertura do solo · referência","Reserva Legal");
-  d.usoRef=g(/Uso e cobertura do solo · refer[êe]ncia (\d{4})/);
-  d.uso=[...us.matchAll(/\n([\d.,]+)%\n([^\n]+)\n([\d.,]+)\s*ha/g)].map(x=>({classe:x[2].trim(),pct:parseNum(x[1]),ha:parseNum(x[3])}));
-  const cn=section("cultura(s) detectada(s)","Armazéns CONAB na Região");
-  const anos=[...cn.matchAll(/(\d{4})\/(\d{2})/g)].map(x=>+x[1]);
-  d.conabUlt=anos.length?Math.max(...anos):null;
-  d.conabSafras=n(/cultura\(s\) detectada\(s\) em\s*(\d+)\s*safra/);
-  d.conabHa=cn?(cn.match(/\b(\d{1,3}(?:\.\d{3})*,\d{2})\b/)||[])[1]:null; if(d.conabHa)d.conabHa=parseNum(d.conabHa);
-  const sc=t.match(/Meses com seca:\s*(\d+) de (\d+) \(([\d.,]+)%\)\s*·\s*pior n[íi]vel:\s*([^·\n]+?)\s*·/);
-  if(sc){d.secaPct=parseNum(sc[3]);d.secaMeses=+sc[1];d.secaTotal=+sc[2];d.secaPior=sc[4];}
-  d.chuvaRec=n(/Chuva recente\s*([-+]?[\d.,]+)%/); d.chuvaAnual=n(/Chuva m[ée]dia anual:\s*([\d.]+)\s*mm/);
-  d.declive=n(/declividade m[ée]dia [ée] de\s*([\d.,]+)%/);
-  d.pastagemHa=n(/([\d.,]+)\s*ha classificados como pastagem/);
-  d.ph=n(/pH em [áa]gua\s+([\d.,]+)/);
-  return d;
-}
-const LAVOURA_RE=/soja|lavoura|cana|algod|milho|arroz|caf[ée]|tempor|agricult|cultura/i;
-function fsFlags(d){
-  const F=[],add=(grupo,nivel,titulo,detalhe)=>F.push({grupo,nivel,titulo,detalhe});
-  const ha=x=>nf(1).format(x)+" ha", ano=d.dataRel?+d.dataRel.slice(6):new Date().getFullYear();
-  // cadastro
-  if(d.status){ if(/suspens|cancel/i.test(d.status)) add("Cadastro","imp",`CAR ${d.status.toLowerCase()}`,"Inscrição no CAR suspensa ou cancelada impede a contratação de crédito rural (MCR, impedimentos sociais, ambientais e climáticos). Exige regularização antes da operação.");
-    else if(/ativ/i.test(d.status)) add("Cadastro","ok","CAR ativo",d.analise?`Análise: ${d.analise}.`:"");
-    else add("Cadastro","att",`CAR: ${d.status}`,"Situação diferente de ativo; confirme no SICAR."); }
-  else add("Cadastro","na","Situação do CAR não encontrada","Confira o relatório.");
-  if(d.analise&&/aguard|pendente/i.test(d.analise)&&!/suspens|cancel/i.test(d.status||"")) add("Cadastro","info","CAR aguardando análise","Dados declaratórios ainda não validados pelo órgão ambiental.");
-  if(d.sigefCob!=null) add("Cadastro",d.sigefCob>=90?"ok":"att",`Certificação SIGEF cobre ${nf(1).format(d.sigefCob)}% do imóvel`,d.sigefCob>=90?"Boa correspondência entre o CAR e a parcela certificada.":"Divergência entre o CAR e a parcela certificada; verifique a matrícula e a garantia.");
-  // ambiental
-  if(d.embargo!=null) add("Ambiental",d.embargo>0?"imp":"ok",d.embargo>0?`${d.embargo} embargo(s) ou auto(s) IBAMA/ICMBio`:"Sem embargos IBAMA/ICMBio",d.embargo>0?"Área embargada impede o crédito rural (MCR). Verifique o embargo e a área atingida.":"Nenhum embargo ou auto georreferenciado.");
-  if(d.prodesN!=null) add("Ambiental",d.prodesN>0?"imp":"ok",d.prodesN>0?`Desmatamento PRODES: ${d.prodesN} ocorrência(s), ${ha(d.prodesHa||0)}`:"Sem desmatamento no PRODES",d.prodesN>0?"Supressão de vegetação detectada. Exija a autorização de supressão (ASV) ou comprove a regularidade; sem ela, há impedimento.":"PRODES/INPE não detectou supressão.");
-  if(d.alertas&&/indispon/i.test(d.alertas)) add("Ambiental","na","Alertas de desmatamento indisponíveis","A base de alertas não respondeu na geração do relatório. Consulte diretamente (DETER/MapBiomas Alerta).");
-  if(d.queimN) { const ult=d.queimUlt?+d.queimUlt.slice(6):null; add("Ambiental",ult&&ano-ult<=2?"att":"info",`${d.queimN} cicatriz(es) de queimada em 5 anos`,`Soma das interseções: ${ha(d.queimHa||0)}${d.queimUlt?`; mais recente em ${d.queimUlt}`:""}. Verifique se houve autorização de queima e impacto na produção.`); }
-  else if(d.queimN===0) add("Ambiental","ok","Sem queimadas em 5 anos","");
-  if(d.rlSaldo!=null) add("Ambiental",d.rlSaldo<0?"att":"ok",d.rlSaldo<0?`Passivo de Reserva Legal: ${ha(-d.rlSaldo)}`:"Reserva Legal sem passivo declarado",d.rlSaldo<0?`Exige recomposição ou compensação; verifique a adesão ao PRA.${d.rlSituacao?` Situação: ${d.rlSituacao}.`:""}`:"");
-  // sobreposições
-  d.sobrep.forEach(s=>{
-    if(/ind[íi]gen|unidade.*conserv|quilomb|uc\b/i.test(s.tipo)) add("Sobreposições","imp",`${s.tipo}: ${s.n} sobreposição(ões)`,`${nf(1).format(s.pct)}% do imóvel. Sobreposição com território protegido é impedimento ao crédito rural.`);
-    else if(/miner|sigmine/i.test(s.tipo)) add("Sobreposições",s.pct>=50?"att":"info",`${s.n} processo(s) minerário(s) sobre ${nf(1).format(s.pct)}% do imóvel`,"Direitos minerários podem limitar o uso futuro da área e o valor da garantia. Avalie a fase dos processos.");
-    else if(/assentament/i.test(s.tipo)) add("Sobreposições",s.pct>=1?"att":"info",`Sobreposição com assentamento (${nf(1).format(s.pct)}%)`,"Verifique a divisa e a regularidade fundiária.");
-    else add("Sobreposições","att",`${s.tipo}: ${s.n} sobreposição(ões)`,`${nf(1).format(s.pct)}% do imóvel.`);
-  });
-  if(d.florestaPubHa) add("Sobreposições",d.florestaPubHa>=1?"att":"info",`Floresta pública: ${ha(d.florestaPubHa)} sobrepostos`,d.florestaPubCat?`Registro: ${d.florestaPubCat}.`:"Verifique a categoria no Cadastro Nacional de Florestas Públicas.");
-  // produtivo
-  const lav=d.uso.filter(u=>LAVOURA_RE.test(u.classe)), lavHa=lav.reduce((s,u)=>s+u.ha,0);
-  if(d.uso.length){ const top=d.uso.slice().sort((a,b)=>b.pct-a.pct).slice(0,3).map(u=>`${u.classe} ${nf(1).format(u.pct)}%`).join(", ");
-    if(lavHa>0) add("Produtivo","info",`Lavoura detectada: ${ha(lavHa)}`,`Uso do solo ${d.usoRef||""}: ${top}.`);
-    else add("Produtivo","att","Nenhuma lavoura detectada no uso do solo",`Uso do solo ${d.usoRef||""}: ${top}. O modelo supõe soja e milho safrinha em toda a área consolidada; a receita estimada tende a ficar superestimada.`); }
-  if(d.conabUlt) add("Produtivo",ano-d.conabUlt>5?"att":"ok",`Última safra de grãos monitorada pela CONAB: ${d.conabUlt}/${String(d.conabUlt+1).slice(2)}`,ano-d.conabUlt>5?"Não há registro recente de culturas de verão no imóvel.":"Atividade agrícola recente registrada.");
-  const inapta=d.aptidao.filter(a=>/^6/.test(a.classe)).reduce((s,a)=>s+a.pct,0);
-  if(d.aptidao.length) add("Produtivo",inapta>50?"att":"info",inapta>50?`${nf(1).format(inapta)}% do imóvel inapto para agricultura (Embrapa)`:`Aptidão agrícola: ${d.aptidao.map(a=>`classe ${a.classe} ${nf(1).format(a.pct)}%`).join(", ")}`,inapta>50?"Classe 6: terras indicadas para preservação. Confira se a área consolidada informada é de fato cultivável.":"Escala 1:500.000; leitura regional.");
-  // clima
-  if(d.secaPct!=null) add("Clima",d.secaPct>15?"att":"info",`Seca em ${nf(1).format(d.secaPct)}% dos meses monitorados`,`${d.secaMeses} de ${d.secaTotal} meses; pior nível: ${d.secaPior}. Considere seguro rural/Proagro.`);
-  if(d.chuvaRec!=null&&d.chuvaRec<-20) add("Clima","info",`Chuva recente ${nf(1).format(Math.abs(d.chuvaRec))}% abaixo da normal`,"Comparação indicativa de curto prazo, sem valor preditivo.");
-  return {F,lavHa};
-}
-
-const FS_EXAMPLE={"reconhecido":true,"car":"MT-5105580-•••• (oculto no exemplo)","fazenda":"Imóvel de exemplo","dataRel":"29/09/2026","municipio":"Marcelândia","uf":"MT","areaTotal":1730.5925,"status":"Suspenso","analise":"Aguardando análise","modulos":19.23,"areaConsol":514.5409,"rlSaldo":-169.7961,"rlSituacao":"Não Analisada","vegNativa":1215.806,"sigefCob":99.4,"embargo":0,"alertas":"Indisponível","prodesN":0,"prodesHa":0,"queimN":6,"queimHa":1316.35,"queimUlt":"01/09/2024","sobrep":[{"tipo":"Assentamentos","n":1,"pct":0},{"tipo":"Processos Minerários (SIGMINE/ANM)","n":4,"pct":99.9}],"florestaPubHa":0.1,"florestaPubCat":"PA FEDERAL 0,10 ha","sinaflor":"Sem autorizações","aptidao":[{"classe":"6","pct":97.9},{"classe":"2(ab)c","pct":2.1}],"usoRef":"2025","uso":[{"classe":"Formação Florestal","pct":61.2,"ha":1059.4},{"classe":"Pastagem","pct":30.8,"ha":533.6},{"classe":"Mosaico de usos","pct":7.3,"ha":125.6},{"classe":"Floresta Alagável","pct":0.7,"ha":12.1}],"conabUlt":2010,"conabSafras":5,"conabHa":777.18,"secaPct":19.2,"secaMeses":28,"secaTotal":146,"secaPior":"Seca grave","chuvaRec":-24.5,"chuvaAnual":1714,"declive":9.9,"pastagemHa":699.8,"ph":4.5};
-const FS={d:null,F:[],lavHa:0,source:"",example:false};
+/* ---------------- ícones e leitura de PDF (usados pela súmula) ---------------- */
 const FS_ICON={
   imp:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
   att:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 2.5v4.2M6 9.2v.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
@@ -1661,71 +1544,6 @@ async function fsText(file){
   }
   return out.join("\n");
 }
-function fsSet(d,source,example){
-  const r=fsFlags(d); Object.assign(FS,{d,F:r.F,lavHa:r.lavHa,source,example});
-  renderFS();
-}
-async function fsHandle(file){
-  if(!file)return;
-  if(!/\.pdf$/i.test(file.name)&&file.type!=="application/pdf"){pfMsg("Escolha um arquivo PDF.",true,"fsMsg");return;}
-  try{
-    pfMsg("Lendo o PDF…",false,"fsMsg");
-    const d=fsParse(await fsText(file));
-    const achou=[d.areaConsol,d.status,d.car].filter(x=>x!=null).length;
-    if(!achou){pfMsg("Não encontrei os campos do relatório da propriedade neste PDF. Use o relatório gerado em dadosfazenda.com.br; PDFs escaneados (imagem) não podem ser lidos.",true,"fsMsg");return;}
-    fsSet(d,file.name,false); geoPrefill(d.car);
-    const ap=fsApplyAll(true);
-    pfMsg(`Relatório lido: ${file.name}.`+(d.reconhecido?"":" Formato não reconhecido por completo; confira os campos.")+(ap?" "+ap:""),false,"fsMsg");
-  }catch(e){pfMsg(e.message||String(e),true,"fsMsg");}
-}
-$("fsFile").addEventListener("change",e=>{fsHandle(e.target.files[0]);e.target.value="";});
-const fsDrop=$("fsDrop");
-["dragenter","dragover"].forEach(t=>fsDrop.addEventListener(t,e=>{e.preventDefault();fsDrop.classList.add("over");}));
-["dragleave","drop"].forEach(t=>fsDrop.addEventListener(t,e=>{e.preventDefault();fsDrop.classList.remove("over");}));
-fsDrop.addEventListener("drop",e=>fsHandle(e.dataTransfer.files[0]));
-
-function fsImpeds(){return FS.F.filter(f=>f.nivel==="imp");}
-function fsPctLav(){const d=FS.d;return d&&d.areaConsol>0&&d.uso.length?Math.min(100,FS.lavHa/d.areaConsol*100):null;}
-function fsApply(what){
-  const d=FS.d;if(!d)return;
-  if(what==="area"&&d.areaConsol>0){S.area=Math.round(d.areaConsol*10)/10;}
-  if(what==="socio"){S.socio=fsImpeds().length?1:0;}
-  if(what==="lav"){const p=fsPctLav();if(p!=null){const v=Math.round(p);S.pSoja=v;S.pMilho=v;}}
-  S.preset=null;writeInputs();update();
-}
-function fsApplyAll(auto){
-  const d=FS.d;if(!d)return "";const msg=[];
-  if(d.areaConsol>0){fsApply("area");msg.push(`área de ${nf(1).format(S.area)} ha`);}
-  fsApply("socio"); msg.push(S.socio?"impedimento socioambiental ativado":"sem impedimento socioambiental");
-  if(!auto){const p=fsPctLav();if(p!=null){fsApply("lav");msg.push(`soja e milho em ${nf(0).format(p)}% da área`);}}
-  return msg.length?"Aplicado à ferramenta: "+msg.join(", ")+".":"";
-}
-function renderFS(){
-  const d=FS.d,el=$("fsList");
-  if(!d){el.innerHTML='<p class="fsempty">Carregue um relatório para ver a checagem.</p>';return;}
-  const ha=x=>x==null?"–":nf(1).format(x)+" ha";
-  $("fsSrc").textContent=FS.example?"Exemplo · relatório real anonimizado":"Checagem do imóvel · "+FS.source;
-  $("fsTitle").textContent="Impedimentos e alertas"+(d.dataRel?` · relatório de ${d.dataRel}`:"");
-  const cnt={imp:0,att:0,ok:0};FS.F.forEach(f=>{if(f.nivel in cnt)cnt[f.nivel]++;});
-  $("fsCount").innerHTML=`<span class="lv-imp">${cnt.imp} impedimento${cnt.imp===1?"":"s"}</span><span class="lv-att">${cnt.att} alerta${cnt.att===1?"":"s"}</span><span class="lv-ok">${cnt.ok} sem pendência</span>`;
-  const grupos=["Cadastro","Ambiental","Sobreposições","Produtivo","Clima"], ord={imp:0,att:1,na:2,info:3,ok:4};
-  el.innerHTML=grupos.map(g=>{const it=FS.F.filter(f=>f.grupo===g).sort((a,b)=>ord[a.nivel]-ord[b.nivel]);if(!it.length)return "";
-    return `<div class="fsgrp"><span class="eyebrow">${g}</span>${it.map(f=>`<div class="fsitem ${f.nivel}"><span class="ic lv-${f.nivel}" title="${FS_LV[f.nivel]}" aria-label="${FS_LV[f.nivel]}">${FS_ICON[f.nivel]}</span><div><b>${f.titulo}</b>${f.detalhe?`<p>${f.detalhe}</p>`:""}</div></div>`).join("")}</div>`;}).join("");
-  $("fsId").innerHTML=`<div><div class="nm">${d.fazenda||"Imóvel sem nome no relatório"}</div><div class="car">${d.car?"CAR "+d.car:"CAR não encontrado"}</div><div class="note">${[d.municipio,d.uf].filter(Boolean).join(" – ")}${d.modulos?` · ${nf(2).format(d.modulos)} módulos fiscais`:""}</div></div>
-    <div class="fsnums"><div><span class="v">${ha(d.areaTotal)}</span><span class="k">área total do CAR</span></div><div class="model"><span class="v">${ha(d.areaConsol)}</span><span class="k">uso consolidado · variável do modelo</span></div>
-    <div><span class="v">${ha(d.vegNativa)}</span><span class="k">vegetação nativa</span></div><div><span class="v">${d.uso.length?ha(FS.lavHa):"–"}</span><span class="k">lavoura no uso do solo ${d.usoRef||""}</span></div></div>`;
-  const imp=fsImpeds(), pl=fsPctLav();
-  const done=(c)=>c?' class="done" aria-pressed="true"':"";
-  const aArea=d.areaConsol>0&&Math.abs(S.area-Math.round(d.areaConsol*10)/10)<0.05, aSoc=S.socio===(imp.length?1:0), aLav=pl!=null&&S.pSoja===Math.round(pl)&&S.pMilho===Math.round(pl);
-  $("fsApply").innerHTML=`<span class="t">Levar para a ferramenta</span>
-    ${d.areaConsol>0?`<div class="it"><span>Área consolidada: ${ha(d.areaConsol)}<small>substitui a área da ferramenta</small></span><button type="button" data-a="area"${done(aArea)}>${aArea?"Aplicado":"Aplicar"}</button></div>`:""}
-    <div class="it"><span>Impedimento socioambiental: ${imp.length?"sim":"não"}<small>${imp.length?imp.map(f=>f.titulo).join("; "):"nenhum impedimento encontrado"}</small></span><button type="button" data-a="socio"${done(aSoc)}>${aSoc?"Aplicado":"Aplicar"}</button></div>
-    ${pl!=null?`<div class="it"><span>Soja e milho em ${nf(0).format(pl)}% da área<small>lavoura detectada ÷ área consolidada${pl===0?"; sem lavoura, a PD não é calculada":""}</small></span><button type="button" data-a="lav"${done(aLav)}>${aLav?"Aplicado":"Aplicar"}</button></div>`:""}
-    <button type="button" class="all" id="fsAll">Aplicar tudo e ver o resultado</button>`;
-  $("fsApply").querySelectorAll("button[data-a]").forEach(b=>b.addEventListener("click",()=>{if(!b.classList.contains("done"))fsApply(b.dataset.a);}));
-  $("fsAll").addEventListener("click",()=>{const m=fsApplyAll(false);pfMsg(m,false,"fsMsg");fsRenderRes();});
-}
-
 /* ---------------- súmula de análise de risco ---------------- */
 function srParse(raw){
   const all=raw.replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(Boolean);
@@ -1814,7 +1632,6 @@ const SR_EXAMPLE={reconhecido:true,example:true,nome:"Cooperado de exemplo",doc:
  endv:11420000,endvAnt:9850000,curto:3650000,curtoAnt:4100000,saldo:96300,saldoAnt:182400,compr:27.85,comprAnt:31.2,atraso:0,atrasoAnt:0,anot:false,anotAnt:false,crl:4,crlAnt:5,renda:13110000,rendaAnt:13200000};
 const SR={d:null,F:[],source:"",example:false};
 const maskDoc=s=>!s?"":s.replace(/^(\d{3})\.\d{3}\.\d{3}-(\d{2})$/,"$1.•••.•••-$2").replace(/^(\d{2})\.\d{3}\.\d{3}\/(\d{4})-(\d{2})$/,"$1.•••.•••/$2-$3");
-function geoPrefill(car){ if(car&&$("geoCar")&&!$("geoCar").value) $("geoCar").value=car; }
 function srSet(d,source,example){Object.assign(SR,{d,F:srFlags(d),source,example});renderSR();}
 async function srHandle(file){
   if(!file)return;
@@ -1944,7 +1761,7 @@ async function geoRun(feat,fonte,props){
   }
   GEO.anos=[...porAno.entries()].sort((a,b)=>a[0]-b[0]).map(([ano,ha])=>({ano,ha}));
   GEO.prodesOk=falhas<GEO_CFG.prodes.length;
-  geoFlags(); renderGeo();
+  geoFlags(); renderGeo(); fsRenderRes();
 }
 function geoFlags(){
   const F=[],add=(nivel,titulo,detalhe)=>F.push({nivel,titulo,detalhe}),p=GEO.props||{};
@@ -1986,10 +1803,13 @@ function renderGeo(){
    ${geoMap()}
    ${GEO.anos.length?`<div class="tw"><table><thead><tr><th>Ano PRODES</th><th>Área no imóvel</th><th></th></tr></thead><tbody>${GEO.anos.map(a=>`<tr${a.ano>=2008?' class="hl"':""}><td>${a.ano||"não informado"}</td><td class="num">${nf(1).format(a.ha)} ha</td><td style="width:45%"><span class="gbar" style="width:${(a.ha/maxHa*100).toFixed(1)}%"></span></td></tr>`).join("")}</tbody></table></div>`:""}
    <div class="fsgrp">${GEO.F.map(f=>`<div class="fsitem ${f.nivel}"><span class="ic lv-${f.nivel}" aria-label="${FS_LV[f.nivel]}">${FS_ICON[f.nivel]}</span><div><b>${f.titulo}</b>${f.detalhe?`<p>${f.detalhe}</p>`:""}</div></div>`).join("")}</div>`;
+  renderGeoApply();
+}
+function renderGeoApply(){
   const imp=GEO.F.filter(f=>f.nivel==="imp").length, ap=$("geoApply"); ap.hidden=false;
   const aplicado=S.socio===(imp?1:0);
   ap.innerHTML=`<span class="t">Levar para a ferramenta</span><div class="it"><span>Impedimento socioambiental: ${imp?"sim":"não"}<small>${imp?GEO.F.filter(f=>f.nivel==="imp").map(f=>f.titulo).join("; "):"nenhum impedimento na consulta pública"}</small></span><button type="button" id="geoAp"${aplicado?' class="done"':""}>${aplicado?"Aplicado":"Aplicar"}</button></div>`;
-  $("geoAp").addEventListener("click",()=>{S.socio=imp?1:0;S.preset=null;writeInputs();update();renderGeo();});
+  $("geoAp").addEventListener("click",()=>{S.socio=imp?1:0;S.preset=null;writeInputs();update();});
 }
 async function geoConsultar(){
   const car=$("geoCar").value.trim().toUpperCase().replace(/\s+/g,"").replace(/\./g,"");
@@ -2042,7 +1862,7 @@ function route(){
 function go(h){ if(location.hash==="#"+h) route(); else location.hash=h; }
 window.addEventListener("hashchange",route);
 function fsRenderRes(){
-  const el=$("fsRes"); if(!el)return;
+  const el=$("geoRes"); if(!el)return;
   const r=compute();
   const lab={A:"APROVÁVEL",N:"NÃO APROVÁVEL",R:"NÃO APROVÁVEL – restrição no SFN",S:"NÃO APROVÁVEL – impedimento socioambiental",V:"VERIFIQUE AS ENTRADAS"}[r.cls];
   const cl={A:"ok",N:"no",R:"no",S:"no",V:"warn"}[r.cls];
@@ -2052,12 +1872,12 @@ function fsRenderRes(){
     <a href="#ferramenta">Abrir a ferramenta para ajustar classe, dívida e corte →</a>`;
   if($("srRes")) $("srRes").innerHTML=el.innerHTML;
   const sb=$("tbBadgeSr"); if(sb){const r=SR.d&&!SR.example&&SR.d.anot; sb.hidden=!r; sb.textContent=r?"!":""; sb.title=r?"Anotação Serasa/Bacen ativa":"";}
-  const imp=FS.d&&!FS.example?fsImpeds().length:0, b=$("tbBadge");
-  b.hidden=!imp; b.textContent=imp?String(imp):""; b.title=imp?`${imp} impedimento(s) no relatório`:"";
+  const imp=GEO.feat?GEO.F.filter(f=>f.nivel==="imp").length:0, b=$("tbBadge");
+  b.hidden=!imp; b.textContent=imp?String(imp):""; b.title=imp?`${imp} impedimento(s) na consulta do imóvel`:"";
 }
 
 drawArea(); drawCoef(); drawCal();
-writeInputs(); loadExample(); fsSet(FS_EXAMPLE,"exemplo",true); srSet(SR_EXAMPLE,"exemplo",true); update(); route();
+writeInputs(); loadExample(); srSet(SR_EXAMPLE,"exemplo",true); update(); route();
 })();
 </script>
 </body>
