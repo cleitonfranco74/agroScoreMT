@@ -27,8 +27,9 @@ Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
 
 ## Relatório do imóvel (Farm-Scan / Dados Fazenda)
 
-Na seção **Relatório do imóvel**, carregue o PDF do *Relatório da Propriedade* gerado em
-dadosfazenda.com.br. A página lê o PDF no próprio navegador (pdf.js) e:
+Na aba **Relatório do imóvel** (no topo da página, ou direto pelo endereço `#relatorio`), carregue o
+PDF do *Relatório da Propriedade* gerado em dadosfazenda.com.br. A aba mostra também o resultado atual
+da ferramenta, e o selo vermelho na aba indica quantos impedimentos o relatório carregado tem. A página lê o PDF no próprio navegador (pdf.js) e:
 
 - extrai a **área de uso consolidado do CAR**, que é a variável de área do modelo, além da área total,
   dos módulos fiscais, da vegetação nativa e do uso do solo;
