@@ -10,16 +10,15 @@ Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
 
 ## Abas da página
 
-| Aba | Endereço | Para que serve |
+A página tem duas abas:
+
+| Aba | Endereço | Conteúdo |
 |---|---|---|
-| Início | `#inicio` | Capa: apresenta a ferramenta, como a recomendação é formada e leva às demais abas |
-| Ferramenta | `#ferramenta` | Pré-análise de um produtor |
+| Pré-análise | `#pre-analise` | Capa, ferramenta de pré-análise de um produtor (`#ferramenta`), análise da carteira de associados (`#carteira`) e o TCC (`#tcc`), em sequência |
 | Relatório do imóvel | `#relatorio` | Leitura do PDF Farm-Scan e checagem socioambiental do imóvel |
-| Carteira | `#carteira` | Análise em lote dos associados a partir de uma planilha |
-| TCC | `#tcc` | Metodologia, resultados, validação e referências do trabalho |
 
 Os dados aplicados em uma aba (área, impedimento, percentuais de soja e milho, ponto de corte) valem
-nas outras.
+na outra.
 
 ## O que a página contém
 

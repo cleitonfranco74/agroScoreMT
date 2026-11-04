@@ -150,6 +150,8 @@ section > .head{display:grid;gap:8px}
 /* ---------- capa e abas ---------- */
 nav.toc .brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;color:var(--ink);text-decoration:none;padding:0 4px;letter-spacing:-.01em;flex:none;border:0}
 nav.toc .brand span{color:var(--accent)}
+nav.toc{scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
 nav.toc .brand:hover{border:0}
 .subnav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.86rem;color:var(--ink-2);padding-top:6px}
 .subnav a{text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2)}
@@ -350,17 +352,14 @@ footer p{max-width:none}
 
 <div class="wrap">
 <nav class="toc" aria-label="Navegação"><div class="in">
-  <a class="brand" href="#inicio">agroScore<span>MT</span></a>
+  <a class="brand" href="#pre-analise">agroScore<span>MT</span></a>
   <div class="tabs" role="tablist" aria-label="Abas">
-    <a role="tab" id="tb-inicio" href="#inicio" aria-controls="tab-inicio">Início</a>
-    <a role="tab" id="tb-ferramenta" href="#ferramenta" aria-controls="tab-ferramenta">Ferramenta</a>
+    <a role="tab" id="tb-pre" href="#pre-analise" aria-controls="tab-pre">Pré-análise</a>
     <a role="tab" id="tb-relatorio" href="#relatorio" aria-controls="tab-relatorio">Relatório do imóvel<span class="tabbadge" id="tbBadge" hidden></span></a>
-    <a role="tab" id="tb-carteira" href="#carteira" aria-controls="tab-carteira">Carteira</a>
-    <a role="tab" id="tb-tcc" href="#tcc" aria-controls="tab-tcc">TCC</a>
   </div>
 </div></nav>
 
-<div class="tabpanel" id="tab-inicio" role="tabpanel" aria-labelledby="tb-inicio">
+<div class="tabpanel" id="tab-pre" role="tabpanel" aria-labelledby="tb-pre">
 <!-- ================= CAPA ================= -->
 <section class="cover" id="inicio" aria-labelledby="capaTitulo">
   <div class="chero">
@@ -389,7 +388,7 @@ footer p{max-width:none}
 
   <div class="ccards">
     <a class="ccard" href="#ferramenta">
-      <span class="eyebrow">Aba Ferramenta</span>
+      <span class="eyebrow">Ferramenta · nesta aba</span>
       <h3>Pré-análise de um produtor</h3>
       <p>Informe área, dívida e classe de risco. A receita é calculada por cultura (soja e milho safrinha) e a recomendação sai na hora, com a conta passo a passo.</p>
       <span class="go">Abrir a ferramenta →</span>
@@ -401,13 +400,13 @@ footer p{max-width:none}
       <span class="go">Ler um relatório →</span>
     </a>
     <a class="ccard" href="#carteira">
-      <span class="eyebrow">Aba Carteira</span>
+      <span class="eyebrow">Carteira · nesta aba</span>
       <h3>Análise de todos os associados</h3>
       <p>Carregue uma planilha (CSV ou Excel) com os associados e receba PD, classificação, resumo da carteira e perda esperada, prontos para exportar.</p>
       <span class="go">Analisar a carteira →</span>
     </a>
     <a class="ccard" href="#tcc">
-      <span class="eyebrow">Aba TCC</span>
+      <span class="eyebrow">TCC · nesta aba</span>
       <h3>Metodologia e resultados</h3>
       <p>Como o modelo foi construído e validado: base de 2.867 imóveis do CAR, simulação, efeitos estimados, curva ROC, calibração e escolha do ponto de corte.</p>
       <span class="go">Ver o estudo →</span>
@@ -431,9 +430,7 @@ footer p{max-width:none}
     </div>
   </div>
 </section>
-</div>
 
-<div class="tabpanel" id="tab-ferramenta" role="tabpanel" aria-labelledby="tb-ferramenta" hidden>
 <!-- ================= FERRAMENTA ================= -->
 <section id="ferramenta">
   <div class="head">
@@ -495,45 +492,7 @@ footer p{max-width:none}
     </div>
   </div>
 </section>
-</div>
 
-<div class="tabpanel" id="tab-relatorio" role="tabpanel" aria-labelledby="tb-relatorio" hidden>
-<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
-<section id="relatorio">
-  <div class="head">
-    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
-    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
-    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
-  </div>
-  <div class="fsgrid">
-    <div class="card fsload">
-      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
-      <label class="drop" id="fsDrop" for="fsFile">
-        <input id="fsFile" type="file" accept=".pdf,application/pdf">
-        <b>Escolha o PDF ou arraste para cá</b>
-        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
-      </label>
-      <p class="pfmsg" id="fsMsg" role="status"></p>
-      <div class="fsid" id="fsId"></div>
-      <div class="fsapply" id="fsApply"></div>
-      <div class="fsres" id="fsRes" aria-live="polite"></div>
-      <div class="privacy">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="fshead">
-        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
-        <div class="fscount" id="fsCount"></div>
-      </div>
-      <div id="fsList"></div>
-    </div>
-  </div>
-</section>
-</div>
-
-<div class="tabpanel" id="tab-carteira" role="tabpanel" aria-labelledby="tb-carteira" hidden>
 <!-- ================= CARTEIRA ================= -->
 <section id="carteira">
   <div class="head">
@@ -609,11 +568,9 @@ footer p{max-width:none}
     <p class="pfmsg" id="pfMsg2" role="status"></p>
   </div>
 </section>
-</div>
 
-<div class="tabpanel" id="tab-tcc" role="tabpanel" aria-labelledby="tb-tcc" hidden>
-<header class="top">
-  <div class="eyebrow">Aba TCC · UNEMAT · Campus de Sinop · Ciências Contábeis · 2026</div>
+<header class="top" id="tcc">
+  <div class="eyebrow">TCC · UNEMAT · Campus de Sinop · Ciências Contábeis · 2026</div>
   <h1>Pré-análise de crédito rural com modelo logit</h1>
   <p class="lede">Uma ferramenta em planilha que estima a probabilidade de inadimplência (PD) de um produtor rural a partir da classe de risco, da alavancagem e da área do imóvel, e transforma essa probabilidade em recomendação preliminar para cooperativas de crédito de Mato Grosso.</p>
   <div class="byline"><span>Autora: <b>Gabrieli Saltareli</b></span><span>Orientador: <b>Prof. Dr. Cleiton Franco</b></span><span>Base: CAR / Geoportal SEMA-MT + simulação</span></div>
@@ -894,7 +851,43 @@ footer p{max-width:none}
 </footer>
 </div>
 
-<footer class="gfoot"><p><b>agroScore<span>MT</span></b> · baseado no TCC de Gabrieli Saltareli (Ciências Contábeis, UNEMAT Sinop, 2026), orientação do Prof. Dr. Cleiton Franco · ferramenta didática, recomendação preliminar · referências na <a href="#tcc">aba TCC</a></p></footer>
+<div class="tabpanel" id="tab-relatorio" role="tabpanel" aria-labelledby="tb-relatorio" hidden>
+<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
+<section id="relatorio">
+  <div class="head">
+    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
+    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
+    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
+  </div>
+  <div class="fsgrid">
+    <div class="card fsload">
+      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
+      <label class="drop" id="fsDrop" for="fsFile">
+        <input id="fsFile" type="file" accept=".pdf,application/pdf">
+        <b>Escolha o PDF ou arraste para cá</b>
+        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
+      </label>
+      <p class="pfmsg" id="fsMsg" role="status"></p>
+      <div class="fsid" id="fsId"></div>
+      <div class="fsapply" id="fsApply"></div>
+      <div class="fsres" id="fsRes" aria-live="polite"></div>
+      <div class="privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fshead">
+        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
+        <div class="fscount" id="fsCount"></div>
+      </div>
+      <div id="fsList"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer class="gfoot"><p><b>agroScore<span>MT</span></b> · baseado no TCC de Gabrieli Saltareli (Ciências Contábeis, UNEMAT Sinop, 2026), orientação do Prof. Dr. Cleiton Franco · ferramenta didática, recomendação preliminar · referências na <a href="#tcc">seção TCC</a></p></footer>
 </div>
 <div id="tip" hidden></div>
 
@@ -1593,17 +1586,17 @@ function renderFS(){
 }
 
 /* ---------------- abas ---------------- */
-const TABS=["inicio","ferramenta","relatorio","carteira","tcc"];
-const TCC_SECS=["problema","dados","modelo","efeitos","validacao","decisao","conclusoes"];
 function showTab(t){
-  TABS.forEach(x=>{$("tab-"+x).hidden=x!==t;$("tb-"+x).setAttribute("aria-selected",String(x===t));});
+  const rel=t==="relatorio";
+  $("tab-pre").hidden=rel; $("tab-relatorio").hidden=!rel;
+  $("tb-pre").setAttribute("aria-selected",String(!rel)); $("tb-relatorio").setAttribute("aria-selected",String(rel));
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
-  let t="inicio",sec=null;
-  if(TABS.includes(h)) t=h; else if(TCC_SECS.includes(h)){t="tcc";sec=h;}
-  showTab(t);
-  if(sec) $(sec).scrollIntoView({block:"start"}); else window.scrollTo(0,0);
+  if(h==="relatorio"){showTab("relatorio");window.scrollTo(0,0);return;}
+  showTab("pre");
+  const el=h&&h!=="pre-analise"&&h!=="inicio"?document.getElementById(h):null;
+  if(el) el.scrollIntoView({block:"start"}); else window.scrollTo(0,0);
 }
 function go(h){ if(location.hash==="#"+h) route(); else location.hash=h; }
 window.addEventListener("hashchange",route);
