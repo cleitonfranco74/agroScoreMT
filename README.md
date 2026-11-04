@@ -25,6 +25,44 @@ Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
   marginais, curva ROC (AUC de 0,709 na amostra de teste) e calibração.
 - **Ponto de corte**: explorador que recalcula a matriz de confusão dos 860 produtores de teste.
 
+## Relatório do imóvel (Farm-Scan / Dados Fazenda)
+
+Na seção **Relatório do imóvel**, carregue o PDF do *Relatório da Propriedade* gerado em
+dadosfazenda.com.br. A página lê o PDF no próprio navegador (pdf.js) e:
+
+- extrai a **área de uso consolidado do CAR**, que é a variável de área do modelo, além da área total,
+  dos módulos fiscais, da vegetação nativa e do uso do solo;
+- monta uma checagem por grupo (cadastro, ambiental, sobreposições, produtivo e clima), com níveis
+  *impedimento*, *alerta*, *sem pendência* e *informativo*. São **impedimentos**: CAR suspenso ou
+  cancelado, embargo IBAMA/ICMBio, desmatamento no PRODES e sobreposição com terra indígena, unidade
+  de conservação ou território quilombola. São **alertas**, entre outros: queimadas recentes, passivo
+  de Reserva Legal, processos minerários sobre a maior parte do imóvel, ausência de lavoura no uso do
+  solo, safra mais recente antiga na CONAB, aptidão agrícola inapta e recorrência de seca;
+- leva os dados para a ferramenta: aplica a área consolidada e ativa a nova regra eliminatória
+  **impedimento socioambiental** (com prioridade sobre a PD, como a restrição no SFN). O percentual
+  de soja e milho pela lavoura detectada pode ser aplicado com um clique.
+
+A checagem é uma triagem automática. Cada ponto deve ser confirmado nas bases oficiais (SICAR, IBAMA,
+INPE, ANM) antes do parecer.
+
+## Rotina para cooperativas: análise da carteira
+
+Na seção **Carteira**, a cooperativa analisa todos os associados de uma vez:
+
+1. Baixe o modelo ([`modelo_associados.csv`](modelo_associados.csv), também disponível pelo botão na
+   página) e preencha uma linha por associado. Obrigatórias: `area_ha`, `endividamento_sfn` e
+   `classe` (1 a 10 ou R1 a R10). Opcionais: `codigo`, `nome`, `municipio`, `valor_solicitado`,
+   `patrimonio_terras`, `restricao_sfn`, `pct_soja`, `pct_milho` e `impedimento_socioambiental`.
+2. Na ferramenta, defina o ponto de corte, a margem, a LGD e os parâmetros de soja e milho.
+3. Carregue o arquivo (CSV separado por ponto e vírgula ou vírgula, ou Excel .xlsx). Aceita números no
+   formato brasileiro (1.234.567,89) e nomes de colunas com acentos ou maiúsculas.
+4. Veja o resumo (aprováveis, não aprováveis, restrições, impedimentos, PD média e perda esperada dos
+   aprováveis), filtre, ordene e abra qualquer associado na ferramenta.
+5. Exporte os resultados em CSV ou copie a tabela para o Excel.
+
+Os arquivos são processados apenas no navegador e não são enviados a nenhum servidor. Mesmo assim,
+prefira códigos internos a nomes e CPF (LGPD).
+
 O modelo usa PD = 1 / (1 + e^−XB), com
 XB = −1,3870 + 0,1469·Classe + 1,0832·ln(Alavancagem) − 0,1594·ln(Área).
 

@@ -134,6 +134,88 @@ section > .head{display:grid;gap:8px}
 .legendkey span{display:inline-flex;align-items:center;gap:6px}
 .legendkey i{width:14px;height:12px;border-radius:2px;display:inline-block;border:1px solid}
 
+/* ---------- relatório da propriedade ---------- */
+.fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
+.fsload{gap:14px}
+.fsid{display:grid;gap:10px}
+.fsid .nm{font-family:var(--f-display);font-weight:700;font-size:1.15rem;line-height:1.2}
+.fsid .car{font-family:var(--f-mono);font-size:.76rem;color:var(--ink-2);word-break:break-all}
+.fsnums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+.fsnums div{padding:10px 10px 10px 0;display:grid;gap:1px;border-bottom:1px solid var(--line)}
+.fsnums div:nth-child(even){padding-left:12px;border-left:1px solid var(--line)}
+.fsnums .v{font-family:var(--f-mono);font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums}
+.fsnums .k{font-size:.76rem;color:var(--ink-2);line-height:1.3}
+.fsnums .model .v{color:var(--accent)}
+.fsapply{display:grid;gap:8px;padding:12px 14px;border-radius:6px;background:var(--accent-soft)}
+.fsapply .t{font-size:.8rem;font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fsapply .it{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.86rem}
+.fsapply .it small{display:block;color:var(--ink-2);font-size:.76rem}
+.fsapply button{font:inherit;font-size:.8rem;padding:4px 10px;border-radius:4px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
+.fsapply button.done{background:var(--accent);color:var(--surface);cursor:default}
+.fsapply .all{justify-self:start;font-weight:600;background:var(--accent);color:var(--surface)}
+.fshead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.fscount{display:flex;gap:6px;flex-wrap:wrap}
+.fscount span{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px}
+.lv-imp{background:var(--bad-bg);color:var(--bad)} .lv-att{background:var(--warn-bg);color:var(--warn)} .lv-ok{background:var(--good-bg);color:var(--good)}
+.lv-info,.lv-na{background:var(--bg);color:var(--ink-2)}
+.fsgrp{display:grid;gap:0;margin-top:6px}
+.fsgrp > .eyebrow{padding:8px 0 4px;color:var(--ink-2)}
+.fsitem{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.fsitem .ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+.fsitem .ic svg{display:block}
+.fsitem b{font-size:.92rem;font-weight:600;display:block;line-height:1.35}
+.fsitem p{font-size:.82rem;color:var(--ink-2);max-width:none;line-height:1.45}
+.fsitem.imp b{color:var(--bad)}
+.fsempty{padding:18px 0;color:var(--ink-2);font-size:.9rem}
+@media (max-width:900px){.fsgrid{grid-template-columns:minmax(0,1fr)}}
+/* ---------- carteira ---------- */
+.pfgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:start}
+.pfload{gap:14px}
+.drop{display:grid;gap:4px;justify-items:center;text-align:center;padding:26px 16px;border:2px dashed var(--input-line);border-radius:6px;background:var(--input-bg);cursor:pointer;color:var(--ink)}
+.drop:hover,.drop.over{border-color:var(--accent)}
+.drop:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.drop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.drop b{font-size:.98rem}
+.drop span{font-size:.8rem;color:var(--ink-2)}
+.pfbtns{display:flex;flex-wrap:wrap;gap:8px}
+.pfbtns button,.pfpage button,.pffilter button{font:inherit;font-size:.84rem;padding:6px 12px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.pfbtns button:hover,.pfpage button:hover:not(:disabled),.pffilter button:hover{border-color:var(--accent)}
+.pfbtns button:first-child{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+.pfmsg{font-size:.86rem;color:var(--ink-2);max-width:none;min-height:1.2em}
+.pfmsg.err{color:var(--bad)}
+.privacy{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;line-height:1.45;color:var(--ink-2);padding:10px 12px;border-radius:4px;background:var(--bg)}
+.privacy svg{flex:none;color:var(--good);margin-top:2px}
+table.dict td{white-space:normal}
+table.dict td:last-child,table.dict th:last-child{text-align:center}
+.pfhead{display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;align-items:flex-end}
+.pfhead .note{max-width:52ch;text-align:right}
+.pfsum{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pfsum div{padding:12px 12px 12px 0;display:grid;gap:2px;align-content:start}
+.pfsum div+div{padding-left:12px;border-left:1px solid var(--line)}
+.pfsum .v{font-family:var(--f-display);font-size:1.45rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+.pfsum .k{font-size:.78rem;color:var(--ink-2);line-height:1.3;display:flex;gap:6px;align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block}
+.dot.A{background:var(--good)} .dot.N{background:var(--bad)} .dot.R{background:var(--bad);box-shadow:inset 0 0 0 2px var(--bad-bg)} .dot.V{background:var(--warn)}
+.pftools{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.pffilter{display:flex;flex-wrap:wrap;gap:6px}
+.pffilter button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+#pfSearch{font:inherit;font-size:.88rem;padding:6px 10px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);min-width:0;width:min(100%,280px)}
+table.pftable th{cursor:pointer;user-select:none}
+table.pftable th[aria-sort]::after{content:" ↕";color:var(--muted)}
+table.pftable th[aria-sort="ascending"]::after{content:" ↑";color:var(--accent)}
+table.pftable th[aria-sort="descending"]::after{content:" ↓";color:var(--accent)}
+table.pftable th.noclick{cursor:default}
+table.pftable th.noclick::after{content:none}
+table.pftable td.why{white-space:normal;font-size:.78rem;color:var(--ink-2);text-align:left;min-width:10rem}
+table.pftable .pill.r{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad)}
+table.pftable .pill.v{background:var(--warn-bg);color:var(--warn)}
+table.pftable button{font:inherit;font-size:.78rem;padding:3px 9px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--accent);cursor:pointer}
+table.pftable button:hover{border-color:var(--accent)}
+.pfpage{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.84rem;color:var(--ink-2)}
+.pfpage button:disabled{opacity:.45;cursor:default}
+.pfempty{padding:18px;text-align:center;color:var(--ink-2)}
+@media (max-width:900px){.pfgrid{grid-template-columns:minmax(0,1fr)}.pfsum{grid-template-columns:repeat(3,minmax(0,1fr))}.pfsum div:nth-child(4){padding-left:0;border-left:0}.pfsum div:nth-child(n+4){border-top:1px solid var(--line)}.pfhead .note{text-align:left}}
+@media (max-width:620px){.pfsum{grid-template-columns:repeat(2,minmax(0,1fr))}.pfsum div:nth-child(n){padding-left:12px;border-left:1px solid var(--line);border-top:0}.pfsum div:nth-child(odd){padding-left:0;border-left:0}.pfsum div:nth-child(n+3){border-top:1px solid var(--line)}}
 /* ---------- tabelas & gráficos ---------- */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:grid;gap:10px;min-width:0}
 .card .cap{display:grid;gap:2px}
@@ -219,7 +301,7 @@ footer p{max-width:none}
 </header>
 
 <nav class="toc" aria-label="Seções"><div class="in">
-  <a href="#ferramenta">Ferramenta</a><a href="#problema">Problema</a><a href="#dados">Dados</a><a href="#modelo">Modelo</a><a href="#efeitos">Efeitos</a><a href="#validacao">Validação</a><a href="#decisao">Ponto de corte</a><a href="#conclusoes">Conclusões</a>
+  <a href="#ferramenta">Ferramenta</a><a href="#relatorio">Relatório do imóvel</a><a href="#carteira">Carteira</a><a href="#problema">Problema</a><a href="#dados">Dados</a><a href="#modelo">Modelo</a><a href="#efeitos">Efeitos</a><a href="#validacao">Validação</a><a href="#decisao">Ponto de corte</a><a href="#conclusoes">Conclusões</a>
 </div></nav>
 
 <!-- ================= FERRAMENTA ================= -->
@@ -242,6 +324,7 @@ footer p{max-width:none}
         <div class="row"><span class="code">VALOR_SOLICIT · D16</span><label for="valor">Valor solicitado<small>R$ · informativo</small></label><input id="valor" type="number" min="0" step="1000" inputmode="decimal"></div>
         <div class="row"><span class="code">PTR_TERRAS · D17</span><label for="ptr">Patrimônio em terras<small>R$ · 0 = estimar pela área</small></label><input id="ptr" type="number" min="0" step="1000" inputmode="decimal"></div>
         <div class="row"><span class="code">RESTRICAO_SFN · D18</span><span class="lbl">Restrição ativa no SFN<small>regra eliminatória</small></span><div class="seg" id="restr" role="group" aria-label="Restrição ativa no SFN"><button type="button" data-v="0">Não</button><button type="button" data-v="1">Sim</button></div></div>
+        <div class="row"><span class="code">IMPED_SOCIOAMB</span><span class="lbl">Impedimento socioambiental<small>regra eliminatória · <a href="#relatorio">relatório do imóvel</a></small></span><div class="seg" id="socio" role="group" aria-label="Impedimento socioambiental"><button type="button" data-v="0">Não</button><button type="button" data-v="1">Sim</button></div></div>
       </div>
       <div class="subhead crophead"><span>Composição da receita · soja e milho safrinha</span><button type="button" id="cropReset">Restaurar parâmetros do TCC</button></div>
       <div class="rows">
@@ -280,6 +363,115 @@ footer p{max-width:none}
         <p class="note">Coeficientes estimados na amostra de treino (2.007 produtores) com inadimplência simulada. Uso didático: não representa o risco de produtores reais nem a política de nenhuma instituição.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
+<section id="relatorio">
+  <div class="head">
+    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
+    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
+    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
+  </div>
+  <div class="fsgrid">
+    <div class="card fsload">
+      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
+      <label class="drop" id="fsDrop" for="fsFile">
+        <input id="fsFile" type="file" accept=".pdf,application/pdf">
+        <b>Escolha o PDF ou arraste para cá</b>
+        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
+      </label>
+      <p class="pfmsg" id="fsMsg" role="status"></p>
+      <div class="fsid" id="fsId"></div>
+      <div class="fsapply" id="fsApply"></div>
+      <div class="privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fshead">
+        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
+        <div class="fscount" id="fsCount"></div>
+      </div>
+      <div id="fsList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CARTEIRA ================= -->
+<section id="carteira">
+  <div class="head">
+    <div class="eyebrow">Rotina para cooperativas</div>
+    <h2>Analise a carteira de associados de uma vez</h2>
+    <p style="color:var(--ink-2)">Carregue uma planilha com uma linha por associado. A página calcula a receita, a alavancagem, a PD e a classificação de cada um com o mesmo modelo da ferramenta acima, usando o ponto de corte e os parâmetros de soja e milho definidos lá.</p>
+  </div>
+  <ol class="steps">
+    <li><b>Baixe o modelo</b><span>Arquivo CSV com as colunas na ordem certa. Abre no Excel ou no LibreOffice.</span></li>
+    <li><b>Preencha</b><span>Uma linha por associado. Área, endividamento e classe são obrigatórios.</span></li>
+    <li><b>Ajuste os critérios</b><span>Na ferramenta acima: ponto de corte, margem, LGD e parâmetros de soja e milho.</span></li>
+    <li><b>Carregue o arquivo</b><span>CSV (separado por ponto e vírgula ou vírgula) ou Excel (.xlsx).</span></li>
+    <li><b>Revise e exporte</b><span>Filtre, abra um associado na ferramenta e exporte os resultados.</span></li>
+  </ol>
+
+  <div class="pfgrid">
+    <div class="card pfload">
+      <div class="cap"><span class="eyebrow">Carregar dados</span><h3>Arquivo dos associados</h3></div>
+      <label class="drop" id="pfDrop" for="pfFile">
+        <input id="pfFile" type="file" accept=".csv,.txt,.xlsx,.xls">
+        <b>Escolha o arquivo ou arraste para cá</b>
+        <span>.csv ou .xlsx · a primeira linha deve ter os nomes das colunas</span>
+      </label>
+      <div class="pfbtns">
+        <button type="button" id="pfModelo">Baixar modelo CSV</button>
+        <button type="button" id="pfCopyHead">Copiar cabeçalho</button>
+        <button type="button" id="pfExample">Carregar exemplo</button>
+      </div>
+      <p class="pfmsg" id="pfMsg" role="status"></p>
+      <div class="privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Os dados são lidos e processados apenas neste navegador. Nada é enviado a servidores, e tudo some ao fechar a página. Mesmo assim, prefira códigos internos a nomes e CPF (LGPD).</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="cap"><span class="eyebrow">Colunas do arquivo</span><h3>O que preencher</h3></div>
+      <div class="tw"><table class="dict">
+        <thead><tr><th>Coluna</th><th style="text-align:left">Conteúdo</th><th>Obrigatória</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">codigo</td><td style="text-align:left">Código interno do associado</td><td>não</td></tr>
+          <tr><td class="mono">nome</td><td style="text-align:left">Nome ou apelido (opcional)</td><td>não</td></tr>
+          <tr><td class="mono">municipio</td><td style="text-align:left">Município do imóvel</td><td>não</td></tr>
+          <tr><td class="mono">area_ha</td><td style="text-align:left">Área consolidada do CAR, em hectares</td><td><b>sim</b></td></tr>
+          <tr><td class="mono">endividamento_sfn</td><td style="text-align:left">Dívida total no SFN, em R$</td><td><b>sim</b></td></tr>
+          <tr><td class="mono">classe</td><td style="text-align:left">Classe de risco interna, 1 a 10 (ou R1 a R10)</td><td><b>sim</b></td></tr>
+          <tr><td class="mono">valor_solicitado</td><td style="text-align:left">Valor da operação pleiteada, em R$</td><td>não</td></tr>
+          <tr><td class="mono">patrimonio_terras</td><td style="text-align:left">Patrimônio em terras, em R$ (vazio = estimar pela área)</td><td>não</td></tr>
+          <tr><td class="mono">restricao_sfn</td><td style="text-align:left">Restrição ativa no SFN: 0/1 ou não/sim</td><td>não</td></tr>
+          <tr><td class="mono">pct_soja</td><td style="text-align:left">% da área com soja, 0 a 100 (vazio = valor da ferramenta)</td><td>não</td></tr>
+          <tr><td class="mono">impedimento_socioambiental</td><td style="text-align:left">Impedimento do relatório do imóvel: 0/1 ou não/sim</td><td>não</td></tr>
+          <tr><td class="mono">pct_milho</td><td style="text-align:left">% da área com milho safrinha, 0 a 100 (vazio = valor da ferramenta)</td><td>não</td></tr>
+        </tbody></table></div>
+      <p class="note">Valores podem vir no formato brasileiro (1.234.567,89) ou com ponto decimal. Os nomes das colunas aceitam acentos e maiúsculas.</p>
+    </div>
+  </div>
+
+  <div class="card" id="pfResult">
+    <div class="pfhead">
+      <div class="cap"><span class="eyebrow" id="pfSource">Carteira</span><h3 id="pfTitle">Resultado da pré-análise</h3></div>
+      <p class="note" id="pfParams"></p>
+    </div>
+    <div class="pfsum" id="pfSum"></div>
+    <div class="pftools">
+      <div class="pffilter" role="group" aria-label="Filtrar por classificação" id="pfFilter"></div>
+      <input id="pfSearch" type="search" placeholder="Buscar código, nome ou município" aria-label="Buscar associado">
+    </div>
+    <div class="tw"><table class="pftable" id="pfTable"></table></div>
+    <div class="pfpage" id="pfPage"></div>
+    <div class="pfbtns">
+      <button type="button" id="pfExport">Exportar resultados (CSV)</button>
+      <button type="button" id="pfCopy">Copiar tabela para o Excel</button>
+    </div>
+    <p class="pfmsg" id="pfMsg2" role="status"></p>
   </div>
 </section>
 
@@ -585,7 +777,7 @@ const pct=(x,d=1)=>Number.isFinite(x)?nf(d).format(x*100)+"%":"–";
 const brl=x=>Number.isFinite(x)?"R$ "+nf(2).format(x):"–";
 const num=(x,d=4)=>Number.isFinite(x)?nf(d).format(x):"–";
 
-const S=Object.assign({area:400,endv:1800000,classe:5,valor:600000,ptr:0,restr:0,crit:"Y",marg:5,lgd:35,cut:YOUDEN,preset:"ex1"},CROP_TCC);
+const S=Object.assign({area:400,endv:1800000,classe:5,valor:600000,ptr:0,restr:0,crit:"Y",marg:5,lgd:35,cut:YOUDEN,preset:"ex1",socio:0},CROP_TCC);
 
 // build class select
 const sel=$("classe");
@@ -593,7 +785,7 @@ for(let i=1;i<=10;i++){const o=document.createElement("option");o.value=i;o.text
 // presets
 const pr=$("presets");
 PRESETS.forEach(p=>{const b=document.createElement("button");b.type="button";b.textContent=p.n;b.dataset.id=p.id;
-  b.addEventListener("click",()=>{Object.assign(S,CROP_TCC,p.v);if(p.crit)S.crit=p.crit;S.preset=p.id;syncCut();writeInputs();update();});pr.appendChild(b);});
+  b.addEventListener("click",()=>{Object.assign(S,CROP_TCC,{socio:0},p.v);if(p.crit)S.crit=p.crit;S.preset=p.id;syncCut();writeInputs();update();});pr.appendChild(b);});
 
 function econCut(){return (S.marg/100)/((S.marg/100)+(S.lgd/100));}
 function syncCut(){ if(S.crit==="Y")S.cut=YOUDEN; else if(S.crit==="E")S.cut=econCut(); }
@@ -608,6 +800,7 @@ sel.addEventListener("change",e=>{S.classe=+e.target.value;S.preset=null;update(
 $("marg").addEventListener("input",e=>{S.marg=parseFloat(e.target.value);if(S.crit==="E")syncCut();update();});
 $("lgd").addEventListener("input",e=>{S.lgd=parseFloat(e.target.value);if(S.crit==="E")syncCut();update();});
 $("restr").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{S.restr=+b.dataset.v;S.preset=null;update();}));
+$("socio").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{S.socio=+b.dataset.v;S.preset=null;update();}));
 $("crit").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{S.crit=b.dataset.v;syncCut();update();}));
 $("cutSlider").addEventListener("input",e=>{S.cut=parseFloat(e.target.value);S.crit="M";update();});
 $("cutBtns").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const c=b.dataset.c;
@@ -629,7 +822,7 @@ function compute(){
   const xb=B0+B1*c+B2*lnA+B3*lnAr;
   const pd=1/(1+Math.exp(-xb));
   let cls;
-  if(S.restr===1) cls="R"; else if(!valid||!Number.isFinite(pd)) cls="V"; else cls=pd<S.cut?"A":"N";
+  if(S.restr===1) cls="R"; else if(S.socio===1) cls="S"; else if(!valid||!Number.isFinite(pd)) cls="V"; else cls=pd<S.cut?"A":"N";
   return {recU,recSoja,recMilho,recSojaHa,recMilhoHa,fS,fM,alav,lnA,lnAr,solv:e/patr,prop:S.valor>0?S.valor/recU:NaN,res:resEst,xb,pd,cls,valid};
 }
 
@@ -641,6 +834,7 @@ function update(){
   const r=compute();
   // seg buttons
   $("restr").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.v===S.restr)));
+  $("socio").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.v===S.socio)));
   $("crit").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===S.crit)));
   pr.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.id===S.preset)));
   $("cutBtns").querySelectorAll("button").forEach(b=>{const c=b.dataset.c;b.setAttribute("aria-pressed",String(c===S.crit||(S.crit==="M"&&Math.abs(parseFloat(c)-S.cut)<1e-9)));});
@@ -669,12 +863,13 @@ function update(){
     ["RESULT_EST · D27","Resultado operacional estimado",brl(r.res),"receita − custo de cada cultura"]];
   $("calcRows").innerHTML=rows.map(x=>`<div class="row"><span class="code">${x[0]}</span><span class="lbl">${x[1]}${x[3]?`<small>${x[3]}</small>`:""}</span><div class="calc">${x[2]}</div></div>`).join("");
   // verdict
-  const v=$("verdict"); v.className="verdict "+({A:"ok",N:"no",R:"no",V:"warn"}[r.cls]);
-  const lab={A:"APROVÁVEL",N:"NÃO APROVÁVEL",R:"NÃO APROVÁVEL – restrição ativa no SFN",V:"VERIFIQUE AS ENTRADAS"}[r.cls];
-  $("vLab").innerHTML=(ICON[r.cls==="R"?"N":r.cls])+"<span>"+lab+"</span>";
+  const v=$("verdict"); v.className="verdict "+({A:"ok",N:"no",R:"no",S:"no",V:"warn"}[r.cls]);
+  const lab={A:"APROVÁVEL",N:"NÃO APROVÁVEL",R:"NÃO APROVÁVEL – restrição ativa no SFN",S:"NÃO APROVÁVEL – impedimento socioambiental",V:"VERIFIQUE AS ENTRADAS"}[r.cls];
+  $("vLab").innerHTML=(ICON[(r.cls==="R"||r.cls==="S")?"N":r.cls])+"<span>"+lab+"</span>";
   $("vTxt").textContent={A:`PD de ${pct(r.pd)} abaixo do corte de ${pct(S.cut)}. A proposta segue para a análise completa; a classificação não equivale à aprovação do crédito.`,
     N:`PD de ${pct(r.pd)} igual ou acima do corte de ${pct(S.cut)}. Recomenda-se não prosseguir nas condições propostas ou reavaliar valor, garantias ou reestruturação de dívidas.`,
     R:`A regra eliminatória prevalece sobre a PD (${pct(r.pd)}), exibida só como informação. A operação depende da regularização da restrição.`,
+    S:`Um impedimento socioambiental do imóvel prevalece sobre a PD (${Number.isFinite(r.pd)?pct(r.pd):"–"}), exibida só como informação. Veja os detalhes em Relatório do imóvel; a operação depende da regularização.`,
     V:"Há campo vazio, igual a zero ou inválido. Área e endividamento precisam ser maiores que zero para calcular os logaritmos."}[r.cls];
   $("pdVal").textContent=r.valid?pct(r.pd):"–";
   $("cutVal").textContent=pct(S.cut);
@@ -688,6 +883,8 @@ function update(){
   // slider
   $("cutSlider").value=S.cut; $("cutSlVal").textContent=pct(S.cut);
   drawClasse(); drawPD(r); drawROC(); drawCut(); drawCM();
+  if(PF.rows.length) renderPortfolio();
+  if(FS.d) renderFS();
 }
 
 /* ---------------- charts ---------------- */
@@ -835,8 +1032,414 @@ function drawCM(){
    <dt>Sem modelo (aprovar todos)</dt><dd>${pct(NPOS/TEST.length)}</dd>`;
 }
 
+/* ---------------- carteira de associados ---------------- */
+const PF_COLS=["codigo","nome","municipio","area_ha","endividamento_sfn","classe","valor_solicitado","patrimonio_terras","restricao_sfn","pct_soja","pct_milho","impedimento_socioambiental"];
+const PF_ALIAS={
+  codigo:["codigo","cod","id","matricula","conta","codigo_associado"],
+  nome:["nome","associado","produtor","cooperado","nome_associado"],
+  municipio:["municipio","cidade"],
+  area:["area_ha","area","area_consolidada","area_consolidada_ha","area_car","hectares","ha"],
+  endv:["endividamento_sfn","endividamento","endv_sfn","endv","divida","divida_sfn","divida_total","endividamento_total"],
+  classe:["classe","classe_risco","classe_de_risco","rating","risco","nivel_risco"],
+  valor:["valor_solicitado","valor_solicit","valor","valor_operacao","valor_pleiteado"],
+  ptr:["patrimonio_terras","ptr_terras","patrimonio","patrimonio_em_terras","valor_terras"],
+  restr:["restricao_sfn","restricao","restricao_ativa","restr"],
+  socio:["impedimento_socioambiental","impedimento","imped_socioamb","socioambiental","impedimento_ambiental"],
+  pSoja:["pct_soja","soja_pct","perc_soja","percentual_soja","soja"],
+  pMilho:["pct_milho","milho_pct","perc_milho","percentual_milho","milho","pct_milho_safrinha","milho_safrinha"]
+};
+const PF_EXAMPLE=[["EX-001","Associado fictício 01","Sinop",10637.9,240846800,10,16078000,0],["EX-002","Associado fictício 02","Marcelândia",2493.5,6740500,8,3769000,0],["EX-003","Associado fictício 03","Sinop",369.6,3477600,9,559000,0],["EX-004","Associado fictício 04","Marcelândia",316.4,1961800,3,478000,0],["EX-005","Associado fictício 05","Cláudia",608.8,13485900,7,920000,1],["EX-006","Associado fictício 06","Cláudia",3402.6,21625300,6,5143000,0],["EX-007","Associado fictício 07","Vera",795.4,10472400,8,1202000,0],["EX-008","Associado fictício 08","Paranaíta",1511.0,5306400,5,2284000,0],["EX-009","Associado fictício 09","Sinop",153.0,2844500,8,231000,0],["EX-010","Associado fictício 10","Marcelândia",10828.9,null,1,16366000,0],["EX-011","Associado fictício 11","Alta Floresta",69.4,449200,5,105000,0],["EX-012","Associado fictício 12","Alta Floresta",62.8,1410100,10,95000,0],["EX-013","Associado fictício 13","Sinop",88.4,978600,6,134000,0],["EX-014","Associado fictício 14","Cláudia",1232.3,9652800,6,1862000,0]];
+const PF_LABEL={A:"Aprovável",N:"Não aprovável",R:"Restrição no SFN",S:"Impedimento socioambiental",V:"Verifique os dados"};
+const PF_PILL={A:"y",N:"n",R:"r",S:"r",V:"v"};
+const PF_PER=25;
+const PF={rows:[],source:"",example:false,filter:"all",q:"",sort:null,dir:1,page:0};
+
+const normKey=s=>String(s==null?"":s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+function parseNum(v){
+  if(v==null)return NaN; if(typeof v==="number")return v;
+  let s=String(v).trim().replace(/R\$|%|\s/g,""); if(!s)return NaN;
+  const neg=/^\(.*\)$/.test(s); s=s.replace(/[()]/g,"");
+  const c=s.lastIndexOf(","),d=s.lastIndexOf(".");
+  if(c>-1&&d>-1){ s=c>d? s.replace(/\./g,"").replace(",","."): s.replace(/,/g,""); }
+  else if(c>-1){ s=/^-?\d{1,3}(,\d{3})+$/.test(s)&&s.split(",").length>2? s.replace(/,/g,""): s.replace(",","."); }
+  else if(d>-1&&/^-?\d{1,3}(\.\d{3})+$/.test(s)){ s=s.replace(/\./g,""); }
+  const n=Number(s); return neg?-n:n;
+}
+function parseClasse(v){ if(v==null||v==="")return NaN; const m=String(v).trim().match(/^r?\s*(\d+(?:[.,]0+)?)$/i); if(!m)return NaN; const n=parseNum(m[1]); return Number.isInteger(n)?n:NaN; }
+function parseRestr(v){ const s=normKey(v); if(!s||["0","nao","n","false","no","sem"].includes(s))return 0; if(["1","sim","s","true","yes","x","com"].includes(s))return 1; return NaN; }
+function parseCSV(text){
+  text=text.replace(/^﻿/,"");
+  const first=text.split(/\r?\n/,1)[0]||"";
+  const cnt=ch=>first.split(ch).length-1;
+  const del=[";",",","\t"].sort((a,b)=>cnt(b)-cnt(a))[0];
+  const out=[];let row=[],f="",q=false;
+  for(let i=0;i<text.length;i++){const ch=text[i];
+    if(q){ if(ch==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=ch; }
+    else if(ch==='"') q=true;
+    else if(ch===del){row.push(f);f="";}
+    else if(ch==="\n"||ch==="\r"){ if(ch==="\r"&&text[i+1]==="\n")i++; row.push(f);out.push(row);row=[];f=""; }
+    else f+=ch;}
+  if(f!==""||row.length){row.push(f);out.push(row);}
+  return out.filter(r=>r.some(c=>String(c).trim()!==""));
+}
+function mapHeader(head){
+  const keys=head.map(normKey),idx={};
+  for(const k in PF_ALIAS){const i=keys.findIndex(h=>PF_ALIAS[k].includes(h)); if(i>-1)idx[k]=i;}
+  return idx;
+}
+function rowsFromTable(tab,source){
+  if(tab.length<2) throw new Error("O arquivo não tem linhas de dados abaixo do cabeçalho.");
+  const idx=mapHeader(tab[0]);
+  const falta=[["area","area_ha"],["endv","endividamento_sfn"],["classe","classe"]].filter(x=>!(x[0] in idx)).map(x=>x[1]);
+  if(falta.length) throw new Error("Colunas obrigatórias não encontradas: "+falta.join(", ")+". Confira o cabeçalho da primeira linha ou use o modelo.");
+  const g=(r,k)=>k in idx? r[idx[k]] : "";
+  return tab.slice(1).map((r,i)=>({line:i+2,
+    codigo:String(g(r,"codigo")??"").trim()||("linha "+(i+2)), nome:String(g(r,"nome")??"").trim(), municipio:String(g(r,"municipio")??"").trim(),
+    area:parseNum(g(r,"area")), endv:parseNum(g(r,"endv")), classe:parseClasse(g(r,"classe")),
+    valor:parseNum(g(r,"valor")), ptr:parseNum(g(r,"ptr")), restr:parseRestr(g(r,"restr")), socio:parseRestr(g(r,"socio")),
+    pSoja:parseNum(g(r,"pSoja")), pMilho:parseNum(g(r,"pMilho"))}));
+}
+function evalRow(r){
+  const why=[];
+  const pct=(x,def,nm)=>{ if(!Number.isFinite(x))return def/100; if(x<0||x>100){why.push(nm+" fora de 0–100");return NaN;} return x/100; };
+  const fS=pct(r.pSoja,S.pSoja,"% soja"), fM=pct(r.pMilho,S.pMilho,"% milho");
+  if(!(r.area>0)) why.push("área ausente ou ≤ 0");
+  if(!(r.endv>0)) why.push("endividamento ausente ou ≤ 0");
+  if(!(r.classe>=1&&r.classe<=10)) why.push("classe deve ser 1 a 10");
+  if(!Number.isFinite(r.restr)) why.push("restrição deve ser 0/1 ou não/sim");
+  if(r.socio!==undefined&&!Number.isFinite(r.socio)) why.push("impedimento deve ser 0/1 ou não/sim");
+  const rec=r.area*((fS||0)*S.sProd*S.sPreco+(fM||0)*S.mProd*S.mPreco);
+  if(r.area>0&&Number.isFinite(fS)&&Number.isFinite(fM)&&!(rec>0)) why.push("receita zero (sem área cultivada)");
+  const ok=!why.length;
+  const alav=ok?r.endv/rec:NaN;
+  const xb=ok?B0+B1*r.classe+B2*Math.log(alav)+B3*Math.log(r.area):NaN;
+  const pd=ok?1/(1+Math.exp(-xb)):NaN;
+  const patr=r.ptr>0?r.ptr:r.area*TERRA_HA;
+  const cls=r.restr===1?"R":(r.socio===1?"S":(!ok?"V":(pd<S.cut?"A":"N")));
+  if(cls==="R") why.unshift("restrição ativa no SFN");
+  if(cls==="S") why.unshift("impedimento socioambiental");
+  return Object.assign({},r,{rec,alav,xb,pd,solv:ok?r.endv/patr:NaN,cls,why:why.join("; ")});
+}
+function pfLoad(rows,source,example){
+  PF.rows=rows;PF.source=source;PF.example=!!example;PF.filter="all";PF.q="";PF.page=0;PF.sort=null;
+  $("pfSearch").value="";
+  const inval=rows.map(evalRow).filter(r=>r.cls==="V").length;
+  pfMsg(`${nf(0).format(rows.length)} associado${rows.length===1?"":"s"} lido${rows.length===1?"":"s"} de ${source}.`+(inval?` ${inval} com dados a verificar (veja a coluna Observação).`:""));
+  renderPortfolio();
+}
+function pfMsg(t,err,id){const el=$(id||"pfMsg");el.textContent=t;el.classList.toggle("err",!!err);}
+
+async function readFile(file){
+  const name=file.name, ext=(name.split(".").pop()||"").toLowerCase();
+  if(ext==="xlsx"||ext==="xls"){
+    if(!window.XLSX){ pfMsg("Carregando leitor de Excel…"); await new Promise((ok,ko)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";s.onload=ok;s.onerror=()=>ko(new Error("Não foi possível carregar o leitor de Excel. Salve a planilha como CSV e tente de novo."));document.head.appendChild(s);}); }
+    const wb=XLSX.read(await file.arrayBuffer(),{type:"array"});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const tab=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:""}).filter(r=>r.some(c=>String(c).trim()!==""));
+    return rowsFromTable(tab,name+(wb.SheetNames.length>1?` (aba ${wb.SheetNames[0]})`:""));
+  }
+  let text=await file.text();
+  if(text.includes("�")){ try{ text=new TextDecoder("windows-1252").decode(await file.arrayBuffer()); }catch(e){} }
+  return rowsFromTable(parseCSV(text),name);
+}
+async function handleFile(file){
+  if(!file)return;
+  try{ const rows=await readFile(file); pfLoad(rows,file.name,false); $("pfResult").scrollIntoView({behavior:"smooth",block:"start"}); }
+  catch(e){ pfMsg(e.message||String(e),true); }
+}
+$("pfFile").addEventListener("change",e=>{handleFile(e.target.files[0]);e.target.value="";});
+const drop=$("pfDrop");
+["dragenter","dragover"].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add("over");}));
+["dragleave","drop"].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove("over");}));
+drop.addEventListener("drop",e=>handleFile(e.dataTransfer.files[0]));
+$("pfExample").addEventListener("click",()=>loadExample());
+function loadExample(){
+  pfLoad(PF_EXAMPLE.map((r,i)=>({line:i+2,codigo:r[0],nome:r[1],municipio:r[2],area:r[3],endv:r[4]==null?NaN:r[4],classe:r[5],valor:r[6],ptr:NaN,restr:r[7],pSoja:NaN,pMilho:NaN})),"exemplo com 14 associados fictícios",true);
+}
+
+// downloads e cópia
+function saveFile(name,text,id){
+  try{
+    const blob=new Blob(["﻿"+text],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    pfMsg(`Arquivo ${name} gerado. Se o download não começar, use o botão de copiar.`,false,id);
+  }catch(e){pfMsg("O download não está disponível nesta visualização. Use o botão de copiar.",true,id);}
+}
+async function copyText(text,okMsg,id){
+  try{ await navigator.clipboard.writeText(text); pfMsg(okMsg,false,id); }
+  catch(e){ const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand("copy");}catch(_){} ta.remove(); pfMsg(ok?okMsg:"Não foi possível copiar automaticamente neste navegador.",!ok,id); }
+}
+const MODELO=PF_COLS.join(";")+"\n"+
+ "A-0001;;Sinop;400;1800000;5;600000;;0;100;100;0\n"+
+ "A-0002;;Sorriso;1250,5;9.750.000,00;R7;1.500.000,00;;não;100;70;não\n";
+$("pfModelo").addEventListener("click",()=>saveFile("modelo_associados.csv",MODELO));
+$("pfCopyHead").addEventListener("click",()=>copyText(PF_COLS.join("\t"),"Cabeçalho copiado. Cole na primeira linha de uma planilha (uma coluna por campo)."));
+
+const fmtBR=(x,d)=>Number.isFinite(x)?x.toFixed(d).replace(".",","):"";
+function exportRows(sep){
+  const head=["codigo","nome","municipio","area_ha","endividamento_sfn","classe","valor_solicitado","restricao_sfn","impedimento_socioambiental","receita_estimada","alavancagem","pd","corte","classificacao","observacao"];
+  const q=s=>{s=String(s??"");return (s.includes(sep)||s.includes('"')||s.includes("\n"))?'"'+s.replace(/"/g,'""')+'"':s;};
+  const lines=[head.join(sep)];
+  pfView().forEach(r=>lines.push([r.codigo,r.nome,r.municipio,fmtBR(r.area,1),fmtBR(r.endv,2),Number.isFinite(r.classe)?r.classe:"",fmtBR(r.valor,2),Number.isFinite(r.restr)?r.restr:"",Number.isFinite(r.socio)?r.socio:"",fmtBR(r.rec,2),fmtBR(r.alav,4),fmtBR(r.pd,4),fmtBR(S.cut,4),PF_LABEL[r.cls].toUpperCase(),r.why].map(q).join(sep)));
+  return lines.join("\n")+"\n";
+}
+$("pfExport").addEventListener("click",()=>saveFile("pre_analise_associados.csv",exportRows(";"),"pfMsg2"));
+$("pfCopy").addEventListener("click",()=>copyText(exportRows("\t"),"Tabela copiada. Cole no Excel ou no LibreOffice.","pfMsg2"));
+
+// filtros, busca, ordenação, paginação
+$("pfSearch").addEventListener("input",e=>{PF.q=normKey(e.target.value).replace(/_/g," ");PF.page=0;renderPortfolio();});
+const PF_HEAD=[["codigo","Código",0],["nome","Nome",0],["municipio","Município",0],["area","Área (ha)",1],["classe","Classe",1],["endv","Endividamento",1],["rec","Receita estimada",1],["alav","Alavanc.",1],["pd","PD",1],["cls","Classificação",0],["why","Observação",-1],["_","",-1]];
+function pfEvaluated(){return PF.rows.map(evalRow);}
+let PF_CACHE=[];
+function pfView(){
+  let v=PF_CACHE;
+  if(PF.filter!=="all") v=v.filter(r=>r.cls===PF.filter);
+  if(PF.q) v=v.filter(r=>normKey(r.codigo+" "+r.nome+" "+r.municipio).replace(/_/g," ").includes(PF.q));
+  if(PF.sort){const k=PF.sort,d=PF.dir,ord={A:0,N:1,R:2,S:3,V:4};
+    v=v.slice().sort((a,b)=>{let x=a[k],y=b[k]; if(k==="cls"){x=ord[x];y=ord[y];}
+      const nx=typeof x==="number"&&!Number.isFinite(x), ny=typeof y==="number"&&!Number.isFinite(y);
+      if(nx||ny) return nx&&ny?0:(nx?1:-1);
+      return (typeof x==="string"? x.localeCompare(y,"pt-BR",{numeric:true}) : x-y)*d;});}
+  return v;
+}
+function renderPortfolio(){
+  if(!$("pfTable"))return;
+  PF_CACHE=pfEvaluated();
+  const all=PF_CACHE, n=all.length, c={A:0,N:0,R:0,S:0,V:0};
+  all.forEach(r=>c[r.cls]++);
+  const valid=all.filter(r=>Number.isFinite(r.pd));
+  const apr=all.filter(r=>r.cls==="A");
+  const pdMed=valid.length?valid.reduce((s,r)=>s+r.pd,0)/valid.length:NaN;
+  const pdApr=apr.length?apr.reduce((s,r)=>s+r.pd,0)/apr.length:NaN;
+  const valApr=apr.reduce((s,r)=>s+(r.valor>0?r.valor:0),0);
+  const perda=apr.reduce((s,r)=>s+(r.valor>0?r.valor*r.pd*(S.lgd/100):0),0);
+  const mil=x=>"R$ "+(x>=1e6?nf(1).format(x/1e6)+" mi":nf(0).format(x/1e3)+" mil");
+  $("pfSource").textContent=PF.example?"Exemplo · associados fictícios":"Carteira carregada";
+  $("pfTitle").textContent=PF.example?"Resultado da pré-análise (exemplo)":"Resultado da pré-análise · "+PF.source;
+  const critTxt=S.crit==="Y"?"Youden":S.crit==="E"?`econômico (margem ${nf(1).format(S.marg)}%, LGD ${nf(0).format(S.lgd)}%)`:"definido no gráfico";
+  $("pfParams").textContent=`Corte ${critTxt}: ${pct(S.cut)}. Receita: soja em ${nf(0).format(S.pSoja)}% e milho safrinha em ${nf(0).format(S.pMilho)}% da área, salvo se a linha informar outro percentual. Altere na ferramenta acima.`;
+  const tile=(v,k,dotc)=>`<div><span class="v">${v}</span><span class="k">${dotc?`<i class="dot ${dotc}"></i>`:""}${k}</span></div>`;
+  $("pfSum").innerHTML=tile(nf(0).format(n),"associados")+tile(nf(0).format(c.A)+` <small style="font-size:.85rem;color:var(--ink-2)">${n?pct(c.A/n,0):""}</small>`,"aprováveis","A")+
+    tile(nf(0).format(c.N),"não aprováveis","N")+tile(nf(0).format(c.R+c.S+c.V),`restrição SFN (${c.R}), impedimento socioambiental (${c.S}) ou a verificar (${c.V})`,"V")+
+    tile(pct(pdApr),"PD média dos aprováveis")+tile(valApr>0?mil(valApr):"–",valApr>0?`solicitado pelos aprováveis · perda esperada ${mil(perda)}`:"valor solicitado não informado");
+  // filtros
+  const fl=[["all","Todos",n],["A","Aprováveis",c.A],["N","Não aprováveis",c.N],["R","Restrição SFN",c.R],["S","Impedimento socioamb.",c.S],["V","Verificar",c.V]];
+  $("pfFilter").innerHTML=fl.map(f=>`<button type="button" data-f="${f[0]}" aria-pressed="${PF.filter===f[0]}">${f[1]} (${f[2]})</button>`).join("");
+  $("pfFilter").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{PF.filter=b.dataset.f;PF.page=0;renderPortfolio();}));
+  // tabela
+  const view=pfView(), pages=Math.max(1,Math.ceil(view.length/PF_PER)); if(PF.page>=pages)PF.page=pages-1;
+  const slice=view.slice(PF.page*PF_PER,(PF.page+1)*PF_PER);
+  const th=PF_HEAD.map(h=>h[2]<0?`<th class="noclick" style="${h[0]==="why"?"text-align:left":""}">${h[1]}</th>`:`<th data-k="${h[0]}" aria-sort="${PF.sort===h[0]?(PF.dir>0?"ascending":"descending"):"none"}" style="${h[2]?"":"text-align:left"}">${h[1]}</th>`).join("");
+  const esc2=s=>String(s??"").replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+  const body=slice.length?slice.map(r=>`<tr>
+    <td class="mono" style="font-size:.8rem">${esc2(r.codigo)}</td><td style="text-align:left">${esc2(r.nome)||"–"}</td><td style="text-align:left">${esc2(r.municipio)||"–"}</td>
+    <td class="num">${Number.isFinite(r.area)?nf(1).format(r.area):"–"}</td><td class="num">${Number.isFinite(r.classe)?"R"+r.classe:"–"}</td>
+    <td class="num">${Number.isFinite(r.endv)?nf(0).format(r.endv):"–"}</td><td class="num">${Number.isFinite(r.rec)&&r.rec>0?nf(0).format(r.rec):"–"}</td>
+    <td class="num">${Number.isFinite(r.alav)?nf(2).format(r.alav):"–"}</td><td class="num"><b>${Number.isFinite(r.pd)?pct(r.pd):"–"}</b></td>
+    <td style="text-align:left"><span class="pill ${PF_PILL[r.cls]}">${PF_LABEL[r.cls]}</span></td><td class="why">${esc2(r.why)}</td>
+    <td>${r.cls!=="V"||r.area>0?`<button type="button" data-open="${PF_CACHE.indexOf(r)}">Abrir</button>`:""}</td></tr>`).join("")
+    :`<tr><td colspan="12" class="pfempty">Nenhum associado neste filtro.</td></tr>`;
+  $("pfTable").innerHTML=`<thead><tr>${th}</tr></thead><tbody>${body}</tbody>`;
+  $("pfTable").querySelectorAll("th[data-k]").forEach(t=>t.addEventListener("click",()=>{const k=t.dataset.k; if(PF.sort===k)PF.dir=-PF.dir; else {PF.sort=k;PF.dir=(k==="pd"||k==="alav"||k==="classe"||k==="endv")?-1:1;} renderPortfolio();}));
+  $("pfTable").querySelectorAll("button[data-open]").forEach(b=>b.addEventListener("click",()=>openInTool(PF_CACHE[+b.dataset.open])));
+  $("pfPage").innerHTML=view.length>PF_PER?`<button type="button" id="pfPrev" ${PF.page?"":"disabled"}>Anterior</button><span>Página ${PF.page+1} de ${pages} · ${nf(0).format(view.length)} associados</span><button type="button" id="pfNext" ${PF.page<pages-1?"":"disabled"}>Próxima</button>`:`<span>${nf(0).format(view.length)} associado${view.length===1?"":"s"} exibido${view.length===1?"":"s"}</span>`;
+  if($("pfPrev")){$("pfPrev").addEventListener("click",()=>{PF.page--;renderPortfolio();});$("pfNext").addEventListener("click",()=>{PF.page++;renderPortfolio();});}
+}
+function openInTool(r){
+  Object.assign(S,{area:r.area>0?r.area:0,endv:r.endv>0?r.endv:0,classe:r.classe>=1&&r.classe<=10?r.classe:S.classe,valor:r.valor>0?r.valor:0,ptr:r.ptr>0?r.ptr:0,restr:r.restr===1?1:0,socio:r.socio===1?1:0,preset:null});
+  const mudou=(Number.isFinite(r.pSoja)&&r.pSoja!==S.pSoja)||(Number.isFinite(r.pMilho)&&r.pMilho!==S.pMilho);
+  if(Number.isFinite(r.pSoja))S.pSoja=r.pSoja; if(Number.isFinite(r.pMilho))S.pMilho=r.pMilho;
+  if(mudou) setTimeout(()=>pfMsg(`Os percentuais de soja e milho da ferramenta passaram a ser os de ${r.codigo} (${nf(0).format(S.pSoja)}% e ${nf(0).format(S.pMilho)}%). Eles valem também para as linhas sem percentual próprio; use "Restaurar parâmetros do TCC" para voltar.`,false,"pfMsg2"),0);
+  writeInputs();update();
+  $("ferramenta").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------------- relatório da propriedade (Farm-Scan / Dados Fazenda) ---------------- */
+function fsParse(t){
+  t="\n"+t.replace(/\r/g,"")+"\n";
+  const lines=t.split("\n").map(s=>s.trim());
+  const g=(re,i=1)=>{const x=t.match(re);return x?x[i].trim():null;};
+  const n=(re)=>{const v=g(re);return v==null?null:parseNum(v);};
+  const after=(label,k=2)=>{const i=lines.findIndex(l=>l.startsWith(label));return i<0?null:lines.slice(i+1,i+1+k).join(" ");};
+  const section=(a,b)=>{const i=t.indexOf(a);if(i<0)return "";const j=b?t.indexOf(b,i+a.length):-1;return t.slice(i,j<0?i+4000:j);};
+  const d={};
+  d.reconhecido=/dadosfazenda|Relat[óo]rio da Propriedade/i.test(t);
+  d.car=g(/CAR:\s*([A-Z]{2}-\d{7}-[0-9A-F]{32})/);
+  d.fazenda=g(/\n([^\n·]{3,}?)\s·\s[^\n]*(?:SIGMINE|queimada|cicatriz)/);
+  d.dataRel=g(/Relat[óo]rio gerado em (\d{2}\/\d{2}\/\d{4})/);
+  d.municipio=g(/\nMunic[íi]pio\s+([^\n]+)/); d.uf=g(/\nEstado\s+([A-Z]{2})\b/);
+  d.areaTotal=n(/\nÁrea \(ha\)\s+([\d.,]+)/);
+  d.status=g(/\nStatus\s+([^\n]+)/); d.analise=g(/\nAn[áa]lise\s+([^\n]+)/);
+  d.modulos=n(/M[óo]dulos Fiscais\s+([\d.,]+)/);
+  d.areaConsol=n(/Área de Uso Consolidado \(ha\)\s+([-\d.,]+)/);
+  d.rlSaldo=n(/RL Excedente\/Passivo \(ha\)\s+([-\d.,]+)/);
+  d.rlSituacao=g(/\nSitua[çc][ãa]o\s+([^\n]+)/);
+  d.vegNativa=n(/Remanescente de Veg\. Nativa \(ha\)\s+([\d.,]+)/);
+  d.sigefCob=n(/Cobertura:\s*([\d.,]+)%/);
+  const emb=after("Fiscalização Ambiental",1); d.embargo=emb==null?null:(/sem ocorr/i.test(emb)?0:(emb.match(/(\d+)/)?+emb.match(/(\d+)/)[1]:null));
+  d.alertas=after("Alertas de Desmatamento",1);
+  const pr=t.match(/detectadas\s+(\d+)\s+ocorr[êe]ncias de desmatamento\s*\(\s*([\d.,]+)\s*ha\s*\)/);
+  if(pr){d.prodesN=+pr[1];d.prodesHa=parseNum(pr[2]);} else {const s=after("PRODES - Desmatamento",1); d.prodesN=s&&/sem desmat/i.test(s)?0:null; d.prodesHa=d.prodesN===0?0:null;}
+  const q=t.match(/identificadas\s+(\d+)\s+cicatrizes[\s\S]*?interse[çc][õo]es [ée] de\s+([\d.,]+)\s*ha[\s\S]*?mais recente\s*[\s\S]{0,6}?(\d{2}\/\d{2}\/\d{4})/);
+  if(q){d.queimN=+q[1];d.queimHa=parseNum(q[2]);d.queimUlt=q[3];} else {const s=after("Áreas Queimadas",1); d.queimN=s?(/(\d+)\s*ocorr/.test(s)?+s.match(/(\d+)/)[1]:(/sem/i.test(s)?0:null)):null;}
+  d.sobrep=[...t.matchAll(/\n([^\n:]{3,80}?)\s*:\s*(\d+)\s*sobreposi[çc](?:ão|ões|oes|ao)\s*\(([\d.,]+)%\s*da propriedade\)/g)].map(x=>({tipo:x[1].trim(),n:+x[2],pct:parseNum(x[3])}));
+  d.florestaPubHa=n(/Florestas P[úu]blicas:\s*([\d.,]+)\s*ha/);
+  d.florestaPubCat=g(/Floresta P[úu]blica Categoria Governo Área \(ha\)\n([^\n]+)/);
+  d.sinaflor=after("Autorizações SINAFLOR",1);
+  const ap=section("Aptidão Agrícola (Embrapa CNPS)","Floresta Pública (SFB)");
+  d.aptidao=[...ap.matchAll(/Classe\s+([0-9][0-9a-zA-Z()]*)\s+([\d.,]+)\s*%/g)].map(x=>({classe:x[1],pct:parseNum(x[2])}));
+  const us=section("Uso e cobertura do solo · referência","Reserva Legal");
+  d.usoRef=g(/Uso e cobertura do solo · refer[êe]ncia (\d{4})/);
+  d.uso=[...us.matchAll(/\n([\d.,]+)%\n([^\n]+)\n([\d.,]+)\s*ha/g)].map(x=>({classe:x[2].trim(),pct:parseNum(x[1]),ha:parseNum(x[3])}));
+  const cn=section("cultura(s) detectada(s)","Armazéns CONAB na Região");
+  const anos=[...cn.matchAll(/(\d{4})\/(\d{2})/g)].map(x=>+x[1]);
+  d.conabUlt=anos.length?Math.max(...anos):null;
+  d.conabSafras=n(/cultura\(s\) detectada\(s\) em\s*(\d+)\s*safra/);
+  d.conabHa=cn?(cn.match(/\b(\d{1,3}(?:\.\d{3})*,\d{2})\b/)||[])[1]:null; if(d.conabHa)d.conabHa=parseNum(d.conabHa);
+  const sc=t.match(/Meses com seca:\s*(\d+) de (\d+) \(([\d.,]+)%\)\s*·\s*pior n[íi]vel:\s*([^·\n]+?)\s*·/);
+  if(sc){d.secaPct=parseNum(sc[3]);d.secaMeses=+sc[1];d.secaTotal=+sc[2];d.secaPior=sc[4];}
+  d.chuvaRec=n(/Chuva recente\s*([-+]?[\d.,]+)%/); d.chuvaAnual=n(/Chuva m[ée]dia anual:\s*([\d.]+)\s*mm/);
+  d.declive=n(/declividade m[ée]dia [ée] de\s*([\d.,]+)%/);
+  d.pastagemHa=n(/([\d.,]+)\s*ha classificados como pastagem/);
+  d.ph=n(/pH em [áa]gua\s+([\d.,]+)/);
+  return d;
+}
+const LAVOURA_RE=/soja|lavoura|cana|algod|milho|arroz|caf[ée]|tempor|agricult|cultura/i;
+function fsFlags(d){
+  const F=[],add=(grupo,nivel,titulo,detalhe)=>F.push({grupo,nivel,titulo,detalhe});
+  const ha=x=>nf(1).format(x)+" ha", ano=d.dataRel?+d.dataRel.slice(6):new Date().getFullYear();
+  // cadastro
+  if(d.status){ if(/suspens|cancel/i.test(d.status)) add("Cadastro","imp",`CAR ${d.status.toLowerCase()}`,"Inscrição no CAR suspensa ou cancelada impede a contratação de crédito rural (MCR, impedimentos sociais, ambientais e climáticos). Exige regularização antes da operação.");
+    else if(/ativ/i.test(d.status)) add("Cadastro","ok","CAR ativo",d.analise?`Análise: ${d.analise}.`:"");
+    else add("Cadastro","att",`CAR: ${d.status}`,"Situação diferente de ativo; confirme no SICAR."); }
+  else add("Cadastro","na","Situação do CAR não encontrada","Confira o relatório.");
+  if(d.analise&&/aguard|pendente/i.test(d.analise)&&!/suspens|cancel/i.test(d.status||"")) add("Cadastro","info","CAR aguardando análise","Dados declaratórios ainda não validados pelo órgão ambiental.");
+  if(d.sigefCob!=null) add("Cadastro",d.sigefCob>=90?"ok":"att",`Certificação SIGEF cobre ${nf(1).format(d.sigefCob)}% do imóvel`,d.sigefCob>=90?"Boa correspondência entre o CAR e a parcela certificada.":"Divergência entre o CAR e a parcela certificada; verifique a matrícula e a garantia.");
+  // ambiental
+  if(d.embargo!=null) add("Ambiental",d.embargo>0?"imp":"ok",d.embargo>0?`${d.embargo} embargo(s) ou auto(s) IBAMA/ICMBio`:"Sem embargos IBAMA/ICMBio",d.embargo>0?"Área embargada impede o crédito rural (MCR). Verifique o embargo e a área atingida.":"Nenhum embargo ou auto georreferenciado.");
+  if(d.prodesN!=null) add("Ambiental",d.prodesN>0?"imp":"ok",d.prodesN>0?`Desmatamento PRODES: ${d.prodesN} ocorrência(s), ${ha(d.prodesHa||0)}`:"Sem desmatamento no PRODES",d.prodesN>0?"Supressão de vegetação detectada. Exija a autorização de supressão (ASV) ou comprove a regularidade; sem ela, há impedimento.":"PRODES/INPE não detectou supressão.");
+  if(d.alertas&&/indispon/i.test(d.alertas)) add("Ambiental","na","Alertas de desmatamento indisponíveis","A base de alertas não respondeu na geração do relatório. Consulte diretamente (DETER/MapBiomas Alerta).");
+  if(d.queimN) { const ult=d.queimUlt?+d.queimUlt.slice(6):null; add("Ambiental",ult&&ano-ult<=2?"att":"info",`${d.queimN} cicatriz(es) de queimada em 5 anos`,`Soma das interseções: ${ha(d.queimHa||0)}${d.queimUlt?`; mais recente em ${d.queimUlt}`:""}. Verifique se houve autorização de queima e impacto na produção.`); }
+  else if(d.queimN===0) add("Ambiental","ok","Sem queimadas em 5 anos","");
+  if(d.rlSaldo!=null) add("Ambiental",d.rlSaldo<0?"att":"ok",d.rlSaldo<0?`Passivo de Reserva Legal: ${ha(-d.rlSaldo)}`:"Reserva Legal sem passivo declarado",d.rlSaldo<0?`Exige recomposição ou compensação; verifique a adesão ao PRA.${d.rlSituacao?` Situação: ${d.rlSituacao}.`:""}`:"");
+  // sobreposições
+  d.sobrep.forEach(s=>{
+    if(/ind[íi]gen|unidade.*conserv|quilomb|uc\b/i.test(s.tipo)) add("Sobreposições","imp",`${s.tipo}: ${s.n} sobreposição(ões)`,`${nf(1).format(s.pct)}% do imóvel. Sobreposição com território protegido é impedimento ao crédito rural.`);
+    else if(/miner|sigmine/i.test(s.tipo)) add("Sobreposições",s.pct>=50?"att":"info",`${s.n} processo(s) minerário(s) sobre ${nf(1).format(s.pct)}% do imóvel`,"Direitos minerários podem limitar o uso futuro da área e o valor da garantia. Avalie a fase dos processos.");
+    else if(/assentament/i.test(s.tipo)) add("Sobreposições",s.pct>=1?"att":"info",`Sobreposição com assentamento (${nf(1).format(s.pct)}%)`,"Verifique a divisa e a regularidade fundiária.");
+    else add("Sobreposições","att",`${s.tipo}: ${s.n} sobreposição(ões)`,`${nf(1).format(s.pct)}% do imóvel.`);
+  });
+  if(d.florestaPubHa) add("Sobreposições",d.florestaPubHa>=1?"att":"info",`Floresta pública: ${ha(d.florestaPubHa)} sobrepostos`,d.florestaPubCat?`Registro: ${d.florestaPubCat}.`:"Verifique a categoria no Cadastro Nacional de Florestas Públicas.");
+  // produtivo
+  const lav=d.uso.filter(u=>LAVOURA_RE.test(u.classe)), lavHa=lav.reduce((s,u)=>s+u.ha,0);
+  if(d.uso.length){ const top=d.uso.slice().sort((a,b)=>b.pct-a.pct).slice(0,3).map(u=>`${u.classe} ${nf(1).format(u.pct)}%`).join(", ");
+    if(lavHa>0) add("Produtivo","info",`Lavoura detectada: ${ha(lavHa)}`,`Uso do solo ${d.usoRef||""}: ${top}.`);
+    else add("Produtivo","att","Nenhuma lavoura detectada no uso do solo",`Uso do solo ${d.usoRef||""}: ${top}. O modelo supõe soja e milho safrinha em toda a área consolidada; a receita estimada tende a ficar superestimada.`); }
+  if(d.conabUlt) add("Produtivo",ano-d.conabUlt>5?"att":"ok",`Última safra de grãos monitorada pela CONAB: ${d.conabUlt}/${String(d.conabUlt+1).slice(2)}`,ano-d.conabUlt>5?"Não há registro recente de culturas de verão no imóvel.":"Atividade agrícola recente registrada.");
+  const inapta=d.aptidao.filter(a=>/^6/.test(a.classe)).reduce((s,a)=>s+a.pct,0);
+  if(d.aptidao.length) add("Produtivo",inapta>50?"att":"info",inapta>50?`${nf(1).format(inapta)}% do imóvel inapto para agricultura (Embrapa)`:`Aptidão agrícola: ${d.aptidao.map(a=>`classe ${a.classe} ${nf(1).format(a.pct)}%`).join(", ")}`,inapta>50?"Classe 6: terras indicadas para preservação. Confira se a área consolidada informada é de fato cultivável.":"Escala 1:500.000; leitura regional.");
+  // clima
+  if(d.secaPct!=null) add("Clima",d.secaPct>15?"att":"info",`Seca em ${nf(1).format(d.secaPct)}% dos meses monitorados`,`${d.secaMeses} de ${d.secaTotal} meses; pior nível: ${d.secaPior}. Considere seguro rural/Proagro.`);
+  if(d.chuvaRec!=null&&d.chuvaRec<-20) add("Clima","info",`Chuva recente ${nf(1).format(Math.abs(d.chuvaRec))}% abaixo da normal`,"Comparação indicativa de curto prazo, sem valor preditivo.");
+  return {F,lavHa};
+}
+
+const FS_EXAMPLE={"reconhecido":true,"car":"MT-5105580-•••• (oculto no exemplo)","fazenda":"Imóvel de exemplo","dataRel":"29/09/2026","municipio":"Marcelândia","uf":"MT","areaTotal":1730.5925,"status":"Suspenso","analise":"Aguardando análise","modulos":19.23,"areaConsol":514.5409,"rlSaldo":-169.7961,"rlSituacao":"Não Analisada","vegNativa":1215.806,"sigefCob":99.4,"embargo":0,"alertas":"Indisponível","prodesN":0,"prodesHa":0,"queimN":6,"queimHa":1316.35,"queimUlt":"01/09/2024","sobrep":[{"tipo":"Assentamentos","n":1,"pct":0},{"tipo":"Processos Minerários (SIGMINE/ANM)","n":4,"pct":99.9}],"florestaPubHa":0.1,"florestaPubCat":"PA FEDERAL 0,10 ha","sinaflor":"Sem autorizações","aptidao":[{"classe":"6","pct":97.9},{"classe":"2(ab)c","pct":2.1}],"usoRef":"2025","uso":[{"classe":"Formação Florestal","pct":61.2,"ha":1059.4},{"classe":"Pastagem","pct":30.8,"ha":533.6},{"classe":"Mosaico de usos","pct":7.3,"ha":125.6},{"classe":"Floresta Alagável","pct":0.7,"ha":12.1}],"conabUlt":2010,"conabSafras":5,"conabHa":777.18,"secaPct":19.2,"secaMeses":28,"secaTotal":146,"secaPior":"Seca grave","chuvaRec":-24.5,"chuvaAnual":1714,"declive":9.9,"pastagemHa":699.8,"ph":4.5};
+const FS={d:null,F:[],lavHa:0,source:"",example:false};
+const FS_ICON={
+  imp:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  att:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 2.5v4.2M6 9.2v.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  ok:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.3l2.3 2.3L9.5 3.8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  info:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 5.3v3.5M6 3v.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  na:'<svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'};
+const FS_LV={imp:"Impedimento",att:"Alerta",ok:"Sem pendência",info:"Informativo",na:"Sem dado"};
+function fsLoadLib(){
+  if(window.pdfjsLib&&window.pdfjsWorker)return Promise.resolve();
+  const add=src=>new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>ko(new Error("Não foi possível carregar o leitor de PDF. Verifique a conexão e tente de novo."));document.head.appendChild(s);});
+  const base="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+  return add(base+"pdf.min.js").then(()=>add(base+"pdf.worker.min.js")).then(()=>{pdfjsLib.GlobalWorkerOptions.workerSrc=base+"pdf.worker.min.js";});
+}
+async function fsText(file){
+  await fsLoadLib();
+  const doc=await pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+  const out=[];
+  for(let i=1;i<=doc.numPages;i++){
+    const tc=await (await doc.getPage(i)).getTextContent(), rows=new Map();
+    for(const it of tc.items){ if(!it.str||!it.str.trim())continue; const y=Math.round(it.transform[5]/3)*3; if(!rows.has(y))rows.set(y,[]); rows.get(y).push([it.transform[4],it.str]); }
+    [...rows.entries()].sort((a,b)=>b[0]-a[0]).forEach(([,its])=>out.push(its.sort((a,b)=>a[0]-b[0]).map(x=>x[1]).join(" ").replace(/\s+/g," ").trim()));
+  }
+  return out.join("\n");
+}
+function fsSet(d,source,example){
+  const r=fsFlags(d); Object.assign(FS,{d,F:r.F,lavHa:r.lavHa,source,example});
+  renderFS();
+}
+async function fsHandle(file){
+  if(!file)return;
+  if(!/\.pdf$/i.test(file.name)&&file.type!=="application/pdf"){pfMsg("Escolha um arquivo PDF.",true,"fsMsg");return;}
+  try{
+    pfMsg("Lendo o PDF…",false,"fsMsg");
+    const d=fsParse(await fsText(file));
+    const achou=[d.areaConsol,d.status,d.car].filter(x=>x!=null).length;
+    if(!achou){pfMsg("Não encontrei os campos do relatório da propriedade neste PDF. Use o relatório gerado em dadosfazenda.com.br; PDFs escaneados (imagem) não podem ser lidos.",true,"fsMsg");return;}
+    fsSet(d,file.name,false);
+    const ap=fsApplyAll(true);
+    pfMsg(`Relatório lido: ${file.name}.`+(d.reconhecido?"":" Formato não reconhecido por completo; confira os campos.")+(ap?" "+ap:""),false,"fsMsg");
+  }catch(e){pfMsg(e.message||String(e),true,"fsMsg");}
+}
+$("fsFile").addEventListener("change",e=>{fsHandle(e.target.files[0]);e.target.value="";});
+const fsDrop=$("fsDrop");
+["dragenter","dragover"].forEach(t=>fsDrop.addEventListener(t,e=>{e.preventDefault();fsDrop.classList.add("over");}));
+["dragleave","drop"].forEach(t=>fsDrop.addEventListener(t,e=>{e.preventDefault();fsDrop.classList.remove("over");}));
+fsDrop.addEventListener("drop",e=>fsHandle(e.dataTransfer.files[0]));
+
+function fsImpeds(){return FS.F.filter(f=>f.nivel==="imp");}
+function fsPctLav(){const d=FS.d;return d&&d.areaConsol>0&&d.uso.length?Math.min(100,FS.lavHa/d.areaConsol*100):null;}
+function fsApply(what){
+  const d=FS.d;if(!d)return;
+  if(what==="area"&&d.areaConsol>0){S.area=Math.round(d.areaConsol*10)/10;}
+  if(what==="socio"){S.socio=fsImpeds().length?1:0;}
+  if(what==="lav"){const p=fsPctLav();if(p!=null){const v=Math.round(p);S.pSoja=v;S.pMilho=v;}}
+  S.preset=null;writeInputs();update();
+}
+function fsApplyAll(auto){
+  const d=FS.d;if(!d)return "";const msg=[];
+  if(d.areaConsol>0){fsApply("area");msg.push(`área de ${nf(1).format(S.area)} ha`);}
+  fsApply("socio"); msg.push(S.socio?"impedimento socioambiental ativado":"sem impedimento socioambiental");
+  if(!auto){const p=fsPctLav();if(p!=null){fsApply("lav");msg.push(`soja e milho em ${nf(0).format(p)}% da área`);}}
+  return msg.length?"Aplicado à ferramenta: "+msg.join(", ")+".":"";
+}
+function renderFS(){
+  const d=FS.d,el=$("fsList");
+  if(!d){el.innerHTML='<p class="fsempty">Carregue um relatório para ver a checagem.</p>';return;}
+  const ha=x=>x==null?"–":nf(1).format(x)+" ha";
+  $("fsSrc").textContent=FS.example?"Exemplo · relatório real anonimizado":"Checagem do imóvel · "+FS.source;
+  $("fsTitle").textContent="Impedimentos e alertas"+(d.dataRel?` · relatório de ${d.dataRel}`:"");
+  const cnt={imp:0,att:0,ok:0};FS.F.forEach(f=>{if(f.nivel in cnt)cnt[f.nivel]++;});
+  $("fsCount").innerHTML=`<span class="lv-imp">${cnt.imp} impedimento${cnt.imp===1?"":"s"}</span><span class="lv-att">${cnt.att} alerta${cnt.att===1?"":"s"}</span><span class="lv-ok">${cnt.ok} sem pendência</span>`;
+  const grupos=["Cadastro","Ambiental","Sobreposições","Produtivo","Clima"], ord={imp:0,att:1,na:2,info:3,ok:4};
+  el.innerHTML=grupos.map(g=>{const it=FS.F.filter(f=>f.grupo===g).sort((a,b)=>ord[a.nivel]-ord[b.nivel]);if(!it.length)return "";
+    return `<div class="fsgrp"><span class="eyebrow">${g}</span>${it.map(f=>`<div class="fsitem ${f.nivel}"><span class="ic lv-${f.nivel}" title="${FS_LV[f.nivel]}" aria-label="${FS_LV[f.nivel]}">${FS_ICON[f.nivel]}</span><div><b>${f.titulo}</b>${f.detalhe?`<p>${f.detalhe}</p>`:""}</div></div>`).join("")}</div>`;}).join("");
+  $("fsId").innerHTML=`<div><div class="nm">${d.fazenda||"Imóvel sem nome no relatório"}</div><div class="car">${d.car?"CAR "+d.car:"CAR não encontrado"}</div><div class="note">${[d.municipio,d.uf].filter(Boolean).join(" – ")}${d.modulos?` · ${nf(2).format(d.modulos)} módulos fiscais`:""}</div></div>
+    <div class="fsnums"><div><span class="v">${ha(d.areaTotal)}</span><span class="k">área total do CAR</span></div><div class="model"><span class="v">${ha(d.areaConsol)}</span><span class="k">uso consolidado · variável do modelo</span></div>
+    <div><span class="v">${ha(d.vegNativa)}</span><span class="k">vegetação nativa</span></div><div><span class="v">${d.uso.length?ha(FS.lavHa):"–"}</span><span class="k">lavoura no uso do solo ${d.usoRef||""}</span></div></div>`;
+  const imp=fsImpeds(), pl=fsPctLav();
+  const done=(c)=>c?' class="done" aria-pressed="true"':"";
+  const aArea=d.areaConsol>0&&Math.abs(S.area-Math.round(d.areaConsol*10)/10)<0.05, aSoc=S.socio===(imp.length?1:0), aLav=pl!=null&&S.pSoja===Math.round(pl)&&S.pMilho===Math.round(pl);
+  $("fsApply").innerHTML=`<span class="t">Levar para a ferramenta</span>
+    ${d.areaConsol>0?`<div class="it"><span>Área consolidada: ${ha(d.areaConsol)}<small>substitui a área da ferramenta</small></span><button type="button" data-a="area"${done(aArea)}>${aArea?"Aplicado":"Aplicar"}</button></div>`:""}
+    <div class="it"><span>Impedimento socioambiental: ${imp.length?"sim":"não"}<small>${imp.length?imp.map(f=>f.titulo).join("; "):"nenhum impedimento encontrado"}</small></span><button type="button" data-a="socio"${done(aSoc)}>${aSoc?"Aplicado":"Aplicar"}</button></div>
+    ${pl!=null?`<div class="it"><span>Soja e milho em ${nf(0).format(pl)}% da área<small>lavoura detectada ÷ área consolidada${pl===0?"; sem lavoura, a PD não é calculada":""}</small></span><button type="button" data-a="lav"${done(aLav)}>${aLav?"Aplicado":"Aplicar"}</button></div>`:""}
+    <button type="button" class="all" id="fsAll">Aplicar tudo e ver o resultado</button>`;
+  $("fsApply").querySelectorAll("button[data-a]").forEach(b=>b.addEventListener("click",()=>{if(!b.classList.contains("done"))fsApply(b.dataset.a);}));
+  $("fsAll").addEventListener("click",()=>{const m=fsApplyAll(false);pfMsg(m,false,"fsMsg");$("ferramenta").scrollIntoView({behavior:"smooth",block:"start"});});
+}
+
 drawArea(); drawCoef(); drawCal();
-writeInputs(); update();
+writeInputs(); loadExample(); fsSet(FS_EXAMPLE,"exemplo",true); update();
 })();
 </script>
 </body>
