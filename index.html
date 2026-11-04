@@ -218,6 +218,27 @@ table.srind small.src{display:block;font-size:.72rem;color:var(--muted);font-fam
 .cd-eq{font-size:.95rem!important;color:var(--ink)!important;background:var(--surface);border-radius:4px;padding:6px 10px}
 .cd-ex{border-top:1px solid var(--line);padding-top:8px}
 @media (max-width:900px){.cdgrid{grid-template-columns:minmax(0,1fr)}}
+.geocard{gap:14px}
+.geogrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+.geoform{display:grid;gap:10px}
+.geoform .lbl small{display:block;color:var(--muted);font-size:.76rem;font-family:var(--f-mono)}
+.georow{display:flex;gap:8px}
+.georow input{flex:1;min-width:0;font-family:var(--f-mono);font-size:.86rem;padding:8px 10px;border-radius:4px;border:1px solid var(--input-line);background:var(--input-bg);color:var(--ink)}
+.georow button{font:inherit;font-weight:600;font-size:.88rem;padding:8px 14px;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);cursor:pointer}
+.georow button:disabled{opacity:.6;cursor:wait}
+.dropsm{padding:14px}
+.geosteps{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:.84rem}
+.gs{display:flex;gap:8px;align-items:flex-start;color:var(--ink-2)}
+.gsi{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none;background:var(--axis)}
+.gs.ok .gsi{background:var(--good)} .gs.err .gsi{background:var(--bad)} .gs.err{color:var(--bad)}
+.gs.run .gsi{background:var(--warn)}
+@media (prefers-reduced-motion:no-preference){.gs.run .gsi{animation:gsp 1s ease-in-out infinite alternate}@keyframes gsp{to{opacity:.3}}}
+.georesult{display:grid;gap:12px;min-width:0}
+.geohead .nm{font-family:var(--f-mono);font-weight:600;font-size:.86rem;word-break:break-all}
+.geomap{background:var(--bg);border-radius:6px;border:1px solid var(--line)}
+.gbar{display:block;height:8px;border-radius:0 4px 4px 0;background:var(--bad)}
+.fsalt{margin-top:8px;color:var(--ink-2)}
+@media (max-width:900px){.geogrid{grid-template-columns:minmax(0,1fr)}}
 /* ---------- relatório da propriedade ---------- */
 .fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
 .fsload{gap:14px}
@@ -460,8 +481,8 @@ footer p{max-width:none}
   <div class="ccards">
     <a class="ccard" href="#relatorio">
       <span class="eyebrow">Aba Relatório do imóvel</span>
-      <h3>Checagem do imóvel pelo Farm-Scan</h3>
-      <p>Carregue o PDF do relatório da propriedade. A página lê a área consolidada do CAR e aponta impedimentos e alertas cadastrais, ambientais, fundiários e climáticos.</p>
+      <h3>Checagem do imóvel: SICAR, PRODES e Farm-Scan</h3>
+      <p>Digite o código do CAR para buscar o limite no SICAR e o desmatamento do PRODES/INPE dentro do imóvel, com mapa. Ou carregue o PDF do Farm-Scan para a área consolidada e a checagem completa.</p>
       <span class="go">Ler um relatório →</span>
     </a>
     <a class="ccard" href="#sumula">
@@ -915,10 +936,32 @@ footer p{max-width:none}
 <!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
 <section id="relatorio">
   <div class="head">
-    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
-    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
-    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
+    <div class="eyebrow">Relatório do imóvel · consulta pública SICAR e PRODES · Farm-Scan</div>
+    <h2>Verifique o imóvel e cruze com a pré-análise</h2>
+    <p style="color:var(--ink-2)">Consulte o imóvel pelo código do CAR nas bases públicas: o limite vem do SICAR e o desmatamento anual, do PRODES/INPE. Se tiver o PDF do relatório da propriedade (Farm-Scan), carregue-o abaixo para obter a área de uso consolidado, que é a variável do modelo, e a checagem cadastral, ambiental, fundiária, produtiva e climática. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
   </div>
+  <div class="card geocard" id="geoCard">
+    <div class="fshead">
+      <div class="cap"><span class="eyebrow">Consulta pública · SICAR + PRODES (INPE)</span><h3>Buscar o imóvel pelo código do CAR</h3></div>
+      <div class="fscount" id="geoCount"></div>
+    </div>
+    <div class="geogrid">
+      <div class="geoform">
+        <label for="geoCar" class="lbl"><b>Código do CAR</b><small>ex.: MT-5105580-01B9702A48AC4F868487D32BBF05D376</small></label>
+        <div class="georow"><input id="geoCar" type="text" spellcheck="false" autocomplete="off" placeholder="UF-0000000-…"><button type="button" id="geoGo">Consultar</button></div>
+        <p class="note">Ou carregue o perímetro do imóvel baixado da consulta pública do CAR:</p>
+        <label class="drop dropsm" for="geoFile"><input id="geoFile" type="file" accept=".geojson,.json,.kml,.zip"><b>Arquivo do perímetro</b><span>.zip (shapefile), .kml ou .geojson</span></label>
+        <ol class="geosteps" id="geoSteps"></ol>
+        <p class="pfmsg" id="geoMsg" role="status"></p>
+        <div class="fsapply" id="geoApply" hidden></div>
+      </div>
+      <div class="georesult" id="geoResult">
+        <p class="fsempty">Digite o código do CAR e clique em Consultar. A página busca o limite do imóvel no SICAR e cruza com os polígonos de desmatamento anual do PRODES (Amazônia Legal e Cerrado).</p>
+      </div>
+    </div>
+    <p class="note">Consulta feita pelo navegador diretamente nos serviços públicos (GeoServer do SICAR e TerraBrasilis/INPE). Se um serviço estiver fora do ar ou recusar a consulta, a página avisa; use então o arquivo do perímetro. O PRODES é anual e tem área mínima de mapeamento: não substitui DETER, MapBiomas Alerta nem vistoria.</p>
+  </div>
+  <div class="eyebrow fsalt">Relatório da propriedade em PDF (Farm-Scan / Dados Fazenda)</div>
   <div class="fsgrid">
     <div class="card fsload">
       <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
@@ -1630,7 +1673,7 @@ async function fsHandle(file){
     const d=fsParse(await fsText(file));
     const achou=[d.areaConsol,d.status,d.car].filter(x=>x!=null).length;
     if(!achou){pfMsg("Não encontrei os campos do relatório da propriedade neste PDF. Use o relatório gerado em dadosfazenda.com.br; PDFs escaneados (imagem) não podem ser lidos.",true,"fsMsg");return;}
-    fsSet(d,file.name,false);
+    fsSet(d,file.name,false); geoPrefill(d.car);
     const ap=fsApplyAll(true);
     pfMsg(`Relatório lido: ${file.name}.`+(d.reconhecido?"":" Formato não reconhecido por completo; confira os campos.")+(ap?" "+ap:""),false,"fsMsg");
   }catch(e){pfMsg(e.message||String(e),true,"fsMsg");}
@@ -1771,6 +1814,7 @@ const SR_EXAMPLE={reconhecido:true,example:true,nome:"Cooperado de exemplo",doc:
  endv:11420000,endvAnt:9850000,curto:3650000,curtoAnt:4100000,saldo:96300,saldoAnt:182400,compr:27.85,comprAnt:31.2,atraso:0,atrasoAnt:0,anot:false,anotAnt:false,crl:4,crlAnt:5,renda:13110000,rendaAnt:13200000};
 const SR={d:null,F:[],source:"",example:false};
 const maskDoc=s=>!s?"":s.replace(/^(\d{3})\.\d{3}\.\d{3}-(\d{2})$/,"$1.•••.•••-$2").replace(/^(\d{2})\.\d{3}\.\d{3}\/(\d{4})-(\d{2})$/,"$1.•••.•••/$2-$3");
+function geoPrefill(car){ if(car&&$("geoCar")&&!$("geoCar").value) $("geoCar").value=car; }
 function srSet(d,source,example){Object.assign(SR,{d,F:srFlags(d),source,example});renderSR();}
 async function srHandle(file){
   if(!file)return;
@@ -1836,6 +1880,152 @@ function renderSR(){
   $("srApply").querySelectorAll("button[data-a]").forEach(b=>b.addEventListener("click",()=>{if(!b.classList.contains("done"))srApply(b.dataset.a);}));
   $("srAll").addEventListener("click",()=>pfMsg(srApplyAll(),false,"srMsg"));
 }
+
+/* ---------------- consulta pública: SICAR + PRODES ---------------- */
+const GEO_CFG={
+  sicar:(uf,car)=>`https://geoserver.car.gov.br/geoserver/sicar/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=sicar:sicar_imoveis_${uf}&outputFormat=application/json&srsName=EPSG:4326&CQL_FILTER=${encodeURIComponent(`cod_imovel='${car}'`)}`,
+  prodes:[{nome:"Amazônia Legal",ws:"prodes-legal-amz",layer:"yearly_deforestation"},{nome:"Cerrado",ws:"prodes-cerrado-nb",layer:"yearly_deforestation"}],
+  prodesUrl:(c,b)=>`https://terrabrasilis.dpi.inpe.br/geoserver/${c.ws}/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=${c.ws}:${c.layer}&outputFormat=application/json&srsName=EPSG:4326&count=5000&bbox=${b[1]},${b[0]},${b[3]},${b[2]},urn:ogc:def:crs:EPSG::4326`
+};
+const CAR_RE=/^[A-Z]{2}-\d{7}-[0-9A-F]{32}$/;
+const GEO={car:null,feat:null,props:null,fonte:"",anos:[],polys:[],F:[],avisos:[]};
+function loadScriptOnce(src,test){ if(test())return Promise.resolve(); return new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>ko(new Error("Não foi possível carregar a biblioteca geoespacial. Verifique a conexão."));document.head.appendChild(s);}); }
+const loadTurf=()=>loadScriptOnce("https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js",()=>!!window.turf);
+const loadShp=()=>loadScriptOnce("https://unpkg.com/shpjs@4.0.4/dist/shp.min.js",()=>!!window.shp);
+async function geoJSONFetch(url,quem){
+  let r;
+  try{ r=await fetch(url,{headers:{Accept:"application/json"}}); }
+  catch(e){ throw new Error(`${quem} não respondeu ou recusou a consulta feita pelo navegador.`); }
+  if(!r.ok) throw new Error(`${quem} respondeu com erro (HTTP ${r.status}).`);
+  const tx=await r.text();
+  try{ return JSON.parse(tx); }catch(e){ throw new Error(`${quem} não devolveu dados no formato esperado${/ExceptionReport|ServiceException/.test(tx)?" (o serviço recusou a consulta)":""}.`); }
+}
+function geoStep(id,txt,st){ // st: run | ok | err | skip
+  let li=document.getElementById("gs-"+id);
+  if(!li){li=document.createElement("li");li.id="gs-"+id;$("geoSteps").appendChild(li);}
+  li.className="gs "+st; li.innerHTML=`<span class="gsi" aria-hidden="true"></span><span>${txt}</span>`;
+}
+function toFeature(gj){
+  if(!gj)return null;
+  if(gj.type==="FeatureCollection"){ const fs=gj.features.filter(f=>f.geometry&&/Polygon/.test(f.geometry.type)); if(!fs.length)return null;
+    if(fs.length===1)return fs[0]; let u=fs[0]; for(let i=1;i<fs.length;i++){const x=turf.union(u,fs[i]); if(x)u=x;} u.properties=fs[0].properties||{}; return u; }
+  if(gj.type==="Feature") return gj.geometry&&/Polygon/.test(gj.geometry.type)?gj:null;
+  if(/Polygon/.test(gj.type)) return {type:"Feature",properties:{},geometry:gj};
+  return null;
+}
+function kmlToGeoJSON(text){
+  const doc=new DOMParser().parseFromString(text,"application/xml");
+  const ring=el=>el.textContent.trim().split(/\s+/).map(c=>c.split(",").slice(0,2).map(Number)).filter(p=>p.length===2&&p.every(Number.isFinite));
+  const polys=[...doc.getElementsByTagName("Polygon")].map(pg=>{
+    const outer=pg.getElementsByTagName("outerBoundaryIs")[0], inners=[...pg.getElementsByTagName("innerBoundaryIs")];
+    const rings=[]; if(outer) rings.push(ring(outer.getElementsByTagName("coordinates")[0]));
+    inners.forEach(ib=>rings.push(ring(ib.getElementsByTagName("coordinates")[0]))); return rings;}).filter(r=>r.length&&r[0].length>3);
+  if(!polys.length) return null;
+  const name=(doc.getElementsByTagName("name")[0]||{}).textContent||"";
+  return {type:"Feature",properties:{nome:name},geometry:polys.length===1?{type:"Polygon",coordinates:polys[0]}:{type:"MultiPolygon",coordinates:polys}};
+}
+const yearOf=p=>{ for(const k of ["year","ano","YEAR","Ano"]) if(p[k]!=null&&String(p[k]).match(/\d{4}/)) return +String(p[k]).match(/\d{4}/)[0];
+  for(const k of ["class_name","main_class","image_date","view_date","date"]) if(p[k]){const m=String(p[k]).match(/(19|20)\d{2}/);if(m)return +m[0];} return null; };
+const SICAR_STATUS={AT:"Ativo",PE:"Pendente",SU:"Suspenso",CA:"Cancelado"};
+async function geoRun(feat,fonte,props){
+  GEO.feat=feat;GEO.fonte=fonte;GEO.props=props||feat.properties||{};GEO.anos=[];GEO.polys=[];GEO.avisos=[];
+  const bb=turf.bbox(feat);
+  const porAno=new Map(); let falhas=0;
+  for(const c of GEO_CFG.prodes){
+    geoStep(c.ws,`PRODES ${c.nome}: consultando o TerraBrasilis…`,"run");
+    try{
+      const gj=await geoJSONFetch(GEO_CFG.prodesUrl(c,bb),`O PRODES ${c.nome} (TerraBrasilis)`);
+      let n=0,ha=0;
+      for(const f of (gj.features||[])){ if(!f.geometry)continue; let it=null; try{it=turf.intersect(feat,f);}catch(e){}
+        if(!it)continue; const a=turf.area(it)/1e4; if(a<0.01)continue; const y=yearOf(f.properties||{});
+        n++;ha+=a; GEO.polys.push({geom:it.geometry,ano:y,ha:a,bioma:c.nome}); const k=y||0; porAno.set(k,(porAno.get(k)||0)+a); }
+      geoStep(c.ws,`PRODES ${c.nome}: ${n?`${n} polígono(s), ${nf(1).format(ha)} ha dentro do imóvel`:"nenhum desmatamento dentro do imóvel"}`,"ok");
+    }catch(e){ falhas++; geoStep(c.ws,`PRODES ${c.nome}: ${e.message}`,"err"); GEO.avisos.push(e.message); }
+  }
+  GEO.anos=[...porAno.entries()].sort((a,b)=>a[0]-b[0]).map(([ano,ha])=>({ano,ha}));
+  GEO.prodesOk=falhas<GEO_CFG.prodes.length;
+  geoFlags(); renderGeo();
+}
+function geoFlags(){
+  const F=[],add=(nivel,titulo,detalhe)=>F.push({nivel,titulo,detalhe}),p=GEO.props||{};
+  const st=p.ind_status||p.status||p.situacao; const stTxt=st?(SICAR_STATUS[String(st).toUpperCase()]||String(st)):null;
+  if(stTxt){ if(/suspens|cancel/i.test(stTxt)) add("imp",`CAR ${stTxt.toLowerCase()} no SICAR`,"Inscrição suspensa ou cancelada impede o crédito rural (MCR). Exige regularização.");
+    else add(/ativ/i.test(stTxt)?"ok":"att",`CAR ${stTxt.toLowerCase()} no SICAR`,p.des_condic?`Condição: ${p.des_condic}.`:""); }
+  if(GEO.prodesOk){
+    const pos=GEO.anos.filter(a=>a.ano>=2008).reduce((s,a)=>s+a.ha,0), pre=GEO.anos.filter(a=>a.ano&&a.ano<2008).reduce((s,a)=>s+a.ha,0);
+    const ult=GEO.anos.filter(a=>a.ano).map(a=>a.ano).pop();
+    if(pos>0) add("imp",`Desmatamento PRODES após 2008: ${nf(1).format(pos)} ha`,`Último registro em ${ult}. Exija a autorização de supressão (ASV) ou a comprovação de regularidade; sem ela, há impedimento ao crédito rural.`);
+    else add("ok","Sem desmatamento PRODES após 2008 dentro do imóvel","Marco de 22/07/2008 do Código Florestal.");
+    if(pre>0) add("info",`Desmatamento anterior a 2008: ${nf(1).format(pre)} ha`,"Tende a compor área rural consolidada; confira no CAR.");
+  } else add("na","PRODES não consultado","Nenhum serviço do TerraBrasilis respondeu. Tente de novo mais tarde ou consulte terrabrasilis.dpi.inpe.br.");
+  GEO.F=F;
+}
+function geoMap(){
+  const fs=[GEO.feat.geometry,...GEO.polys.map(x=>x.geom)];
+  const bb=turf.bbox(GEO.feat), W=420,H=300,pad=14, k=Math.cos(((bb[1]+bb[3])/2)*Math.PI/180);
+  const sx=(W-2*pad)/((bb[2]-bb[0])*k||1), sy=(H-2*pad)/((bb[3]-bb[1])||1), sc=Math.min(sx,sy);
+  const ox=pad+((W-2*pad)-(bb[2]-bb[0])*k*sc)/2, oy=pad+((H-2*pad)-(bb[3]-bb[1])*sc)/2;
+  const P=([x,y])=>`${(ox+(x-bb[0])*k*sc).toFixed(1)},${(oy+(bb[3]-y)*sc).toFixed(1)}`;
+  const path=g=>{const polys=g.type==="Polygon"?[g.coordinates]:g.coordinates;return polys.map(pl=>pl.map(r=>"M"+r.map(P).join("L")+"Z").join("")).join("");};
+  const kmPx=1/(111.32*k*sc), barKm=[0.5,1,2,5,10,20].find(v=>v/kmPx>60)||1, barPx=barKm/kmPx;
+  return `<svg class="chart geomap" viewBox="0 0 ${W} ${H}" role="img" aria-label="Limite do imóvel e desmatamento PRODES dentro dele">
+    <path d="${path(GEO.feat.geometry)}" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2" fill-rule="evenodd"/>
+    ${GEO.polys.map(x=>`<path d="${path(x.geom)}" fill="var(--bad)" fill-opacity=".55" stroke="var(--bad)" stroke-width="1"><title>${x.ano||"ano não informado"} · ${nf(1).format(x.ha)} ha · ${x.bioma}</title></path>`).join("")}
+    <line x1="${W-pad-barPx}" x2="${W-pad}" y1="${H-10}" y2="${H-10}" stroke="var(--ink-2)" stroke-width="2"/><text x="${W-pad-barPx/2}" y="${H-14}" text-anchor="middle">${nf(barKm<1?1:0).format(barKm)} km</text></svg>`;
+}
+function renderGeo(){
+  const el=$("geoResult"); if(!GEO.feat){return;}
+  const p=GEO.props||{}, haPol=turf.area(GEO.feat)/1e4, haDecl=parseNum(p.num_area??p.area_ha??p.area);
+  const tot=GEO.anos.reduce((s,a)=>s+a.ha,0), maxHa=Math.max(...GEO.anos.map(a=>a.ha),0);
+  const c={imp:0,att:0,ok:0};GEO.F.forEach(f=>{if(f.nivel in c)c[f.nivel]++;});
+  $("geoCount").innerHTML=`<span class="lv-imp">${c.imp} impedimento${c.imp===1?"":"s"}</span><span class="lv-ok">${c.ok} sem pendência</span>`;
+  const muni=p.municipio||p.nom_munici||p.nome_municipio;
+  el.innerHTML=`<div class="geohead"><div><div class="nm">${GEO.car||p.cod_imovel||p.nome||"Imóvel"}</div><div class="note">${GEO.fonte}${muni?` · ${muni}`:""}</div></div></div>
+   <div class="fsnums"><div><span class="v">${nf(1).format(haPol)} ha</span><span class="k">área do perímetro (calculada)</span></div><div><span class="v">${Number.isFinite(haDecl)?nf(1).format(haDecl)+" ha":"–"}</span><span class="k">área declarada no SICAR</span></div>
+   <div><span class="v">${GEO.prodesOk?nf(1).format(tot)+" ha":"–"}</span><span class="k">desmatamento PRODES no imóvel</span></div><div><span class="v">${p.mod_fiscal!=null?nf(2).format(parseNum(p.mod_fiscal)):"–"}</span><span class="k">módulos fiscais</span></div></div>
+   ${geoMap()}
+   ${GEO.anos.length?`<div class="tw"><table><thead><tr><th>Ano PRODES</th><th>Área no imóvel</th><th></th></tr></thead><tbody>${GEO.anos.map(a=>`<tr${a.ano>=2008?' class="hl"':""}><td>${a.ano||"não informado"}</td><td class="num">${nf(1).format(a.ha)} ha</td><td style="width:45%"><span class="gbar" style="width:${(a.ha/maxHa*100).toFixed(1)}%"></span></td></tr>`).join("")}</tbody></table></div>`:""}
+   <div class="fsgrp">${GEO.F.map(f=>`<div class="fsitem ${f.nivel}"><span class="ic lv-${f.nivel}" aria-label="${FS_LV[f.nivel]}">${FS_ICON[f.nivel]}</span><div><b>${f.titulo}</b>${f.detalhe?`<p>${f.detalhe}</p>`:""}</div></div>`).join("")}</div>`;
+  const imp=GEO.F.filter(f=>f.nivel==="imp").length, ap=$("geoApply"); ap.hidden=false;
+  const aplicado=S.socio===(imp?1:0);
+  ap.innerHTML=`<span class="t">Levar para a ferramenta</span><div class="it"><span>Impedimento socioambiental: ${imp?"sim":"não"}<small>${imp?GEO.F.filter(f=>f.nivel==="imp").map(f=>f.titulo).join("; "):"nenhum impedimento na consulta pública"}</small></span><button type="button" id="geoAp"${aplicado?' class="done"':""}>${aplicado?"Aplicado":"Aplicar"}</button></div>`;
+  $("geoAp").addEventListener("click",()=>{S.socio=imp?1:0;S.preset=null;writeInputs();update();renderGeo();});
+}
+async function geoConsultar(){
+  const car=$("geoCar").value.trim().toUpperCase().replace(/\s+/g,"").replace(/\./g,"");
+  $("geoSteps").innerHTML="";pfMsg("",false,"geoMsg");
+  if(!CAR_RE.test(car)){pfMsg("Código do CAR inválido. O formato é UF-0000000-seguido de 32 letras e números, como MT-5105580-01B9702A48AC4F868487D32BBF05D376.",true,"geoMsg");return;}
+  GEO.car=car; $("geoCar").value=car; $("geoGo").disabled=true;
+  try{
+    await loadTurf();
+    geoStep("sicar","SICAR: buscando o limite do imóvel…","run");
+    let feat=null;
+    try{ const gj=await geoJSONFetch(GEO_CFG.sicar(car.slice(0,2).toLowerCase(),car),"O SICAR"); feat=toFeature(gj);
+      if(!feat) throw new Error("O SICAR não encontrou um imóvel com esse código."); geoStep("sicar",`SICAR: imóvel encontrado (${nf(1).format(turf.area(feat)/1e4)} ha)`,"ok"); }
+    catch(e){ geoStep("sicar",`SICAR: ${e.message}`,"err"); pfMsg("Sem o limite do imóvel não dá para cruzar com o PRODES. Baixe o perímetro na consulta pública do CAR (car.gov.br) e carregue o arquivo acima.",true,"geoMsg"); return; }
+    await geoRun(feat,"Limite do SICAR",feat.properties);
+    pfMsg(GEO.prodesOk?"Consulta concluída.":"O limite foi obtido, mas o PRODES não respondeu.",!GEO.prodesOk,"geoMsg");
+  }catch(e){pfMsg(e.message||String(e),true,"geoMsg");}
+  finally{$("geoGo").disabled=false;}
+}
+async function geoArquivo(file){
+  if(!file)return; $("geoSteps").innerHTML="";pfMsg("Lendo o arquivo…",false,"geoMsg");
+  try{
+    await loadTurf(); const ext=(file.name.split(".").pop()||"").toLowerCase(); let feat=null;
+    if(ext==="zip"){ await loadShp(); feat=toFeature(await shp(await file.arrayBuffer())); }
+    else if(ext==="kml"){ feat=kmlToGeoJSON(await file.text()); }
+    else { feat=toFeature(JSON.parse(await file.text())); }
+    if(!feat) throw new Error("Não encontrei um polígono do imóvel neste arquivo.");
+    const pc=feat.properties||{}; GEO.car=pc.cod_imovel||pc.COD_IMOVEL||($("geoCar").value.trim().toUpperCase()||null);
+    if(GEO.car) $("geoCar").value=GEO.car;
+    geoStep("arq",`Perímetro lido de ${file.name} (${nf(1).format(turf.area(feat)/1e4)} ha)`,"ok");
+    await geoRun(feat,"Perímetro de "+file.name,pc);
+    pfMsg(GEO.prodesOk?"Consulta concluída.":"O perímetro foi lido, mas o PRODES não respondeu.",!GEO.prodesOk,"geoMsg");
+  }catch(e){pfMsg(e.message||String(e),true,"geoMsg");}
+}
+$("geoGo").addEventListener("click",geoConsultar);
+$("geoCar").addEventListener("keydown",e=>{if(e.key==="Enter")geoConsultar();});
+$("geoFile").addEventListener("change",e=>{geoArquivo(e.target.files[0]);e.target.value="";});
 
 /* ---------------- abas ---------------- */
 const TABS3=["pre","relatorio","sumula"];

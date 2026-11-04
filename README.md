@@ -38,7 +38,27 @@ na outra.
   marginais, curva ROC (AUC de 0,709 na amostra de teste) e calibração.
 - **Ponto de corte**: explorador que recalcula a matriz de confusão dos 860 produtores de teste.
 
-## Relatório do imóvel (Farm-Scan / Dados Fazenda)
+## Relatório do imóvel: consulta pública SICAR + PRODES
+
+Na aba **Relatório do imóvel**, digite o código do CAR e clique em *Consultar*. A página, direto do
+navegador:
+
+1. busca o limite do imóvel no GeoServer público do SICAR (`geoserver.car.gov.br`, camada
+   `sicar:sicar_imoveis_<uf>`, filtro `cod_imovel`), com situação, condição, área declarada e módulos
+   fiscais;
+2. busca os polígonos de desmatamento anual do PRODES no TerraBrasilis/INPE
+   (`prodes-legal-amz:yearly_deforestation` e `prodes-cerrado-nb:yearly_deforestation`) na área do
+   imóvel e calcula, com Turf.js, os hectares desmatados **dentro** do perímetro em cada ano;
+3. mostra o mapa, a tabela por ano e a checagem: CAR suspenso ou cancelado e desmatamento após
+   22/07/2008 são **impedimentos** (aplicáveis à ferramenta como impedimento socioambiental); o
+   desmatamento anterior a 2008 é informativo.
+
+Se o SICAR não responder ou recusar a consulta do navegador, carregue o perímetro do imóvel baixado da
+consulta pública do CAR (`.zip` com shapefile, `.kml` ou `.geojson`); o cruzamento com o PRODES é feito
+do mesmo jeito. O PRODES é anual e tem área mínima de mapeamento; não substitui DETER, MapBiomas Alerta
+nem vistoria.
+
+## Relatório do imóvel em PDF (Farm-Scan / Dados Fazenda)
 
 Na aba **Relatório do imóvel** (`#relatorio`), carregue o
 PDF do *Relatório da Propriedade* gerado em dadosfazenda.com.br. A aba mostra também o resultado atual
