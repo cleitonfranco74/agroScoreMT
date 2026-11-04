@@ -1139,7 +1139,7 @@ async function readFile(file){
     return rowsFromTable(tab,name+(wb.SheetNames.length>1?` (aba ${wb.SheetNames[0]})`:""));
   }
   let text=await file.text();
-  if(text.includes("�")){ try{ text=new TextDecoder("windows-1252").decode(await file.arrayBuffer()); }catch(e){} }
+  if(text.includes("\uFFFD")){ try{ text=new TextDecoder("windows-1252").decode(await file.arrayBuffer()); }catch(e){} }
   return rowsFromTable(parseCSV(text),name);
 }
 async function handleFile(file){
