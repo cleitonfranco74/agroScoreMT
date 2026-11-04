@@ -104,6 +104,10 @@ section > .head{display:grid;gap:8px}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
 .subhead{padding:8px 14px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);background:var(--bg);border-bottom:1px solid var(--line)}
 
+.crophead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.crophead button{font:inherit;font-family:var(--f-body);font-size:.76rem;letter-spacing:0;text-transform:none;padding:3px 9px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--accent);cursor:pointer}
+.crophead button:hover{border-color:var(--accent)}
+.cropnote{margin:0;max-width:none;padding:10px 14px;font-size:.82rem;line-height:1.45;color:var(--warn);background:var(--warn-bg);border-bottom:1px solid var(--line)}
 .result{display:grid;gap:16px;position:sticky;top:64px}
 .verdict{border-radius:6px;padding:18px 20px;display:grid;gap:6px;border:1px solid}
 .verdict.ok{background:var(--good-bg);border-color:var(--good);color:var(--good)}
@@ -234,11 +238,22 @@ footer p{max-width:none}
         <div class="row"><span class="code">AREA · D12</span><label for="area">Área consolidada (CAR)<small>hectares</small></label><input id="area" type="number" min="0" step="0.1" inputmode="decimal"></div>
         <div class="row"><span class="code">ENDV_SFN · D13</span><label for="endv">Endividamento total no SFN<small>R$</small></label><input id="endv" type="number" min="0" step="1000" inputmode="decimal"></div>
         <div class="row"><span class="code">CLASSE · D14</span><label for="classe">Classe de risco interna<small>R1 = menor · R10 = maior</small></label><select id="classe"></select></div>
-        <div class="row"><span class="code">RECEITA · D15</span><span class="lbl">Receita bruta anual<small>calculada: área × R$ 12.594,57/ha</small></span><div class="calc" id="recIn">–</div></div>
+        <div class="row"><span class="code">RECEITA · D15</span><span class="lbl">Receita bruta anual<small>soja + milho safrinha, ver composição abaixo</small></span><div class="calc" id="recIn">–</div></div>
         <div class="row"><span class="code">VALOR_SOLICIT · D16</span><label for="valor">Valor solicitado<small>R$ · informativo</small></label><input id="valor" type="number" min="0" step="1000" inputmode="decimal"></div>
         <div class="row"><span class="code">PTR_TERRAS · D17</span><label for="ptr">Patrimônio em terras<small>R$ · 0 = estimar pela área</small></label><input id="ptr" type="number" min="0" step="1000" inputmode="decimal"></div>
         <div class="row"><span class="code">RESTRICAO_SFN · D18</span><span class="lbl">Restrição ativa no SFN<small>regra eliminatória</small></span><div class="seg" id="restr" role="group" aria-label="Restrição ativa no SFN"><button type="button" data-v="0">Não</button><button type="button" data-v="1">Sim</button></div></div>
       </div>
+      <div class="subhead crophead"><span>Composição da receita · soja e milho safrinha</span><button type="button" id="cropReset">Restaurar parâmetros do TCC</button></div>
+      <div class="rows">
+        <div class="row"><span class="code">PCT_SOJA</span><label for="pSoja">Área com soja (safra)<small>% da área consolidada</small></label><input id="pSoja" type="number" min="0" max="100" step="1" inputmode="decimal"></div>
+        <div class="row"><span class="code">PCT_MILHO</span><label for="pMilho">Área com milho safrinha<small>% da área · plantado após a soja</small></label><input id="pMilho" type="number" min="0" max="100" step="1" inputmode="decimal"></div>
+        <div class="row"><span class="code">PARAMETROS · B4</span><label for="sProd">Soja: produtividade<small>sc/ha</small></label><input id="sProd" type="number" min="0" step="0.01" inputmode="decimal"></div>
+        <div class="row"><span class="code">PARAMETROS · B5</span><label for="sPreco">Soja: preço<small>R$/sc</small></label><input id="sPreco" type="number" min="0" step="0.01" inputmode="decimal"></div>
+        <div class="row"><span class="code">PARAMETROS · B7</span><label for="mProd">Milho safrinha: produtividade<small>sc/ha</small></label><input id="mProd" type="number" min="0" step="0.01" inputmode="decimal"></div>
+        <div class="row"><span class="code">PARAMETROS · B8</span><label for="mPreco">Milho safrinha: preço<small>R$/sc</small></label><input id="mPreco" type="number" min="0" step="0.01" inputmode="decimal"></div>
+      </div>
+      <div class="rows" id="cropRows"></div>
+      <p class="cropnote" id="cropNote" hidden></p>
       <div class="subhead">Aba MODELO_LOGIT · Ponto de corte</div>
       <div class="rows">
         <div class="row"><span class="code">B31</span><span class="lbl">Critério do corte<small>recusa se PD ≥ corte</small></span><div class="seg" id="crit" role="group" aria-label="Critério do ponto de corte"><button type="button" data-v="Y">Youden</button><button type="button" data-v="E">Econômico</button></div></div>
@@ -542,7 +557,11 @@ footer p{max-width:none}
 (function(){
 "use strict";
 const B0=-1.38701378563317,B1=0.14685501919196,B2=1.08324937655158,B3=-0.159404410418063;
-const REC_HA=12594.5714,CUS_HA=7307.45,TERRA_HA=91462.36,YOUDEN=0.144289043363147;
+const TERRA_HA=91462.36,YOUDEN=0.144289043363147;
+// parâmetros agronômicos do TCC (aba PARAMETROS); custos por hectare cultivado
+const CROP_TCC={pSoja:100,pMilho:100,sProd:55.76,sPreco:134.38,mProd:106.26,mPreco:48.01};
+const CUS_SOJA=4181.26,CUS_MILHO=3126.19;
+const CROP_KEYS=Object.keys(CROP_TCC);
 const TX_CLASSE=[0,0.0652173913043478,0.0611353711790393,0.0919540229885058,0.113785557986871,0.126948775055679,0.170673076923077,0.224188790560472,0.265765765765766,0.333333333333333];
 const N_CLASSE=[68,138,229,348,457,449,416,339,222,201];
 const AREA_F=[["Até 100 ha",425,0.192941176470588],["100 a 500 ha",1230,0.158536585365854],["500 a 2.000 ha",782,0.138107416879795],["Acima de 2.000 ha",430,0.12093023255814]];
@@ -566,7 +585,7 @@ const pct=(x,d=1)=>Number.isFinite(x)?nf(d).format(x*100)+"%":"–";
 const brl=x=>Number.isFinite(x)?"R$ "+nf(2).format(x):"–";
 const num=(x,d=4)=>Number.isFinite(x)?nf(d).format(x):"–";
 
-const S={area:400,endv:1800000,classe:5,receita:0,valor:600000,ptr:0,restr:0,crit:"Y",marg:5,lgd:35,cut:YOUDEN,preset:"ex1"};
+const S=Object.assign({area:400,endv:1800000,classe:5,valor:600000,ptr:0,restr:0,crit:"Y",marg:5,lgd:35,cut:YOUDEN,preset:"ex1"},CROP_TCC);
 
 // build class select
 const sel=$("classe");
@@ -574,16 +593,17 @@ for(let i=1;i<=10;i++){const o=document.createElement("option");o.value=i;o.text
 // presets
 const pr=$("presets");
 PRESETS.forEach(p=>{const b=document.createElement("button");b.type="button";b.textContent=p.n;b.dataset.id=p.id;
-  b.addEventListener("click",()=>{Object.assign(S,p.v);if(p.crit)S.crit=p.crit;S.preset=p.id;syncCut();writeInputs();update();});pr.appendChild(b);});
+  b.addEventListener("click",()=>{Object.assign(S,CROP_TCC,p.v);if(p.crit)S.crit=p.crit;S.preset=p.id;syncCut();writeInputs();update();});pr.appendChild(b);});
 
 function econCut(){return (S.marg/100)/((S.marg/100)+(S.lgd/100));}
 function syncCut(){ if(S.crit==="Y")S.cut=YOUDEN; else if(S.crit==="E")S.cut=econCut(); }
 
 function writeInputs(){
-  ["area","endv","valor","ptr"].forEach(k=>$(k).value=S[k]);
+  ["area","endv","valor","ptr"].concat(CROP_KEYS).forEach(k=>$(k).value=S[k]);
   sel.value=S.classe; $("marg").value=S.marg; $("lgd").value=S.lgd;
 }
-["area","endv","valor","ptr"].forEach(k=>$(k).addEventListener("input",e=>{S[k]=parseFloat(e.target.value);S.preset=null;update();}));
+["area","endv","valor","ptr"].concat(CROP_KEYS).forEach(k=>$(k).addEventListener("input",e=>{S[k]=parseFloat(e.target.value);S.preset=null;update();}));
+$("cropReset").addEventListener("click",()=>{Object.assign(S,CROP_TCC);writeInputs();update();});
 sel.addEventListener("change",e=>{S.classe=+e.target.value;S.preset=null;update();});
 $("marg").addEventListener("input",e=>{S.marg=parseFloat(e.target.value);if(S.crit==="E")syncCut();update();});
 $("lgd").addEventListener("input",e=>{S.lgd=parseFloat(e.target.value);if(S.crit==="E")syncCut();update();});
@@ -595,7 +615,13 @@ $("cutBtns").querySelectorAll("button").forEach(b=>b.addEventListener("click",()
 
 function compute(){
   const a=S.area,e=S.endv,c=S.classe;
-  const recU=a*REC_HA; // receita sempre calculada pela área (soja + milho safrinha)
+  // receita pela área, separando as culturas: área × % cultivada × produtividade × preço
+  const v=x=>Number.isFinite(x)&&x>0?x:0;
+  const fS=Math.min(v(S.pSoja),100)/100, fM=Math.min(v(S.pMilho),100)/100;
+  const recSojaHa=v(S.sProd)*v(S.sPreco), recMilhoHa=v(S.mProd)*v(S.mPreco);
+  const recSoja=a*fS*recSojaHa, recMilho=a*fM*recMilhoHa;
+  const recU=recSoja+recMilho;
+  const resEst=a*(fS*(recSojaHa-CUS_SOJA)+fM*(recMilhoHa-CUS_MILHO));
   const alav=e/recU;
   const patr=(S.ptr>0)?S.ptr:a*TERRA_HA;
   const valid=a>0&&e>0&&c>=1&&c<=10&&recU>0;
@@ -604,7 +630,7 @@ function compute(){
   const pd=1/(1+Math.exp(-xb));
   let cls;
   if(S.restr===1) cls="R"; else if(!valid||!Number.isFinite(pd)) cls="V"; else cls=pd<S.cut?"A":"N";
-  return {recU,alav,lnA,lnAr,solv:e/patr,prop:S.valor>0?S.valor/recU:NaN,res:a*(REC_HA-CUS_HA),xb,pd,cls,valid};
+  return {recU,recSoja,recMilho,recSojaHa,recMilhoHa,fS,fM,alav,lnA,lnAr,solv:e/patr,prop:S.valor>0?S.valor/recU:NaN,res:resEst,xb,pd,cls,valid};
 }
 
 const ICON={A:'<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17.5 8" stroke="var(--surface)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -622,14 +648,25 @@ function update(){
   const econ=S.crit==="E"; $("rowM").style.opacity=$("rowL").style.opacity=econ?1:.55;
   // calc rows
   $("recIn").textContent=brl(r.recU);
+  const ha=x=>nf(1).format(x||0)+" ha";
+  const crop=[
+    ["RECEITA_SOJA","Receita da soja",brl(r.recSoja),`${ha(S.area*r.fS)} × R$ ${nf(2).format(r.recSojaHa)}/ha`],
+    ["RECEITA_MILHO","Receita do milho safrinha",brl(r.recMilho),`${ha(S.area*r.fM)} × R$ ${nf(2).format(r.recMilhoHa)}/ha`],
+    ["RECEITA_HA","Receita por hectare da área total",brl(S.area>0?r.recU/S.area:NaN),"TCC: R$ 12.594,57/ha"]];
+  $("cropRows").innerHTML=crop.map(x=>`<div class="row"><span class="code">${x[0]}</span><span class="lbl">${x[1]}<small>${x[3]}</small></span><div class="calc">${x[2]}</div></div>`).join("");
+  const padrao=CROP_KEYS.every(k=>S[k]===CROP_TCC[k]);
+  const avisos=[];
+  if(!padrao) avisos.push("Composição diferente da usada na estimação (100% soja + 100% milho safrinha, parâmetros do TCC). A alavancagem muda e o resultado deve ser lido como cenário.");
+  if(r.fM>r.fS) avisos.push("A área de milho safrinha está maior que a de soja. A safrinha costuma ser plantada após a soja, na mesma área.");
+  $("cropNote").hidden=!avisos.length; $("cropNote").textContent=avisos.join(" ");
   const rows=[
-    ["RECEITA_USADA · D21","Receita bruta utilizada",brl(r.recU),`${nf(1).format(S.area||0)} ha × R$ 12.594,57/ha`],
+    ["RECEITA_USADA · D21","Receita bruta utilizada",brl(r.recU),"receita da soja + receita do milho safrinha"],
     ["ALAVANC · D22","Alavancagem (dívida / receita)",num(r.alav,3)+"×",""],
     ["LN_ALAV · D23","ln(alavancagem)",num(r.lnA,4),""],
     ["LN_AREA · D24","ln(área)",num(r.lnAr,4),""],
     ["SOLVENCIA · D25","Dívida / patrimônio em terras",pct(r.solv,1),"informativo"],
     ["PROP_FINAN · D26","Valor solicitado / receita",Number.isFinite(r.prop)?pct(r.prop,1):"–","informativo"],
-    ["RESULT_EST · D27","Resultado operacional estimado",brl(r.res),"área × margem por ha"]];
+    ["RESULT_EST · D27","Resultado operacional estimado",brl(r.res),"receita − custo de cada cultura"]];
   $("calcRows").innerHTML=rows.map(x=>`<div class="row"><span class="code">${x[0]}</span><span class="lbl">${x[1]}${x[3]?`<small>${x[3]}</small>`:""}</span><div class="calc">${x[2]}</div></div>`).join("");
   // verdict
   const v=$("verdict"); v.className="verdict "+({A:"ok",N:"no",R:"no",V:"warn"}[r.cls]);
