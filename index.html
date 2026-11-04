@@ -232,11 +232,18 @@ table.srind small.src{display:block;font-size:.72rem;color:var(--muted);font-fam
 .gsi{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none;background:var(--axis)}
 .gs.ok .gsi{background:var(--good)} .gs.err .gsi{background:var(--bad)} .gs.err{color:var(--bad)}
 .gs.run .gsi{background:var(--warn)}
+.gs.skip .gsi{background:var(--muted)}
 @media (prefers-reduced-motion:no-preference){.gs.run .gsi{animation:gsp 1s ease-in-out infinite alternate}@keyframes gsp{to{opacity:.3}}}
 .georesult{display:grid;gap:12px;min-width:0}
 .geohead .nm{font-family:var(--f-mono);font-weight:600;font-size:.86rem;word-break:break-all}
 .geomap{background:var(--bg);border-radius:6px;border:1px solid var(--line)}
 .gbar{display:block;height:8px;border-radius:0 4px 4px 0;background:var(--bad)}
+.geoac{display:grid;gap:8px;padding:12px 14px;border-radius:6px;border:1px solid var(--input-line);background:var(--surface)}
+.geoac .lbl small{display:block;color:var(--ink-2);font-size:.76rem;font-family:var(--f-body)}
+.geoac .lbl small.found{color:var(--good)}
+.geoproj{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;margin:0;font-size:.86rem}
+.geoproj dt{color:var(--ink-2)} .geoproj dd{margin:0;font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.geoproj .warn{grid-column:1/-1;color:var(--warn);font-size:.8rem;line-height:1.4}
 @media (max-width:900px){.geogrid{grid-template-columns:minmax(0,1fr)}}
 /* ---------- relatório da propriedade ---------- */
 .fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
@@ -952,6 +959,11 @@ footer p{max-width:none}
         <label class="drop dropsm" for="geoFile"><input id="geoFile" type="file" accept=".geojson,.json,.kml,.zip"><b>Arquivo do perímetro</b><span>.zip (shapefile), .kml ou .geojson</span></label>
         <ol class="geosteps" id="geoSteps"></ol>
         <p class="pfmsg" id="geoMsg" role="status"></p>
+        <div class="geoac" id="geoAc" hidden>
+          <label for="geoAcHa" class="lbl"><b>Área de uso consolidado (ha)</b><small id="geoAcSrc">informe o valor do demonstrativo do CAR</small></label>
+          <div class="georow"><input id="geoAcHa" type="number" min="0" step="0.1" inputmode="decimal" placeholder="ex.: 514,5"><button type="button" id="geoAcAp">Aplicar à ferramenta</button></div>
+          <dl class="geoproj" id="geoProj"></dl>
+        </div>
         <div class="fsapply" id="geoApply" hidden></div>
         <div class="fsres" id="geoRes" aria-live="polite"></div>
       </div>
@@ -1145,7 +1157,7 @@ function update(){
   drawClasse(); drawPD(r); drawROC(); drawCut(); drawCM();
   if(PF.rows.length) renderPortfolio();
   if(SR.d) renderSR();
-  if(GEO.feat) renderGeoApply();
+  if(GEO.feat){ renderGeoApply(); renderGeoAc(); }
   fsRenderRes();
 }
 
@@ -1744,8 +1756,51 @@ function kmlToGeoJSON(text){
 const yearOf=p=>{ for(const k of ["year","ano","YEAR","Ano"]) if(p[k]!=null&&String(p[k]).match(/\d{4}/)) return +String(p[k]).match(/\d{4}/)[0];
   for(const k of ["class_name","main_class","image_date","view_date","date"]) if(p[k]){const m=String(p[k]).match(/(19|20)\d{2}/);if(m)return +m[0];} return null; };
 const SICAR_STATUS={AT:"Ativo",PE:"Pendente",SU:"Suspenso",CA:"Cancelado"};
+const SICAR_WFS="https://geoserver.car.gov.br/geoserver/sicar/wfs";
+async function geoConsolidada(feat,car){
+  // descobre a camada de área consolidada publicada pelo SICAR para a UF e soma a parte dentro do imóvel
+  const uf=(car||"").slice(0,2).toLowerCase();
+  let r; try{ r=await fetch(SICAR_WFS+"?service=WFS&version=1.0.0&request=GetCapabilities"); }catch(e){ throw new Error("o SICAR não respondeu à lista de camadas"); }
+  if(!r.ok) throw new Error(`o SICAR respondeu com erro (HTTP ${r.status})`);
+  const doc=new DOMParser().parseFromString(await r.text(),"application/xml");
+  const nomes=[...doc.getElementsByTagName("FeatureType")].map(ft=>{const n=ft.getElementsByTagName("Name")[0];return n?n.textContent.trim():"";}).filter(n=>/consolid/i.test(n));
+  if(!nomes.length) throw new Error("o SICAR não publica uma camada de área consolidada neste serviço");
+  const layer=nomes.find(n=>uf&&new RegExp("(^|[_:])"+uf+"$","i").test(n))||nomes.find(n=>!/_[a-z]{2}$/i.test(n));
+  if(!layer) throw new Error(`não há camada de área consolidada para ${uf.toUpperCase()||"a UF"}`);
+  const base=`${SICAR_WFS}?service=WFS&version=1.0.0&request=GetFeature&typeName=${encodeURIComponent(layer)}&outputFormat=application/json&srsName=EPSG:4326`;
+  let fs=[];
+  if(car){ try{ const gj=await geoJSONFetch(base+"&CQL_FILTER="+encodeURIComponent(`cod_imovel='${car}'`),"O SICAR"); fs=gj.features||[]; }catch(e){} }
+  if(!fs.length){ const b=turf.bbox(feat); const gj=await geoJSONFetch(base+`&bbox=${b[0]},${b[1]},${b[2]},${b[3]}`,"O SICAR"); fs=gj.features||[]; }
+  let ha=0; for(const f of fs){ if(!f.geometry)continue; let it=null; try{it=turf.intersect(feat,f);}catch(e){} if(it) ha+=turf.area(it)/1e4; }
+  if(!(ha>0)) throw new Error("a camada de área consolidada não tem polígonos dentro do imóvel");
+  return {ha:Math.round(ha*10)/10,layer};
+}
+function geoReceita(ha){ const fS=Math.min(Math.max(S.pSoja||0,0),100)/100, fM=Math.min(Math.max(S.pMilho||0,0),100)/100;
+  const rS=S.sProd*S.sPreco, rM=S.mProd*S.mPreco; return {rec:ha*(fS*rS+fM*rM), res:ha*(fS*(rS-CUS_SOJA)+fM*(rM-CUS_MILHO))}; }
+function renderGeoAc(){
+  const box=$("geoAc"); if(!GEO.feat){box.hidden=true;return;} box.hidden=false;
+  const v=parseFloat($("geoAcHa").value), haPol=turf.area(GEO.feat)/1e4;
+  const src=$("geoAcSrc"); src.textContent=GEO.acFonte||"informe o valor do demonstrativo do CAR"; src.classList.toggle("found",!!GEO.acAuto);
+  const ap=Number.isFinite(v)&&v>0&&Math.abs(S.area-v)<0.05, btn=$("geoAcAp"); btn.textContent=ap?"Aplicado":"Aplicar à ferramenta"; btn.classList.toggle("done",ap);
+  if(!(v>0)){ $("geoProj").innerHTML=`<dt>Área na ferramenta agora</dt><dd>${nf(1).format(S.area||0)} ha</dd>`; return; }
+  const p=geoReceita(v), al=S.endv>0&&p.rec>0?S.endv/p.rec:null, pct=v/haPol*100;
+  $("geoProj").innerHTML=`<dt>Receita projetada (soja ${nf(0).format(S.pSoja)}% + milho ${nf(0).format(S.pMilho)}%)</dt><dd>${brl(p.rec)}</dd>
+    <dt>Resultado operacional estimado</dt><dd>${brl(p.res)}</dd>
+    <dt>Alavancagem com a dívida da ferramenta</dt><dd>${al!=null?nf(2).format(al)+"×":"–"}</dd>
+    <dt>Parcela do perímetro</dt><dd>${nf(1).format(pct)}%</dd>
+    ${pct>100.5?`<dd class="warn">A área consolidada informada é maior que o perímetro do imóvel (${nf(1).format(haPol)} ha). Confira o valor.</dd>`:""}`;
+}
+function geoAcApply(){ const v=parseFloat($("geoAcHa").value); if(!(v>0)){pfMsg("Informe a área de uso consolidado em hectares, maior que zero.",true,"geoMsg");return;}
+  S.area=Math.round(v*10)/10; S.preset=null; writeInputs(); update(); pfMsg(`Área de ${nf(1).format(S.area)} ha aplicada à ferramenta; a receita passa a ser projetada por ela.`,false,"geoMsg"); }
 async function geoRun(feat,fonte,props){
   GEO.feat=feat;GEO.fonte=fonte;GEO.props=props||feat.properties||{};GEO.anos=[];GEO.polys=[];GEO.avisos=[];
+  GEO.acAuto=false; GEO.acFonte=""; $("geoAcHa").value=""; renderGeoAc();
+  geoStep("ac","SICAR: procurando a área de uso consolidado…","run");
+  try{ const ac=await geoConsolidada(feat,GEO.car); $("geoAcHa").value=ac.ha; GEO.acAuto=true; GEO.acFonte=`obtida do SICAR (camada ${ac.layer}); confira com o demonstrativo do CAR`;
+    geoStep("ac",`SICAR: área de uso consolidado de ${nf(1).format(ac.ha)} ha`,"ok");
+    S.area=ac.ha; S.preset=null; writeInputs(); update(); }
+  catch(e){ geoStep("ac",`Área consolidada: ${e.message}. Informe o valor do demonstrativo do CAR no campo abaixo.`,"skip"); }
+  renderGeoAc();
   const bb=turf.bbox(feat);
   const porAno=new Map(); let falhas=0;
   for(const c of GEO_CFG.prodes){
@@ -1844,6 +1899,9 @@ async function geoArquivo(file){
   }catch(e){pfMsg(e.message||String(e),true,"geoMsg");}
 }
 $("geoGo").addEventListener("click",geoConsultar);
+$("geoAcHa").addEventListener("input",()=>{GEO.acAuto=false;GEO.acFonte="informada pelo analista";renderGeoAc();});
+$("geoAcHa").addEventListener("keydown",e=>{if(e.key==="Enter")geoAcApply();});
+$("geoAcAp").addEventListener("click",geoAcApply);
 $("geoCar").addEventListener("keydown",e=>{if(e.key==="Enter")geoConsultar();});
 $("geoFile").addEventListener("change",e=>{geoArquivo(e.target.files[0]);e.target.value="";});
 

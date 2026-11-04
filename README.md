@@ -49,7 +49,13 @@ navegador:
 2. busca os polígonos de desmatamento anual do PRODES no TerraBrasilis/INPE
    (`prodes-legal-amz:yearly_deforestation` e `prodes-cerrado-nb:yearly_deforestation`) na área do
    imóvel e calcula, com Turf.js, os hectares desmatados **dentro** do perímetro em cada ano;
-3. mostra o mapa, a tabela por ano e a checagem: CAR suspenso ou cancelado e desmatamento após
+3. procura a **área de uso consolidado**, que é a variável de área do modelo e a base da receita: lê a
+   lista de camadas do GeoServer do SICAR (`GetCapabilities`), escolhe a camada de área consolidada da
+   UF e soma a parte que cai dentro do perímetro. Se encontrar, preenche o campo *Área de uso
+   consolidado (ha)* e aplica à ferramenta; se não, o analista informa o valor do demonstrativo do CAR.
+   O campo mostra na hora a receita projetada (soja e milho safrinha), o resultado operacional, a
+   alavancagem e a parcela do perímetro;
+4. mostra o mapa, a tabela por ano e a checagem: CAR suspenso ou cancelado e desmatamento após
    22/07/2008 são **impedimentos** (aplicáveis à ferramenta como impedimento socioambiental); o
    desmatamento anterior a 2008 é informativo.
 
