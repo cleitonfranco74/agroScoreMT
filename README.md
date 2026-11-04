@@ -76,6 +76,14 @@ sistema da cooperativa. A página lê o PDF no navegador e:
 - compara a alavancagem pela renda cadastral com a alavancagem pela receita estimada pela área e avisa
   quando a área da ferramenta parece incompatível com a renda do cooperado.
 
+**Posição no SFN.** A aba mostra o painel *Endividamento do cooperado no SFN* (SCR): dívida total e
+variação em 12 meses, parcela que vence em até 360 dias e longo prazo, parte na cooperativa e em outras
+instituições, saldo vencido, e as relações dívida ÷ renda, curto prazo ÷ renda (comprometimento), dívida
+÷ receita estimada pela área (alavancagem do modelo) e saldo em conta ÷ curto prazo, com alertas
+(crescimento forte, concentração no curto prazo, comprometimento acima de 50%, vencidos, liquidez baixa,
+pouca exposição na cooperativa e área incompatível com a renda). Quando a súmula é aplicada, a
+ferramenta exibe esse resumo do SFN junto ao resultado.
+
 A súmula contém dados pessoais e financeiros sigilosos: o PDF não sai do navegador e o CPF aparece
 mascarado. O exemplo exibido ao abrir a aba é fictício.
 
@@ -86,7 +94,10 @@ Na aba **Carteira** (`#carteira`), a cooperativa analisa todos os associados de 
 1. Baixe o modelo ([`modelo_associados.csv`](modelo_associados.csv), também disponível pelo botão na
    página) e preencha uma linha por associado. Obrigatórias: `area_ha`, `endividamento_sfn` e
    `classe` (1 a 10 ou R1 a R10). Opcionais: `codigo`, `nome`, `municipio`, `valor_solicitado`,
-   `patrimonio_terras`, `restricao_sfn`, `pct_soja`, `pct_milho` e `impedimento_socioambiental`.
+   `patrimonio_terras`, `restricao_sfn`, `pct_soja`, `pct_milho`, `impedimento_socioambiental`,
+   `endividamento_curto_prazo` (parte da dívida no SFN que vence em até 360 dias) e `renda_anual`. Com
+   as duas últimas, a carteira mostra dívida ÷ renda e curto prazo ÷ renda e aponta comprometimento acima
+   de 50% e área incompatível com a renda.
 2. Na ferramenta, defina o ponto de corte, a margem, a LGD e os parâmetros de soja e milho.
 3. Carregue o arquivo (CSV separado por ponto e vírgula ou vírgula, ou Excel .xlsx). Aceita números no
    formato brasileiro (1.234.567,89) e nomes de colunas com acentos ou maiúsculas.

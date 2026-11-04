@@ -201,6 +201,31 @@ nav.toc .tabs .sm{display:none}
 @media (max-width:620px){nav.toc .brand{display:none}nav.toc .tabs .lg{display:none}nav.toc .tabs .sm{display:inline}}
 .srwarn{color:var(--warn);background:var(--warn-bg);border-radius:4px;padding:8px 10px;font-size:.82rem;line-height:1.45;max-width:none}
 table.srind td:first-child{white-space:normal;min-width:11rem}
+.sfncard{gap:16px;margin-top:20px}
+.sfntiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sfntiles div{padding:12px 12px 12px 0;display:grid;gap:2px;align-content:start}
+.sfntiles div+div{padding-left:12px;border-left:1px solid var(--line)}
+.sfntiles .v{font-family:var(--f-mono);font-weight:600;font-size:1rem;font-variant-numeric:tabular-nums}
+.sfntiles .k{font-size:.78rem;color:var(--ink-2);line-height:1.3}
+.sfntiles .d{font-size:.74rem;color:var(--muted);font-family:var(--f-mono)}
+.sfnbars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sbar{display:grid;gap:6px}
+.sbar .lab{font-size:.8rem;color:var(--ink-2)}
+.sbar .track{display:flex;gap:2px;height:14px}
+.sbar .seg{height:100%;border-radius:3px;min-width:2px}
+.sbar .s1{background:var(--s1)} .sbar .s2{background:var(--q1)}
+.sbar .leg{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2)}
+.sbar .leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.sfncols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.sfnrel{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;margin:0;font-size:.88rem}
+.sfnrel dt{color:var(--ink-2)} .sfnrel dt small{display:block;font-size:.74rem;color:var(--muted)}
+.sfnrel dd{margin:0;font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.sfnbox{display:grid;gap:6px;padding:12px 14px;border-radius:6px;background:var(--bg);font-size:.86rem}
+.sfnbox .t{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.sfnbox dl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;margin:0}
+.sfnbox dt{color:var(--ink-2)} .sfnbox dd{margin:0;font-family:var(--f-mono);text-align:right}
+.sfnbox .w{color:var(--warn);font-size:.8rem}
+@media (max-width:900px){.sfntiles{grid-template-columns:repeat(2,minmax(0,1fr))}.sfntiles div:nth-child(odd){padding-left:0;border-left:0}.sfntiles div:nth-child(n+3){border-top:1px solid var(--line)}.sfnbars,.sfncols{grid-template-columns:minmax(0,1fr)}}
 table.srind small.src{display:block;font-size:.72rem;color:var(--muted);font-family:var(--f-mono)}
 .srprov{margin:6px 0 0;padding-left:20px;font-size:.86rem;color:var(--ink-2);display:grid;gap:4px}
 .cgroup{display:grid;gap:10px}
@@ -574,6 +599,7 @@ footer p{max-width:none}
           <dt>Leitura</dt><dd id="leit" style="font-family:var(--f-body);text-align:right;white-space:normal">–</dd>
         </dl>
         <div class="eq" id="eq"></div>
+        <div class="sfnbox" id="sfnTool" hidden></div>
         <p class="note">Coeficientes estimados na amostra de treino (2.007 produtores) com inadimplência simulada. Uso didático: não representa o risco de produtores reais nem a política de nenhuma instituição.</p>
       </div>
     </div>
@@ -629,6 +655,8 @@ footer p{max-width:none}
           <tr><td class="mono">patrimonio_terras</td><td style="text-align:left">Patrimônio em terras, em R$ (vazio = estimar pela área)</td><td>não</td></tr>
           <tr><td class="mono">restricao_sfn</td><td style="text-align:left">Restrição ativa no SFN: 0/1 ou não/sim</td><td>não</td></tr>
           <tr><td class="mono">pct_soja</td><td style="text-align:left">% da área com soja, 0 a 100 (vazio = valor da ferramenta)</td><td>não</td></tr>
+          <tr><td class="mono">endividamento_curto_prazo</td><td style="text-align:left">Parte da dívida no SFN que vence em até 360 dias, em R$ (SCR)</td><td>não</td></tr>
+          <tr><td class="mono">renda_anual</td><td style="text-align:left">Renda anual cadastral, em R$</td><td>não</td></tr>
           <tr><td class="mono">impedimento_socioambiental</td><td style="text-align:left">Impedimento do relatório do imóvel: 0/1 ou não/sim</td><td>não</td></tr>
           <tr><td class="mono">pct_milho</td><td style="text-align:left">% da área com milho safrinha, 0 a 100 (vazio = valor da ferramenta)</td><td>não</td></tr>
         </tbody></table></div>
@@ -1010,6 +1038,7 @@ footer p{max-width:none}
       <div id="srList"></div>
     </div>
   </div>
+  <div class="card sfncard" id="srSfn"></div>
 </section>
 </div>
 
@@ -1157,6 +1186,7 @@ function update(){
   drawClasse(); drawPD(r); drawROC(); drawCut(); drawCM();
   if(PF.rows.length) renderPortfolio();
   if(SR.d) renderSR();
+  renderSfnTool();
   if(GEO.feat){ renderGeoApply(); renderGeoAc(); }
   fsRenderRes();
 }
@@ -1307,7 +1337,7 @@ function drawCM(){
 }
 
 /* ---------------- carteira de associados ---------------- */
-const PF_COLS=["codigo","nome","municipio","area_ha","endividamento_sfn","classe","valor_solicitado","patrimonio_terras","restricao_sfn","pct_soja","pct_milho","impedimento_socioambiental"];
+const PF_COLS=["codigo","nome","municipio","area_ha","endividamento_sfn","classe","valor_solicitado","patrimonio_terras","restricao_sfn","pct_soja","pct_milho","impedimento_socioambiental","endividamento_curto_prazo","renda_anual"];
 const PF_ALIAS={
   codigo:["codigo","cod","id","matricula","conta","codigo_associado"],
   nome:["nome","associado","produtor","cooperado","nome_associado"],
@@ -1318,6 +1348,8 @@ const PF_ALIAS={
   valor:["valor_solicitado","valor_solicit","valor","valor_operacao","valor_pleiteado"],
   ptr:["patrimonio_terras","ptr_terras","patrimonio","patrimonio_em_terras","valor_terras"],
   restr:["restricao_sfn","restricao","restricao_ativa","restr"],
+  cp:["endividamento_curto_prazo","endividamento_cp","divida_curto_prazo","curto_prazo","endividamento_360_dias","a_vencer_360_dias"],
+  renda:["renda_anual","renda","renda_bruta_anual","receita_declarada"],
   socio:["impedimento_socioambiental","impedimento","imped_socioamb","socioambiental","impedimento_ambiental"],
   pSoja:["pct_soja","soja_pct","perc_soja","percentual_soja","soja"],
   pMilho:["pct_milho","milho_pct","perc_milho","percentual_milho","milho","pct_milho_safrinha","milho_safrinha"]
@@ -1370,7 +1402,7 @@ function rowsFromTable(tab,source){
   return tab.slice(1).map((r,i)=>({line:i+2,
     codigo:String(g(r,"codigo")??"").trim()||("linha "+(i+2)), nome:String(g(r,"nome")??"").trim(), municipio:String(g(r,"municipio")??"").trim(),
     area:parseNum(g(r,"area")), endv:parseNum(g(r,"endv")), classe:parseClasse(g(r,"classe")),
-    valor:parseNum(g(r,"valor")), ptr:parseNum(g(r,"ptr")), restr:parseRestr(g(r,"restr")), socio:parseRestr(g(r,"socio")),
+    valor:parseNum(g(r,"valor")), ptr:parseNum(g(r,"ptr")), restr:parseRestr(g(r,"restr")), socio:parseRestr(g(r,"socio")), cp:parseNum(g(r,"cp")), renda:parseNum(g(r,"renda")),
     pSoja:parseNum(g(r,"pSoja")), pMilho:parseNum(g(r,"pMilho"))}));
 }
 function evalRow(r){
@@ -1392,7 +1424,11 @@ function evalRow(r){
   const cls=r.restr===1?"R":(r.socio===1?"S":(!ok?"V":(pd<S.cut?"A":"N")));
   if(cls==="R") why.unshift("restrição ativa no SFN");
   if(cls==="S") why.unshift("impedimento socioambiental");
-  return Object.assign({},r,{rec,alav,xb,pd,solv:ok?r.endv/patr:NaN,cls,why:why.join("; ")});
+  const compr=r.cp>=0&&r.renda>0?r.cp/r.renda*100:NaN, alavRenda=r.endv>0&&r.renda>0?r.endv/r.renda:NaN;
+  const nota=[];
+  if(compr>50) nota.push(`curto prazo compromete ${nf(0).format(compr)}% da renda`);
+  if(Number.isFinite(alavRenda)&&Number.isFinite(alav)&&alav/alavRenda>2) nota.push("área incompatível com a renda declarada");
+  return Object.assign({},r,{rec,alav,xb,pd,solv:ok?r.endv/patr:NaN,cls,compr,alavRenda,why:why.concat(nota).join("; ")});
 }
 function pfLoad(rows,source,example){
   PF.rows=rows;PF.source=source;PF.example=!!example;PF.filter="all";PF.q="";PF.page=0;PF.sort=null;
@@ -1447,17 +1483,17 @@ async function copyText(text,okMsg,id){
     let ok=false;try{ok=document.execCommand("copy");}catch(_){} ta.remove(); pfMsg(ok?okMsg:"Não foi possível copiar automaticamente neste navegador.",!ok,id); }
 }
 const MODELO=PF_COLS.join(";")+"\n"+
- "A-0001;;Sinop;400;1800000;5;600000;;0;100;100;0\n"+
- "A-0002;;Sorriso;1250,5;9.750.000,00;R7;1.500.000,00;;não;100;70;não\n";
+ "A-0001;;Sinop;400;1800000;5;600000;;0;100;100;0;650000;5000000\n"+
+ "A-0002;;Sorriso;1250,5;9.750.000,00;R7;1.500.000,00;;não;100;70;não;3.200.000,00;14.800.000,00\n";
 $("pfModelo").addEventListener("click",()=>saveFile("modelo_associados.csv",MODELO));
 $("pfCopyHead").addEventListener("click",()=>copyText(PF_COLS.join("\t"),"Cabeçalho copiado. Cole na primeira linha de uma planilha (uma coluna por campo)."));
 
 const fmtBR=(x,d)=>Number.isFinite(x)?x.toFixed(d).replace(".",","):"";
 function exportRows(sep){
-  const head=["codigo","nome","municipio","area_ha","endividamento_sfn","classe","valor_solicitado","restricao_sfn","impedimento_socioambiental","receita_estimada","alavancagem","pd","corte","classificacao","observacao"];
+  const head=["codigo","nome","municipio","area_ha","endividamento_sfn","classe","valor_solicitado","restricao_sfn","impedimento_socioambiental","endividamento_curto_prazo","renda_anual","receita_estimada","alavancagem","divida_sobre_renda","comprometimento_pct","pd","corte","classificacao","observacao"];
   const q=s=>{s=String(s??"");return (s.includes(sep)||s.includes('"')||s.includes("\n"))?'"'+s.replace(/"/g,'""')+'"':s;};
   const lines=[head.join(sep)];
-  pfView().forEach(r=>lines.push([r.codigo,r.nome,r.municipio,fmtBR(r.area,1),fmtBR(r.endv,2),Number.isFinite(r.classe)?r.classe:"",fmtBR(r.valor,2),Number.isFinite(r.restr)?r.restr:"",Number.isFinite(r.socio)?r.socio:"",fmtBR(r.rec,2),fmtBR(r.alav,4),fmtBR(r.pd,4),fmtBR(S.cut,4),PF_LABEL[r.cls].toUpperCase(),r.why].map(q).join(sep)));
+  pfView().forEach(r=>lines.push([r.codigo,r.nome,r.municipio,fmtBR(r.area,1),fmtBR(r.endv,2),Number.isFinite(r.classe)?r.classe:"",fmtBR(r.valor,2),Number.isFinite(r.restr)?r.restr:"",Number.isFinite(r.socio)?r.socio:"",fmtBR(r.cp,2),fmtBR(r.renda,2),fmtBR(r.rec,2),fmtBR(r.alav,4),fmtBR(r.alavRenda,4),fmtBR(r.compr,2),fmtBR(r.pd,4),fmtBR(S.cut,4),PF_LABEL[r.cls].toUpperCase(),r.why].map(q).join(sep)));
   return lines.join("\n")+"\n";
 }
 $("pfExport").addEventListener("click",()=>saveFile("pre_analise_associados.csv",exportRows(";"),"pfMsg2"));
@@ -1465,7 +1501,7 @@ $("pfCopy").addEventListener("click",()=>copyText(exportRows("\t"),"Tabela copia
 
 // filtros, busca, ordenação, paginação
 $("pfSearch").addEventListener("input",e=>{PF.q=normKey(e.target.value).replace(/_/g," ");PF.page=0;renderPortfolio();});
-const PF_HEAD=[["codigo","Código",0],["nome","Nome",0],["municipio","Município",0],["area","Área (ha)",1],["classe","Classe",1],["endv","Endividamento",1],["rec","Receita estimada",1],["alav","Alavanc.",1],["pd","PD",1],["cls","Classificação",0],["why","Observação",-1],["_","",-1]];
+const PF_HEAD=[["codigo","Código",0],["nome","Nome",0],["municipio","Município",0],["area","Área (ha)",1],["classe","Classe",1],["endv","Endividamento",1],["rec","Receita estimada",1],["alav","Alavanc.",1],["alavRenda","Dívida/renda",1],["compr","CP/renda",1],["pd","PD",1],["cls","Classificação",0],["why","Observação",-1],["_","",-1]];
 function pfEvaluated(){return PF.rows.map(evalRow);}
 let PF_CACHE=[];
 function pfView(){
@@ -1512,10 +1548,10 @@ function renderPortfolio(){
     <td class="mono" style="font-size:.8rem">${esc2(r.codigo)}</td><td style="text-align:left">${esc2(r.nome)||"–"}</td><td style="text-align:left">${esc2(r.municipio)||"–"}</td>
     <td class="num">${Number.isFinite(r.area)?nf(1).format(r.area):"–"}</td><td class="num">${Number.isFinite(r.classe)?"R"+r.classe:"–"}</td>
     <td class="num">${Number.isFinite(r.endv)?nf(0).format(r.endv):"–"}</td><td class="num">${Number.isFinite(r.rec)&&r.rec>0?nf(0).format(r.rec):"–"}</td>
-    <td class="num">${Number.isFinite(r.alav)?nf(2).format(r.alav):"–"}</td><td class="num"><b>${Number.isFinite(r.pd)?pct(r.pd):"–"}</b></td>
+    <td class="num">${Number.isFinite(r.alav)?nf(2).format(r.alav):"–"}</td><td class="num">${Number.isFinite(r.alavRenda)?nf(2).format(r.alavRenda):"–"}</td><td class="num">${Number.isFinite(r.compr)?nf(0).format(r.compr)+"%":"–"}</td><td class="num"><b>${Number.isFinite(r.pd)?pct(r.pd):"–"}</b></td>
     <td style="text-align:left"><span class="pill ${PF_PILL[r.cls]}">${PF_LABEL[r.cls]}</span></td><td class="why">${esc2(r.why)}</td>
     <td>${r.cls!=="V"||r.area>0?`<button type="button" data-open="${PF_CACHE.indexOf(r)}">Abrir</button>`:""}</td></tr>`).join("")
-    :`<tr><td colspan="12" class="pfempty">Nenhum associado neste filtro.</td></tr>`;
+    :`<tr><td colspan="14" class="pfempty">Nenhum associado neste filtro.</td></tr>`;
   $("pfTable").innerHTML=`<thead><tr>${th}</tr></thead><tbody>${body}</tbody>`;
   $("pfTable").querySelectorAll("th[data-k]").forEach(t=>t.addEventListener("click",()=>{const k=t.dataset.k; if(PF.sort===k)PF.dir=-PF.dir; else {PF.sort=k;PF.dir=(k==="pd"||k==="alav"||k==="classe"||k==="endv")?-1:1;} renderPortfolio();}));
   $("pfTable").querySelectorAll("button[data-open]").forEach(b=>b.addEventListener("click",()=>openInTool(PF_CACHE[+b.dataset.open])));
@@ -1675,8 +1711,67 @@ function srApplyAll(){
   if(d.anot!=null){srApply("restr");m.push(S.restr?"restrição no SFN ativada":"sem restrição no SFN");}
   return m.length?"Aplicado à ferramenta: "+m.join(", ")+".":"";
 }
+function sfnCalc(d){
+  if(!d)return null; const o={};
+  o.total=d.endv; o.cp=d.curto; o.lp=d.endv!=null&&d.curto!=null?Math.max(d.endv-d.curto,0):null;
+  o.pctCp=d.endv>0&&d.curto!=null?d.curto/d.endv*100:d.pctCurto;
+  o.coop=d.endv!=null&&d.pctExpo!=null?d.endv*d.pctExpo/100:null; o.outras=o.coop!=null?d.endv-o.coop:null;
+  o.venc=d.endv!=null&&d.pctVencido!=null?d.endv*d.pctVencido/100:null;
+  o.varTot=d.endvAnt>0&&d.endv!=null?(d.endv/d.endvAnt-1)*100:null; o.varCp=d.curtoAnt>0&&d.curto!=null?(d.curto/d.curtoAnt-1)*100:null;
+  o.divRenda=d.renda>0&&d.endv!=null?d.endv/d.renda:null; o.cpRenda=d.compr!=null?d.compr:(d.renda>0&&d.curto!=null?d.curto/d.renda*100:null);
+  const rec=compute().recU; o.recArea=rec; o.divArea=rec>0&&d.endv!=null?d.endv/rec:null;
+  o.liq=d.curto>0&&d.saldo!=null?d.saldo/d.curto*100:d.pctLiquidez;
+  const A=[],add=(nivel,titulo,detalhe)=>A.push({nivel,titulo,detalhe});
+  if(o.varTot!=null&&o.varTot>20) add("att",`Dívida no SFN cresceu ${nf(1).format(o.varTot)}% em 12 meses`,"Confirme a finalidade das novas operações e se as garantias acompanham.");
+  if(o.pctCp!=null&&o.pctCp>50) add("att",`${nf(1).format(o.pctCp)}% da dívida vence em até 360 dias`,"Concentração no curto prazo pressiona o fluxo da próxima safra.");
+  if(o.cpRenda!=null&&o.cpRenda>50) add("att",`Curto prazo compromete ${nf(1).format(o.cpRenda)}% da renda`,"Acima de 50% da renda anual.");
+  if(o.divRenda!=null&&o.divRenda>1.5) add("att",`Dívida total equivale a ${nf(2).format(o.divRenda)} vezes a renda anual`,"Alavancagem alta pela renda cadastral.");
+  if(o.venc!=null&&o.venc>0) add("imp",`Saldo vencido no SFN: ${brl(o.venc)}`,"Há dívida vencida; verifique antes de qualquer nova operação.");
+  if(d.pctExpo!=null&&d.pctExpo<10&&d.endv>0) add("info",`Só ${nf(1).format(d.pctExpo)}% da dívida está na cooperativa`,"A maior parte do relacionamento de crédito está em outras instituições; a cooperativa tem pouca visão do fluxo do cooperado.");
+  if(o.liq!=null&&o.liq<5) add("att",`Saldo em conta cobre ${nf(2).format(o.liq)}% do curto prazo`,"Liquidez observada baixa; não use o saldo como mitigador.");
+  if(o.divArea!=null&&o.divRenda!=null&&o.divArea/o.divRenda>2) add("att","Área da ferramenta incompatível com a renda",`Pela receita estimada da área (${nf(1).format(S.area||0)} ha) a dívida é ${nf(2).format(o.divArea)}× a receita; pela renda cadastral, ${nf(2).format(o.divRenda)}×. Use a área de uso consolidado do imóvel deste cooperado.`);
+  if(!A.length) add("ok","Posição no SFN sem pontos de atenção pelos critérios da página","Crescimento, prazo, comprometimento, vencidos e liquidez dentro das faixas usadas aqui.");
+  o.alertas=A; return o;
+}
+function renderSFN(){
+  const el=$("srSfn"), d=SR.d; if(!el||!d)return; const o=sfnCalc(d);
+  const v=x=>x==null?"–":brl(x), pc=x=>x==null?"–":nf(1).format(x)+"%", vr=x=>x==null?"":`${x>0?"+":""}${nf(1).format(x)}% em 12 meses`;
+  const bar=(lab,a,b,la,lb)=>{const t=(a||0)+(b||0); if(!(t>0))return ""; const pa=a/t*100;
+    return `<div class="sbar"><span class="lab">${lab}</span><div class="track" role="img" aria-label="${la} ${nf(1).format(pa)}%, ${lb} ${nf(1).format(100-pa)}%"><span class="seg s1" style="width:${pa.toFixed(2)}%" data-tip="${esc(`<b>${la}</b><br>${brl(a)} · ${nf(1).format(pa)}%`)}"></span><span class="seg s2" style="width:${(100-pa).toFixed(2)}%" data-tip="${esc(`<b>${lb}</b><br>${brl(b)} · ${nf(1).format(100-pa)}%`)}"></span></div>
+      <div class="leg"><span><i class="s1" style="background:var(--s1)"></i>${la} ${nf(1).format(pa)}%</span><span><i style="background:var(--q1)"></i>${lb} ${nf(1).format(100-pa)}%</span></div></div>`;};
+  el.innerHTML=`<div class="cap"><span class="eyebrow">Posição no Sistema Financeiro Nacional${d.refSCR?` · SCR ${d.refSCR}`:""}</span><h3>Endividamento do cooperado no SFN</h3></div>
+   <div class="sfntiles">
+    <div><span class="v">${v(o.total)}</span><span class="k">dívida total no SFN</span><span class="d">${vr(o.varTot)}</span></div>
+    <div><span class="v">${v(o.cp)}</span><span class="k">vence em até 360 dias</span><span class="d">${vr(o.varCp)}</span></div>
+    <div><span class="v">${v(o.lp)}</span><span class="k">longo prazo (acima de 360 dias)</span></div>
+    <div><span class="v">${v(o.coop)}</span><span class="k">na cooperativa (${pc(d.pctExpo)})</span></div>
+    <div><span class="v">${v(o.venc)}</span><span class="k">saldo vencido (${pc(d.pctVencido)})</span></div>
+   </div>
+   <div class="sfnbars">${bar("Prazo da dívida",o.cp,o.lp,"Até 360 dias","Acima de 360 dias")}${bar("Onde está a dívida",o.coop,o.outras,"Na cooperativa","Outras instituições")}</div>
+   <div class="sfncols">
+    <dl class="sfnrel">
+     <dt>Dívida total ÷ renda anual<small>alavancagem pela renda cadastral</small></dt><dd>${o.divRenda!=null?nf(2).format(o.divRenda)+"×":"–"}</dd>
+     <dt>Curto prazo ÷ renda anual<small>comprometimento</small></dt><dd>${pc(o.cpRenda)}</dd>
+     <dt>Dívida total ÷ receita estimada pela área<small>alavancagem do modelo · ${nf(1).format(S.area||0)} ha</small></dt><dd>${o.divArea!=null?nf(2).format(o.divArea)+"×":"–"}</dd>
+     <dt>Saldo médio em conta ÷ curto prazo<small>liquidez observada</small></dt><dd>${o.liq!=null?nf(2).format(o.liq)+"%":"–"}</dd>
+    </dl>
+    <div class="fsgrp">${o.alertas.map(f=>`<div class="fsitem ${f.nivel}"><span class="ic lv-${f.nivel}" aria-label="${FS_LV[f.nivel]}">${FS_ICON[f.nivel]}</span><div><b>${f.titulo}</b>${f.detalhe?`<p>${f.detalhe}</p>`:""}</div></div>`).join("")}</div>
+   </div>`;
+}
+function renderSfnTool(){
+  const el=$("sfnTool"); if(!el)return; const d=SR.d;
+  if(!d||!(d.endv>0)||Math.abs(S.endv-d.endv)>0.01){el.hidden=true;return;}
+  const o=sfnCalc(d); el.hidden=false;
+  el.innerHTML=`<span class="t">Posição no SFN · súmula${d.refSCR?` · SCR ${d.refSCR}`:""}${SR.example?" (exemplo)":""}</span>
+   <dl><dt>Vence em até 360 dias</dt><dd>${o.cp!=null?brl(o.cp):"–"}${o.pctCp!=null?` · ${nf(1).format(o.pctCp)}%`:""}</dd>
+   <dt>Comprometimento da renda</dt><dd>${o.cpRenda!=null?nf(1).format(o.cpRenda)+"%":"–"}</dd>
+   <dt>Dívida ÷ renda cadastral</dt><dd>${o.divRenda!=null?nf(2).format(o.divRenda)+"×":"–"}</dd>
+   <dt>Dívida ÷ receita pela área (modelo)</dt><dd>${o.divArea!=null?nf(2).format(o.divArea)+"×":"–"}</dd></dl>
+   ${o.alertas.filter(a=>a.nivel==="att"||a.nivel==="imp").slice(0,2).map(a=>`<span class="w">${a.titulo}</span>`).join("")}
+   <a href="#sumula">Ver a posição completa no SFN →</a>`;
+}
 function renderSR(){
-  const d=SR.d; if(!d)return;
+  const d=SR.d; if(!d)return; renderSFN();
   $("srSrc").textContent=SR.example?"Exemplo · cooperado fictício":"Súmula · "+SR.source;
   $("srTitle").textContent="Indicadores e parecer"+(d.refSCR?` · SCR ${d.refSCR}`:"");
   const c={imp:0,att:0,ok:0};SR.F.forEach(f=>{if(f.nivel in c)c[f.nivel]++;});
