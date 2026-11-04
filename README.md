@@ -1,4 +1,4 @@
-# agroScoreMT
+# AgroScoreMT
 
 Ferramenta interativa de pré-análise de crédito rural com modelo logit, construída a partir do
 Trabalho de Conclusão de Curso de **Gabrieli Saltareli** (Ciências Contábeis, UNEMAT, Campus de Sinop,
