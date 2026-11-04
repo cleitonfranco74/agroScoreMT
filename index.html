@@ -147,6 +147,55 @@ section > .head{display:grid;gap:8px}
 .legendkey span{display:inline-flex;align-items:center;gap:6px}
 .legendkey i{width:14px;height:12px;border-radius:2px;display:inline-block;border:1px solid}
 
+/* ---------- capa e abas ---------- */
+nav.toc .brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;color:var(--ink);text-decoration:none;padding:0 4px;letter-spacing:-.01em;flex:none;border:0}
+nav.toc .brand span{color:var(--accent)}
+nav.toc .brand:hover{border:0}
+.subnav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.86rem;color:var(--ink-2);padding-top:6px}
+.subnav a{text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2)}
+.subnav a:hover{border-color:var(--accent);color:var(--accent)}
+.cover{padding-block:40px 24px;gap:36px}
+.chero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:center}
+.chero-txt{display:grid;gap:18px}
+.chero h1{font-size:clamp(2.8rem,7vw,4.8rem);letter-spacing:-.035em;line-height:.95}
+.chero h1 span{color:var(--accent)}
+.chero .lede{font-size:1.15rem;color:var(--ink-2)}
+.ccta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;font-weight:600;font-size:.95rem;text-decoration:none;padding:10px 16px;border-radius:6px;border:1px solid var(--accent);color:var(--accent);background:var(--surface)}
+.btn.pri{background:var(--accent);color:var(--surface)}
+.btn:hover{box-shadow:0 0 0 3px var(--accent-soft)}
+.cflow{display:grid;gap:0;padding:20px;border-radius:8px;border:1px solid var(--line);
+  background:repeating-linear-gradient(112deg,transparent 0 16px,var(--accent-soft) 16px 17px),var(--surface)}
+.cf-step{display:grid;gap:2px;padding:12px 14px;border-radius:6px;background:var(--surface);border:1px solid var(--line)}
+.cf-k{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.cf-v{font-size:.9rem;color:var(--ink)}
+.cf-arrow{height:18px;width:2px;background:var(--axis);margin-left:24px;position:relative}
+.cf-arrow::after{content:"";position:absolute;bottom:-1px;left:-4px;border:5px solid transparent;border-top-color:var(--axis);border-bottom:0}
+.cf-out{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 10px;align-items:center;padding:12px 14px;border-radius:6px;background:var(--surface);border:1px solid var(--line)}
+.cf-out .pill{justify-self:start}
+.cf-small{font-size:.8rem;color:var(--ink-2);line-height:1.35}
+.ccards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ccard{display:grid;gap:8px;align-content:start;padding:20px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none}
+.ccard:hover{border-color:var(--accent)}
+.ccard .eyebrow{color:var(--accent)}
+.ccard h3{font-size:1.25rem}
+.ccard p{color:var(--ink-2);font-size:.93rem}
+.ccard .go{font-weight:600;color:var(--accent);font-size:.9rem;margin-top:4px}
+.cnums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cnums div{padding:14px 14px 14px 0;display:grid;gap:2px}
+.cnums div+div{padding-left:14px;border-left:1px solid var(--line)}
+.cnums .v{font-family:var(--f-display);font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums}
+.cnums .k{font-size:.84rem;color:var(--ink-2);line-height:1.4}
+.cfoot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.cfoot > div{display:grid;gap:6px;align-content:start}
+.cfoot p{font-size:.9rem;color:var(--ink-2)}
+.cfoot b{color:var(--ink)}
+@media (max-width:900px){.chero{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:620px){.ccards,.cfoot{grid-template-columns:minmax(0,1fr)}.cnums{grid-template-columns:minmax(0,1fr)}.cnums div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+.gfoot{padding-block:28px 36px;margin-top:40px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+.gfoot b{color:var(--ink-2);font-family:var(--f-display)} .gfoot b span{color:var(--accent)}
+.tccrefs{margin-top:32px}
+@media (max-width:620px){nav.toc .brand{display:none}}
 /* ---------- relatório da propriedade ---------- */
 .fsgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start}
 .fsload{gap:14px}
@@ -300,28 +349,91 @@ footer p{max-width:none}
 <body>
 
 <div class="wrap">
-<header class="top">
-  <div class="eyebrow">UNEMAT · Campus de Sinop · Ciências Contábeis · TCC 2026</div>
-  <h1>Pré-análise de crédito rural com modelo logit</h1>
-  <p class="lede">Uma ferramenta em planilha que estima a probabilidade de inadimplência (PD) de um produtor rural a partir da classe de risco, da alavancagem e da área do imóvel, e transforma essa probabilidade em recomendação preliminar para cooperativas de crédito de Mato Grosso.</p>
-  <div class="byline"><span>Autora: <b>Gabrieli Saltareli</b></span><span>Orientador: <b>Prof. Dr. Cleiton Franco</b></span><span>Base: CAR / Geoportal SEMA-MT + simulação</span></div>
-  <div class="facts">
-    <div><span class="v">2.867</span><span class="k">imóveis rurais em 20 municípios do norte de MT</span></div>
-    <div><span class="v">15,2%</span><span class="k">inadimplência da base (437 produtores)</span></div>
-    <div><span class="v">0,709</span><span class="k">AUC do modelo principal na amostra de teste</span></div>
-    <div><span class="v">15,2% → 6,1%</span><span class="k">inadimplência entre aprovados com o corte econômico</span></div>
-  </div>
-</header>
-
 <nav class="toc" aria-label="Navegação"><div class="in">
+  <a class="brand" href="#inicio">agroScore<span>MT</span></a>
   <div class="tabs" role="tablist" aria-label="Abas">
-    <a role="tab" id="tb-main" href="#pre-analise" aria-controls="tabMain">Pré-análise e TCC</a>
-    <a role="tab" id="tb-rel" href="#relatorio" aria-controls="tabRel">Relatório do imóvel<span class="tabbadge" id="tbBadge" hidden></span></a>
+    <a role="tab" id="tb-inicio" href="#inicio" aria-controls="tab-inicio">Início</a>
+    <a role="tab" id="tb-ferramenta" href="#ferramenta" aria-controls="tab-ferramenta">Ferramenta</a>
+    <a role="tab" id="tb-relatorio" href="#relatorio" aria-controls="tab-relatorio">Relatório do imóvel<span class="tabbadge" id="tbBadge" hidden></span></a>
+    <a role="tab" id="tb-carteira" href="#carteira" aria-controls="tab-carteira">Carteira</a>
+    <a role="tab" id="tb-tcc" href="#tcc" aria-controls="tab-tcc">TCC</a>
   </div>
-  <div class="links" id="tocLinks"><a href="#ferramenta">Ferramenta</a><a href="#carteira">Carteira</a><a href="#problema">Problema</a><a href="#dados">Dados</a><a href="#modelo">Modelo</a><a href="#efeitos">Efeitos</a><a href="#validacao">Validação</a><a href="#decisao">Ponto de corte</a><a href="#conclusoes">Conclusões</a></div>
 </div></nav>
 
-<div id="tabMain" role="tabpanel" aria-labelledby="tb-main">
+<div class="tabpanel" id="tab-inicio" role="tabpanel" aria-labelledby="tb-inicio">
+<!-- ================= CAPA ================= -->
+<section class="cover" id="inicio" aria-labelledby="capaTitulo">
+  <div class="chero">
+    <div class="chero-txt">
+      <div class="eyebrow">Crédito rural · cooperativas de Mato Grosso</div>
+      <h1 id="capaTitulo">agroScore<span>MT</span></h1>
+      <p class="lede">Pré-análise de crédito rural em um só lugar: a probabilidade de inadimplência do produtor por um modelo logit, a checagem socioambiental do imóvel e a análise da carteira de associados.</p>
+      <div class="ccta">
+        <a class="btn pri" href="#ferramenta">Começar uma pré-análise</a>
+        <a class="btn" href="#relatorio">Ler o relatório de um imóvel</a>
+      </div>
+    </div>
+    <div class="cflow" aria-label="Como a recomendação é formada">
+      <div class="cf-step"><span class="cf-k">Dados do produtor</span><span class="cf-v">área consolidada do CAR · endividamento no SFN · classe de risco R1–R10</span></div>
+      <div class="cf-arrow" aria-hidden="true"></div>
+      <div class="cf-step"><span class="cf-k">Modelo logit</span><span class="cf-v mono">PD = 1 / (1 + e<sup>−XB</sup>)</span></div>
+      <div class="cf-arrow" aria-hidden="true"></div>
+      <div class="cf-step"><span class="cf-k">Ponto de corte</span><span class="cf-v">Youden 14,4% ou econômico m / (m + LGD)</span></div>
+      <div class="cf-arrow" aria-hidden="true"></div>
+      <div class="cf-out">
+        <span class="pill y">Aprovável</span><span class="cf-small">PD abaixo do corte</span>
+        <span class="pill n">Não aprovável</span><span class="cf-small">PD no corte ou acima, restrição no SFN ou impedimento socioambiental</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ccards">
+    <a class="ccard" href="#ferramenta">
+      <span class="eyebrow">Aba Ferramenta</span>
+      <h3>Pré-análise de um produtor</h3>
+      <p>Informe área, dívida e classe de risco. A receita é calculada por cultura (soja e milho safrinha) e a recomendação sai na hora, com a conta passo a passo.</p>
+      <span class="go">Abrir a ferramenta →</span>
+    </a>
+    <a class="ccard" href="#relatorio">
+      <span class="eyebrow">Aba Relatório do imóvel</span>
+      <h3>Checagem do imóvel pelo Farm-Scan</h3>
+      <p>Carregue o PDF do relatório da propriedade. A página lê a área consolidada do CAR e aponta impedimentos e alertas cadastrais, ambientais, fundiários e climáticos.</p>
+      <span class="go">Ler um relatório →</span>
+    </a>
+    <a class="ccard" href="#carteira">
+      <span class="eyebrow">Aba Carteira</span>
+      <h3>Análise de todos os associados</h3>
+      <p>Carregue uma planilha (CSV ou Excel) com os associados e receba PD, classificação, resumo da carteira e perda esperada, prontos para exportar.</p>
+      <span class="go">Analisar a carteira →</span>
+    </a>
+    <a class="ccard" href="#tcc">
+      <span class="eyebrow">Aba TCC</span>
+      <h3>Metodologia e resultados</h3>
+      <p>Como o modelo foi construído e validado: base de 2.867 imóveis do CAR, simulação, efeitos estimados, curva ROC, calibração e escolha do ponto de corte.</p>
+      <span class="go">Ver o estudo →</span>
+    </a>
+  </div>
+
+  <div class="cnums">
+    <div><span class="v">2.867</span><span class="k">imóveis rurais de 20 municípios do norte de MT na base do modelo</span></div>
+    <div><span class="v">0,709</span><span class="k">AUC na amostra de teste: o modelo ordena o risco melhor que o acaso</span></div>
+    <div><span class="v">15,2% → 6,1%</span><span class="k">inadimplência entre aprovados com o corte econômico, na base simulada</span></div>
+  </div>
+
+  <div class="cfoot">
+    <div>
+      <span class="eyebrow">Origem</span>
+      <p>Desenvolvido a partir do TCC de <b>Gabrieli Saltareli</b>, <i>Modelo logit para estimação da probabilidade de aprovação de crédito rural em cooperativas de Mato Grosso</i> (Ciências Contábeis, UNEMAT, Campus de Sinop, 2026). Orientador: <b>Prof. Dr. Cleiton Franco</b>.</p>
+    </div>
+    <div>
+      <span class="eyebrow">Privacidade e uso</span>
+      <p>Planilhas e PDFs são lidos apenas no navegador e não são enviados a servidores. Os coeficientes foram estimados com inadimplência simulada: a ferramenta é didática e a recomendação é preliminar, não substitui o parecer do analista nem a decisão da alçada.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="tabpanel" id="tab-ferramenta" role="tabpanel" aria-labelledby="tb-ferramenta" hidden>
 <!-- ================= FERRAMENTA ================= -->
 <section id="ferramenta">
   <div class="head">
@@ -383,18 +495,56 @@ footer p{max-width:none}
     </div>
   </div>
 </section>
+</div>
 
+<div class="tabpanel" id="tab-relatorio" role="tabpanel" aria-labelledby="tb-relatorio" hidden>
+<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
+<section id="relatorio">
+  <div class="head">
+    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
+    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
+    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
+  </div>
+  <div class="fsgrid">
+    <div class="card fsload">
+      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
+      <label class="drop" id="fsDrop" for="fsFile">
+        <input id="fsFile" type="file" accept=".pdf,application/pdf">
+        <b>Escolha o PDF ou arraste para cá</b>
+        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
+      </label>
+      <p class="pfmsg" id="fsMsg" role="status"></p>
+      <div class="fsid" id="fsId"></div>
+      <div class="fsapply" id="fsApply"></div>
+      <div class="fsres" id="fsRes" aria-live="polite"></div>
+      <div class="privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fshead">
+        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
+        <div class="fscount" id="fsCount"></div>
+      </div>
+      <div id="fsList"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="tabpanel" id="tab-carteira" role="tabpanel" aria-labelledby="tb-carteira" hidden>
 <!-- ================= CARTEIRA ================= -->
 <section id="carteira">
   <div class="head">
     <div class="eyebrow">Rotina para cooperativas</div>
     <h2>Analise a carteira de associados de uma vez</h2>
-    <p style="color:var(--ink-2)">Carregue uma planilha com uma linha por associado. A página calcula a receita, a alavancagem, a PD e a classificação de cada um com o mesmo modelo da ferramenta acima, usando o ponto de corte e os parâmetros de soja e milho definidos lá.</p>
+    <p style="color:var(--ink-2)">Carregue uma planilha com uma linha por associado. A página calcula a receita, a alavancagem, a PD e a classificação de cada um com o mesmo modelo da aba Ferramenta, usando o ponto de corte e os parâmetros de soja e milho definidos lá.</p>
   </div>
   <ol class="steps">
     <li><b>Baixe o modelo</b><span>Arquivo CSV com as colunas na ordem certa. Abre no Excel ou no LibreOffice.</span></li>
     <li><b>Preencha</b><span>Uma linha por associado. Área, endividamento e classe são obrigatórios.</span></li>
-    <li><b>Ajuste os critérios</b><span>Na ferramenta acima: ponto de corte, margem, LGD e parâmetros de soja e milho.</span></li>
+    <li><b>Ajuste os critérios</b><span>Na aba Ferramenta: ponto de corte, margem, LGD e parâmetros de soja e milho.</span></li>
     <li><b>Carregue o arquivo</b><span>CSV (separado por ponto e vírgula ou vírgula) ou Excel (.xlsx).</span></li>
     <li><b>Revise e exporte</b><span>Filtre, abra um associado na ferramenta e exporte os resultados.</span></li>
   </ol>
@@ -459,6 +609,22 @@ footer p{max-width:none}
     <p class="pfmsg" id="pfMsg2" role="status"></p>
   </div>
 </section>
+</div>
+
+<div class="tabpanel" id="tab-tcc" role="tabpanel" aria-labelledby="tb-tcc" hidden>
+<header class="top">
+  <div class="eyebrow">Aba TCC · UNEMAT · Campus de Sinop · Ciências Contábeis · 2026</div>
+  <h1>Pré-análise de crédito rural com modelo logit</h1>
+  <p class="lede">Uma ferramenta em planilha que estima a probabilidade de inadimplência (PD) de um produtor rural a partir da classe de risco, da alavancagem e da área do imóvel, e transforma essa probabilidade em recomendação preliminar para cooperativas de crédito de Mato Grosso.</p>
+  <div class="byline"><span>Autora: <b>Gabrieli Saltareli</b></span><span>Orientador: <b>Prof. Dr. Cleiton Franco</b></span><span>Base: CAR / Geoportal SEMA-MT + simulação</span></div>
+  <div class="facts">
+    <div><span class="v">2.867</span><span class="k">imóveis rurais em 20 municípios do norte de MT</span></div>
+    <div><span class="v">15,2%</span><span class="k">inadimplência da base (437 produtores)</span></div>
+    <div><span class="v">0,709</span><span class="k">AUC do modelo principal na amostra de teste</span></div>
+    <div><span class="v">15,2% → 6,1%</span><span class="k">inadimplência entre aprovados com o corte econômico</span></div>
+  </div>
+  <div class="subnav" aria-label="Seções do TCC"><span>Nesta aba:</span><a href="#problema">Problema</a><a href="#dados">Dados</a><a href="#modelo">Modelo</a><a href="#efeitos">Efeitos</a><a href="#validacao">Validação</a><a href="#decisao">Ponto de corte</a><a href="#conclusoes">Conclusões</a></div>
+</header>
 
 <!-- ================= PROBLEMA ================= -->
 <section id="problema">
@@ -658,7 +824,7 @@ footer p{max-width:none}
 <!-- ================= DECISÃO ================= -->
 <section id="decisao">
   <div class="head"><div class="eyebrow">3.6 e 4.4 · Da probabilidade à decisão</div><h2>O ponto de corte importa tanto quanto o modelo</h2>
-    <p style="color:var(--ink-2)">Arraste o corte e veja o que aconteceria com os 860 produtores da amostra de teste. Os botões aplicam os três cortes comparados no TCC; o corte escolhido também passa a valer na ferramenta acima.</p></div>
+    <p style="color:var(--ink-2)">Arraste o corte e veja o que aconteceria com os 860 produtores da amostra de teste. Os botões aplicam os três cortes comparados no TCC; o corte escolhido também passa a valer na aba Ferramenta.</p></div>
   <div class="card">
     <div class="row" style="grid-template-columns:minmax(0,1fr);padding:0;border:0;gap:8px">
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between">
@@ -710,46 +876,7 @@ footer p{max-width:none}
     </div>
   </div>
 </section>
-
-</div>
-<div id="tabRel" role="tabpanel" aria-labelledby="tb-rel" hidden>
-<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
-<section id="relatorio">
-  <div class="head">
-    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
-    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
-    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
-  </div>
-  <div class="fsgrid">
-    <div class="card fsload">
-      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
-      <label class="drop" id="fsDrop" for="fsFile">
-        <input id="fsFile" type="file" accept=".pdf,application/pdf">
-        <b>Escolha o PDF ou arraste para cá</b>
-        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
-      </label>
-      <p class="pfmsg" id="fsMsg" role="status"></p>
-      <div class="fsid" id="fsId"></div>
-      <div class="fsapply" id="fsApply"></div>
-      <div class="fsres" id="fsRes" aria-live="polite"></div>
-      <div class="privacy">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="fshead">
-        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
-        <div class="fscount" id="fsCount"></div>
-      </div>
-      <div id="fsList"></div>
-    </div>
-  </div>
-</section>
-
-</div>
-
-<footer>
+<footer class="tccrefs" aria-label="Referências do TCC">
   <p><b style="color:var(--ink-2)">Saltareli, G.</b> Modelo logit para estimação da probabilidade de aprovação de crédito rural em cooperativas de Mato Grosso: desenvolvimento de ferramenta de pré-análise em planilha eletrônica. TCC (Bacharelado em Ciências Contábeis), UNEMAT, Sinop, 2026. Orientador: Prof. Dr. Cleiton Franco.</p>
   <p>Recursos: Python 3 (pandas, numpy, statsmodels, scikit-learn) para anonimização, simulação e estimação; Microsoft Excel para a ferramenta. Fontes dos dados: CAR, Geoportal SEMA-MT; parâmetros agronômicos do IMEA; demais variáveis simuladas.</p>
   <div class="refs">
@@ -765,6 +892,9 @@ footer p{max-width:none}
     <p>YOUDEN, W. J. Index for rating diagnostic tests. Cancer, 1950.</p>
   </div>
 </footer>
+</div>
+
+<footer class="gfoot"><p><b>agroScore<span>MT</span></b> · baseado no TCC de Gabrieli Saltareli (Ciências Contábeis, UNEMAT Sinop, 2026), orientação do Prof. Dr. Cleiton Franco · ferramenta didática, recomendação preliminar · referências na <a href="#tcc">aba TCC</a></p></footer>
 </div>
 <div id="tip" hidden></div>
 
@@ -1244,7 +1374,7 @@ function renderPortfolio(){
   $("pfSource").textContent=PF.example?"Exemplo · associados fictícios":"Carteira carregada";
   $("pfTitle").textContent=PF.example?"Resultado da pré-análise (exemplo)":"Resultado da pré-análise · "+PF.source;
   const critTxt=S.crit==="Y"?"Youden":S.crit==="E"?`econômico (margem ${nf(1).format(S.marg)}%, LGD ${nf(0).format(S.lgd)}%)`:"definido no gráfico";
-  $("pfParams").textContent=`Corte ${critTxt}: ${pct(S.cut)}. Receita: soja em ${nf(0).format(S.pSoja)}% e milho safrinha em ${nf(0).format(S.pMilho)}% da área, salvo se a linha informar outro percentual. Altere na ferramenta acima.`;
+  $("pfParams").textContent=`Corte ${critTxt}: ${pct(S.cut)}. Receita: soja em ${nf(0).format(S.pSoja)}% e milho safrinha em ${nf(0).format(S.pMilho)}% da área, salvo se a linha informar outro percentual. Altere na aba Ferramenta.`;
   const tile=(v,k,dotc)=>`<div><span class="v">${v}</span><span class="k">${dotc?`<i class="dot ${dotc}"></i>`:""}${k}</span></div>`;
   $("pfSum").innerHTML=tile(nf(0).format(n),"associados")+tile(nf(0).format(c.A)+` <small style="font-size:.85rem;color:var(--ink-2)">${n?pct(c.A/n,0):""}</small>`,"aprováveis","A")+
     tile(nf(0).format(c.N),"não aprováveis","N")+tile(nf(0).format(c.R+c.S+c.V),`restrição SFN (${c.R}), impedimento socioambiental (${c.S}) ou a verificar (${c.V})`,"V")+
@@ -1278,7 +1408,7 @@ function openInTool(r){
   if(Number.isFinite(r.pSoja))S.pSoja=r.pSoja; if(Number.isFinite(r.pMilho))S.pMilho=r.pMilho;
   if(mudou) setTimeout(()=>pfMsg(`Os percentuais de soja e milho da ferramenta passaram a ser os de ${r.codigo} (${nf(0).format(S.pSoja)}% e ${nf(0).format(S.pMilho)}%). Eles valem também para as linhas sem percentual próprio; use "Restaurar parâmetros do TCC" para voltar.`,false,"pfMsg2"),0);
   writeInputs();update();
-  $("ferramenta").scrollIntoView({behavior:"smooth",block:"start"});
+  go("ferramenta");
 }
 
 /* ---------------- relatório da propriedade (Farm-Scan / Dados Fazenda) ---------------- */
@@ -1463,18 +1593,19 @@ function renderFS(){
 }
 
 /* ---------------- abas ---------------- */
+const TABS=["inicio","ferramenta","relatorio","carteira","tcc"];
+const TCC_SECS=["problema","dados","modelo","efeitos","validacao","decisao","conclusoes"];
 function showTab(t){
-  const rel=t==="rel";
-  $("tabMain").hidden=rel; $("tabRel").hidden=!rel; $("tocLinks").hidden=rel;
-  $("tb-main").setAttribute("aria-selected",String(!rel)); $("tb-rel").setAttribute("aria-selected",String(rel));
+  TABS.forEach(x=>{$("tab-"+x).hidden=x!==t;$("tb-"+x).setAttribute("aria-selected",String(x===t));});
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
-  if(h==="relatorio"){showTab("rel");window.scrollTo(0,0);return;}
-  showTab("main");
-  const el=h&&h!=="pre-analise"?document.getElementById(h):null;
-  if(el) el.scrollIntoView({block:"start"}); else if(h==="pre-analise") window.scrollTo(0,0);
+  let t="inicio",sec=null;
+  if(TABS.includes(h)) t=h; else if(TCC_SECS.includes(h)){t="tcc";sec=h;}
+  showTab(t);
+  if(sec) $(sec).scrollIntoView({block:"start"}); else window.scrollTo(0,0);
 }
+function go(h){ if(location.hash==="#"+h) route(); else location.hash=h; }
 window.addEventListener("hashchange",route);
 function fsRenderRes(){
   const el=$("fsRes"); if(!el)return;

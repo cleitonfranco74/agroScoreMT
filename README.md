@@ -8,6 +8,19 @@ Orientador: Prof. Dr. Cleiton Franco.
 
 Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
 
+## Abas da página
+
+| Aba | Endereço | Para que serve |
+|---|---|---|
+| Início | `#inicio` | Capa: apresenta a ferramenta, como a recomendação é formada e leva às demais abas |
+| Ferramenta | `#ferramenta` | Pré-análise de um produtor |
+| Relatório do imóvel | `#relatorio` | Leitura do PDF Farm-Scan e checagem socioambiental do imóvel |
+| Carteira | `#carteira` | Análise em lote dos associados a partir de uma planilha |
+| TCC | `#tcc` | Metodologia, resultados, validação e referências do trabalho |
+
+Os dados aplicados em uma aba (área, impedimento, percentuais de soja e milho, ponto de corte) valem
+nas outras.
+
 ## O que a página contém
 
 - **Ferramenta de pré-análise**: estima a probabilidade de inadimplência (PD) com os coeficientes do
@@ -27,7 +40,7 @@ Abra [`index.html`](index.html) no navegador. Não é preciso instalar nada.
 
 ## Relatório do imóvel (Farm-Scan / Dados Fazenda)
 
-Na aba **Relatório do imóvel** (no topo da página, ou direto pelo endereço `#relatorio`), carregue o
+Na aba **Relatório do imóvel** (`#relatorio`), carregue o
 PDF do *Relatório da Propriedade* gerado em dadosfazenda.com.br. A aba mostra também o resultado atual
 da ferramenta, e o selo vermelho na aba indica quantos impedimentos o relatório carregado tem. A página lê o PDF no próprio navegador (pdf.js) e:
 
@@ -48,7 +61,7 @@ INPE, ANM) antes do parecer.
 
 ## Rotina para cooperativas: análise da carteira
 
-Na seção **Carteira**, a cooperativa analisa todos os associados de uma vez:
+Na aba **Carteira** (`#carteira`), a cooperativa analisa todos os associados de uma vez:
 
 1. Baixe o modelo ([`modelo_associados.csv`](modelo_associados.csv), também disponível pelo botão na
    página) e preencha uma linha por associado. Obrigatórias: `area_ha`, `endividamento_sfn` e
