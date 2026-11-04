@@ -72,6 +72,19 @@ nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:va
 nav.toc .in{max-width:1120px;margin:0 auto;display:flex;gap:6px;white-space:nowrap}
 nav.toc a{text-decoration:none;color:var(--ink-2);font-size:.88rem;padding:5px 11px;border-radius:999px;border:1px solid transparent}
 nav.toc a:hover{border-color:var(--line);color:var(--ink)}
+nav.toc .in{align-items:center;gap:14px}
+nav.toc .tabs{display:flex;gap:4px;padding:3px;border-radius:8px;background:var(--surface);border:1px solid var(--line);flex:none}
+nav.toc .tabs a{border-radius:6px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+nav.toc .tabs a[aria-selected="true"]{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+nav.toc .links{display:flex;gap:6px}
+.tabbadge{font-size:.7rem;font-weight:700;line-height:1;padding:3px 6px;border-radius:999px;background:var(--bad);color:var(--surface)}
+.fsres{display:grid;gap:8px;padding:12px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface)}
+.fsres .t{font-size:.8rem;font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.fsres .vd{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:800;font-size:1.05rem;line-height:1.2}
+.fsres .vd.ok{color:var(--good)} .fsres .vd.no{color:var(--bad)} .fsres .vd.warn{color:var(--warn)}
+.fsres dl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;margin:0;font-size:.86rem}
+.fsres dt{color:var(--ink-2)} .fsres dd{margin:0;font-family:var(--f-mono);text-align:right}
+.fsres a{font-size:.86rem;font-weight:600}
 
 section{padding-block:48px 8px;display:grid;gap:20px;scroll-margin-top:60px}
 section > .head{display:grid;gap:8px}
@@ -300,10 +313,15 @@ footer p{max-width:none}
   </div>
 </header>
 
-<nav class="toc" aria-label="Seções"><div class="in">
-  <a href="#ferramenta">Ferramenta</a><a href="#relatorio">Relatório do imóvel</a><a href="#carteira">Carteira</a><a href="#problema">Problema</a><a href="#dados">Dados</a><a href="#modelo">Modelo</a><a href="#efeitos">Efeitos</a><a href="#validacao">Validação</a><a href="#decisao">Ponto de corte</a><a href="#conclusoes">Conclusões</a>
+<nav class="toc" aria-label="Navegação"><div class="in">
+  <div class="tabs" role="tablist" aria-label="Abas">
+    <a role="tab" id="tb-main" href="#pre-analise" aria-controls="tabMain">Pré-análise e TCC</a>
+    <a role="tab" id="tb-rel" href="#relatorio" aria-controls="tabRel">Relatório do imóvel<span class="tabbadge" id="tbBadge" hidden></span></a>
+  </div>
+  <div class="links" id="tocLinks"><a href="#ferramenta">Ferramenta</a><a href="#carteira">Carteira</a><a href="#problema">Problema</a><a href="#dados">Dados</a><a href="#modelo">Modelo</a><a href="#efeitos">Efeitos</a><a href="#validacao">Validação</a><a href="#decisao">Ponto de corte</a><a href="#conclusoes">Conclusões</a></div>
 </div></nav>
 
+<div id="tabMain" role="tabpanel" aria-labelledby="tb-main">
 <!-- ================= FERRAMENTA ================= -->
 <section id="ferramenta">
   <div class="head">
@@ -362,39 +380,6 @@ footer p{max-width:none}
         <div class="eq" id="eq"></div>
         <p class="note">Coeficientes estimados na amostra de treino (2.007 produtores) com inadimplência simulada. Uso didático: não representa o risco de produtores reais nem a política de nenhuma instituição.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
-<section id="relatorio">
-  <div class="head">
-    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
-    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
-    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
-  </div>
-  <div class="fsgrid">
-    <div class="card fsload">
-      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
-      <label class="drop" id="fsDrop" for="fsFile">
-        <input id="fsFile" type="file" accept=".pdf,application/pdf">
-        <b>Escolha o PDF ou arraste para cá</b>
-        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
-      </label>
-      <p class="pfmsg" id="fsMsg" role="status"></p>
-      <div class="fsid" id="fsId"></div>
-      <div class="fsapply" id="fsApply"></div>
-      <div class="privacy">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="fshead">
-        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
-        <div class="fscount" id="fsCount"></div>
-      </div>
-      <div id="fsList"></div>
     </div>
   </div>
 </section>
@@ -726,6 +711,44 @@ footer p{max-width:none}
   </div>
 </section>
 
+</div>
+<div id="tabRel" role="tabpanel" aria-labelledby="tb-rel" hidden>
+<!-- ================= RELATÓRIO DA PROPRIEDADE ================= -->
+<section id="relatorio">
+  <div class="head">
+    <div class="eyebrow">Relatório da propriedade · Farm-Scan / Dados Fazenda</div>
+    <h2>Leia o relatório do imóvel e cruze com a pré-análise</h2>
+    <p style="color:var(--ink-2)">Carregue o PDF do relatório da propriedade. A página extrai a área de uso consolidado do CAR, que é a variável do modelo, e verifica a situação cadastral, ambiental, fundiária, produtiva e climática do imóvel. Impedimentos viram uma regra eliminatória na ferramenta, como a restrição no SFN.</p>
+  </div>
+  <div class="fsgrid">
+    <div class="card fsload">
+      <div class="cap"><span class="eyebrow">Carregar relatório</span><h3>PDF do imóvel</h3></div>
+      <label class="drop" id="fsDrop" for="fsFile">
+        <input id="fsFile" type="file" accept=".pdf,application/pdf">
+        <b>Escolha o PDF ou arraste para cá</b>
+        <span>Relatório da Propriedade gerado em dadosfazenda.com.br</span>
+      </label>
+      <p class="pfmsg" id="fsMsg" role="status"></p>
+      <div class="fsid" id="fsId"></div>
+      <div class="fsapply" id="fsApply"></div>
+      <div class="fsres" id="fsRes" aria-live="polite"></div>
+      <div class="privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>O PDF é lido neste navegador e não é enviado a nenhum servidor. A checagem é uma triagem automática: confirme cada ponto nas bases oficiais (SICAR, IBAMA, INPE, ANM) antes do parecer.</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="fshead">
+        <div class="cap"><span class="eyebrow" id="fsSrc">Checagem do imóvel</span><h3 id="fsTitle">Impedimentos e alertas</h3></div>
+        <div class="fscount" id="fsCount"></div>
+      </div>
+      <div id="fsList"></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
 <footer>
   <p><b style="color:var(--ink-2)">Saltareli, G.</b> Modelo logit para estimação da probabilidade de aprovação de crédito rural em cooperativas de Mato Grosso: desenvolvimento de ferramenta de pré-análise em planilha eletrônica. TCC (Bacharelado em Ciências Contábeis), UNEMAT, Sinop, 2026. Orientador: Prof. Dr. Cleiton Franco.</p>
   <p>Recursos: Python 3 (pandas, numpy, statsmodels, scikit-learn) para anonimização, simulação e estimação; Microsoft Excel para a ferramenta. Fontes dos dados: CAR, Geoportal SEMA-MT; parâmetros agronômicos do IMEA; demais variáveis simuladas.</p>
@@ -885,6 +908,7 @@ function update(){
   drawClasse(); drawPD(r); drawROC(); drawCut(); drawCM();
   if(PF.rows.length) renderPortfolio();
   if(FS.d) renderFS();
+  fsRenderRes();
 }
 
 /* ---------------- charts ---------------- */
@@ -1435,11 +1459,38 @@ function renderFS(){
     ${pl!=null?`<div class="it"><span>Soja e milho em ${nf(0).format(pl)}% da área<small>lavoura detectada ÷ área consolidada${pl===0?"; sem lavoura, a PD não é calculada":""}</small></span><button type="button" data-a="lav"${done(aLav)}>${aLav?"Aplicado":"Aplicar"}</button></div>`:""}
     <button type="button" class="all" id="fsAll">Aplicar tudo e ver o resultado</button>`;
   $("fsApply").querySelectorAll("button[data-a]").forEach(b=>b.addEventListener("click",()=>{if(!b.classList.contains("done"))fsApply(b.dataset.a);}));
-  $("fsAll").addEventListener("click",()=>{const m=fsApplyAll(false);pfMsg(m,false,"fsMsg");$("ferramenta").scrollIntoView({behavior:"smooth",block:"start"});});
+  $("fsAll").addEventListener("click",()=>{const m=fsApplyAll(false);pfMsg(m,false,"fsMsg");fsRenderRes();});
+}
+
+/* ---------------- abas ---------------- */
+function showTab(t){
+  const rel=t==="rel";
+  $("tabMain").hidden=rel; $("tabRel").hidden=!rel; $("tocLinks").hidden=rel;
+  $("tb-main").setAttribute("aria-selected",String(!rel)); $("tb-rel").setAttribute("aria-selected",String(rel));
+}
+function route(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(h==="relatorio"){showTab("rel");window.scrollTo(0,0);return;}
+  showTab("main");
+  const el=h&&h!=="pre-analise"?document.getElementById(h):null;
+  if(el) el.scrollIntoView({block:"start"}); else if(h==="pre-analise") window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+function fsRenderRes(){
+  const el=$("fsRes"); if(!el)return;
+  const r=compute();
+  const lab={A:"APROVÁVEL",N:"NÃO APROVÁVEL",R:"NÃO APROVÁVEL – restrição no SFN",S:"NÃO APROVÁVEL – impedimento socioambiental",V:"VERIFIQUE AS ENTRADAS"}[r.cls];
+  const cl={A:"ok",N:"no",R:"no",S:"no",V:"warn"}[r.cls];
+  el.innerHTML=`<span class="t">Resultado atual na ferramenta</span>
+    <div class="vd ${cl}">${ICON[(r.cls==="R"||r.cls==="S")?"N":r.cls].replace(/width="26" height="26"/,'width="20" height="20"')}<span>${lab}</span></div>
+    <dl><dt>PD</dt><dd>${r.valid?pct(r.pd):"–"}</dd><dt>Área usada</dt><dd>${nf(1).format(S.area||0)} ha</dd><dt>Classe · endividamento</dt><dd>R${S.classe} · ${brl(S.endv)}</dd><dt>Corte</dt><dd>${pct(S.cut)}</dd></dl>
+    <a href="#ferramenta">Abrir a ferramenta para ajustar classe, dívida e corte →</a>`;
+  const imp=FS.d&&!FS.example?fsImpeds().length:0, b=$("tbBadge");
+  b.hidden=!imp; b.textContent=imp?String(imp):""; b.title=imp?`${imp} impedimento(s) no relatório`:"";
 }
 
 drawArea(); drawCoef(); drawCal();
-writeInputs(); loadExample(); fsSet(FS_EXAMPLE,"exemplo",true); update();
+writeInputs(); loadExample(); fsSet(FS_EXAMPLE,"exemplo",true); update(); route();
 })();
 </script>
 </body>
